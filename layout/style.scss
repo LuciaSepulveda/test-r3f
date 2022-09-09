@@ -1,0 +1,65 @@
+:root {
+    --app-height: 100%;
+}
+
+// @font-face {
+//     font-family: 'NissanBrandBold';
+//     src: url('~FONTS/Nissan-Brand-Bold.otf');
+//     font-weight: 700;
+// }
+
+// @font-face {
+//     font-family: 'NissanBrandLight';
+//     src: url('~FONTS/Nissan-Brand-Light.otf');
+//     font-weight: 300;
+// }
+
+// @font-face {
+//     font-family: 'NissanBrandItalic';
+//     src: url('~FONTS/Nissan-Brand-Italic.otf');
+//     font-weight: 400;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: 'NissanBrandRegular';
+//     src: url('~FONTS/Nissan-Brand-Regular.otf');
+//     font-weight: 400;
+// }
+
+body {
+    margin: 0;
+    // font-family: NissanBrandRegular;
+    background-color: #050505;
+    color: #9e9e9e;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+p {
+    color: #ffffff;
+}
+
+// #videoLayout {
+//     position: relative;
+//     height: 100%;
+//     width: 100%;
+//     @media screen and (min-width: 600px) {
+//         height: 100%;
+//         width: 233.5766423357664vh; /* 100 * 320 / 137 */
+//         min-width: 100%;
+//         min-height: 42.8125vw; /* 100 * 137 / 320 */
+//         left: 50%;
+//         top: 50%;
+//         transform: translate(-50%, -50%);
+//     }
+//     @media screen and (max-width: 600px) {
+//         object-fit: cover;
+//     }
+// }

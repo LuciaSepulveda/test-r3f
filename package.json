@@ -1,20 +1,32 @@
 {
-  "name": "test-r3f",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "12.3.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
-  },
-  "devDependencies": {
-    "eslint": "8.23.0",
-    "eslint-config-next": "12.3.0"
-  }
+    "name": "test-r3f",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@react-three/drei": "^9.29.1",
+        "@react-three/fiber": "^8.7.2",
+        "framer-motion": "^7.3.2",
+        "gsap": "^3.11.1",
+        "next": "12.3.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "three": "^0.144.0",
+        "styled-components": "^5.3.5",
+        "postcss-loader": "^7.0.1"
+    },
+    "devDependencies": {
+        "eslint": "8.23.0",
+        "eslint-config-next": "12.3.0",
+        "prettier": "^2.7.1",
+        "sass": "^1.54.5",
+        "sass-loader": "^13.0.2",
+        "style-loader": "^3.3.1",
+        "babel-plugin-styled-components": "^1.12.0"
+    }
 }
