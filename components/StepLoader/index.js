@@ -1,27 +1,45 @@
-import React, { useContext, useEffect } from 'react'
-import { FadeInOut, Staggers } from '../../helpers/framer-animations'
+import React, { Fragment, useContext, useEffect } from 'react'
+// import { FadeInOut, Staggers } from '../../helpers/framer-animations'
 import { AppContext } from '../../context/appContext'
 import Icon from '../Icons'
-import { Container, BtnsContainer, ButtonContainer } from './stepIntroStyles'
-// import IntroAudio from '../../../assets/audios/01-first-open.mp3';
+// import { Container, BtnsContainer, ButtonContainer } from './stepIntroStyles'
+import { useProgress, Html } from '@react-three/drei'
 
-const StepLoader = () => {
-    const { goToStep } = useContext(AppContext)
+const StepLoader = ({ step }) => {
+    const { goToStep, appState, setAppState } = useContext(AppContext)
+    const { active, progress } = useProgress()
 
     useEffect(() => {
-        setTimeout(() => {
-            goToStep(1)
-        }, 3000)
-    })
+        if (active) {
+            setAppState((prevState) => ({
+                ...prevState,
+                loading: true,
+            }))
+        } else {
+            setAppState((prevState) => ({
+                ...prevState,
+                loading: false,
+            }))
+            goToStep(step)
+        }
+    }, [active, goToStep, step, appState, setAppState])
 
     return (
-        <Staggers key="StepLoader" component={Container} isNested={true} visibleStaggers={0.2}>
-            <FadeInOut component={BtnsContainer} element={'div'} isNested={true} key="btnsContainers">
-                <ButtonContainer onClick={() => goToStep(1)}>
-                    <Icon name="genoshaLogo" width={'550px'} height={'fit-content'} />
-                </ButtonContainer>
-            </FadeInOut>
-        </Staggers>
+        <Fragment>
+            <Html
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Icon name="genoshaIsotipo" width={'150px'} height={'fit-content'} />
+                <p>{progress} % loaded</p>
+            </Html>
+        </Fragment>
     )
 }
 

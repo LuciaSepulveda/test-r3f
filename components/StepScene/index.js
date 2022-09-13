@@ -14,10 +14,10 @@ const StepScene = () => {
 
     return (
         <div style={{ width: '100%', height: '100vh' }}>
-            <Canvas shadows camera={{ position: [2, 2, 2], fov: 90 }}>
-                {/* <primitive object={new AxesHelper(10)} /> */}
-                <Scene />
-            </Canvas>
+            {/* <Canvas shadows camera={{ position: [2, 2, 2], fov: 90 }}> */}
+            {/* <primitive object={new AxesHelper(10)} /> */}
+            {/* <Scene /> */}
+            {/* </Canvas> */}
         </div>
     )
 }

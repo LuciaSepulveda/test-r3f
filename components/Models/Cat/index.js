@@ -10,8 +10,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useGLTF, useAnimations, PivotControls, useScroll } from '@react-three/drei'
 import gsap from 'gsap'
 import { useFrame } from '@react-three/fiber'
+import firstScene from '../../../helpers/helpers'
 
-const Cat = ({ start }) => {
+const Cat = ({ scene, start }) => {
     const group = useRef()
     const { nodes, materials, animations } = useGLTF('./models/cat/scene.gltf')
     const { actions } = useAnimations(animations, group)
@@ -22,7 +23,11 @@ const Cat = ({ start }) => {
 
     useEffect(() => {
         actions?.A_idle.play()
-    }, [actions])
+        if (scene === 0) {
+            console.log(actions, position, group, scrollY)
+            firstScene(actions, position, group, scrollY)
+        }
+    }, [actions, position, group, scrollY, scene])
 
     useFrame(({ clock }) => {
         const frame = clock.getElapsedTime()
