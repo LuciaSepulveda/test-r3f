@@ -34,10 +34,10 @@ const Cat = ({ start }) => {
         //setPositionScroll(scrollY.offset)
 
         if (group.current && start === true) {
-            if (scrollY.visible(2 / 4, 0.49)) {
+            if (scrollY.visible(2 / 4, 0.40)) {
                 actions?.A_walk.play()
-                group.current.position.z = -5 + scrollY.range(2 / 4, 2 / 4) * 7
-                group.current.position.x = scrollY.range(2 / 4, 2 / 4) * 2
+                group.current.position.z = -5 + scrollY.range(2 / 4, 2 / 4) * 19
+                group.current.position.x = - scrollY.range(2 / 4, 2 / 4) * 2
             } else {
                 actions?.A_walk.stop()
             }

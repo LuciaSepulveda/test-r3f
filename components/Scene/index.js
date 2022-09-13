@@ -1,6 +1,5 @@
 import React, {
     Fragment,
-    // useContext,
     Suspense,
     useEffect,
     useState,
@@ -13,6 +12,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import Camera from '../Camera/camera'
 import Cat from '../Models/Cat'
 import Plane from '../Models/Plane'
+import Room from '../Models/Room'
 import ButtonMesh from '../Models/Button'
 import { PerspectiveCamera } from 'three'
 import Icon from '../Icons'
@@ -29,6 +29,7 @@ const Scene = () => {
     const [position, setPosition] = useState({ x: 0, y: 10, z: -1 })
     const [lookAt, setLookAt] = useState({ x: 0, y: 0, z: 0 })
     const [start, setStart] = useState(false)
+    const [boca, setBoca] = useState(false)
 
     function handleStart() {
         setInitialized(true)
@@ -119,11 +120,27 @@ const Scene = () => {
                     <pointLight intensity={2} position={[7, 5, 1]} />
                     <Sky sunPosition={[7, 5, 1]} />
                     <Camera lookAt={lookAt} position={position} rotation={rotation} start={start} />
-                    {!initialized && <ButtonMesh handleButtonClicked={handleStart} />}
+                    {!initialized && (
+                        <>
+                            <ButtonMesh
+                                position={{ x: 0, y: 0.124, z: 1 }}
+                                text="COMENZAR"
+                                handleButtonClicked={handleStart}
+                            />
+                            <ButtonMesh
+                                position={{ x: 0, y: 0.124, z: 0.5 }}
+                                text="BOCA"
+                                handleButtonClicked={() => {
+                                    setBoca(true), handleStart()
+                                }}
+                            />
+                        </>
+                    )}
                     <Cat start={start} />
+                    {boca && <Room />}
 
                     <Plane onClick={() => {}} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} />
-                    <CameraHelper />
+                    {/* <CameraHelper /> */}
                 </ScrollControls>
             </Suspense>
 

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Text } from '@react-three/drei'
 
-const ButtonMesh = ({ handleButtonClicked }) => {
+const ButtonMesh = ({ handleButtonClicked, text, position }) => {
     const ref = useRef()
     const [hovered, hover] = useState(false)
 
@@ -15,10 +15,10 @@ const ButtonMesh = ({ handleButtonClicked }) => {
                 onPointerOver={(event) => hover(true)}
                 onPointerOut={(event) => hover(false)}
                 rotation={[Math.PI / 2, Math.PI, 0]}
-                position={[0, 0.124, 1]}
+                position={[position.x, position.y, position.z]}
             >
                 <Text color={hovered ? 'white' : '#F10262'} anchorX="center" anchorY="middle" fontSize="0.2">
-                    COMENZAR
+                    {text}
                 </Text>
             </mesh>
 
@@ -30,7 +30,7 @@ const ButtonMesh = ({ handleButtonClicked }) => {
                 onPointerOver={(event) => hover(true)}
                 onPointerOut={(event) => hover(false)}
                 rotation={[Math.PI / 2, 0, 0]}
-                position={[0, 0.08, 1]}
+                position={[0, 0.08, position.z]}
             >
                 <boxGeometry attach="geometry" args={[1.4, 0.4, 0.08]} />
                 <meshStandardMaterial attach="material" color={hovered ? '#F10262' : 'white'} />
