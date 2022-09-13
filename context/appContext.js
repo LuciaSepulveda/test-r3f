@@ -3,6 +3,7 @@ import React, { createContext, useEffect, useState } from 'react'
 const initialContext = {
     appState: {
         currentStep: 0,
+        loading: true,
     },
     setAppState: () => null,
 }
@@ -12,6 +13,7 @@ export const AppContext = createContext(initialContext)
 export const ContextProviderApp = (props) => {
     const [appState, setAppState] = useState({
         currentStep: 0,
+        loading: true,
     })
 
     const goToStep = function (stepIndex) {
@@ -22,8 +24,8 @@ export const ContextProviderApp = (props) => {
     }
 
     useEffect(() => {
-        console.log('current step', appState.currentStep)
-    }, [appState.currentStep])
+        console.log('current step', appState.currentStep, appState.loading)
+    }, [appState.currentStep, appState.loading])
 
     return (
         <AppContext.Provider

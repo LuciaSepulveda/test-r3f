@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, Suspense } from 'react'
 
 import { AnimatePresence } from 'framer-motion'
 import { FadeInOut } from '../helpers/framer-animations'
@@ -15,9 +15,14 @@ import {
     StepShareBg,
 } from './layoutStyle'
 import Icon from '../components/Icons'
+import { Canvas } from '@react-three/fiber'
+import Scene from '../components/Scene'
+import StepLoader from '../components/StepLoader'
+import { useProgress, Html } from '@react-three/drei'
+import SceneProjects from '../components/SceneProjects'
 
 export const DefaultLayout = ({ children }) => {
-    const { appState, goToStep } = useContext(AppContext)
+    const { appState, goToStep, setAppState } = useContext(AppContext)
 
     const backgroundAnimProps = {
         entryTransition: { duration: 1 },
@@ -52,7 +57,7 @@ export const DefaultLayout = ({ children }) => {
                 </LayoutBackgroundContainer>
 
                 {/* HEADER */}
-                {appState.currentStep !== 0 && (
+                {appState.loading === false && appState.currentStep >= 0 && (
                     <HeaderBlock>
                         <FadeInOut component={LogoGenoshaContainer} isVisible={true} animatePresence={true}>
                             <Icon name="genoshaIsotipo" onClick={() => goToStep(0)} />
@@ -65,7 +70,27 @@ export const DefaultLayout = ({ children }) => {
 
                 {/* STEPS LAYOUT */}
                 <FadeInOut component={StepContent} isVisible={true} animatePresence={true}>
-                    <StepContent>{children}</StepContent>
+                    <StepContent>
+                        {/* CANVAS */}
+
+                        <div style={{ width: '100%', height: '100vh' }}>
+                            <Canvas shadows camera={{ position: [2, 2, 2], fov: 90 }}>
+                                <AppContext.Provider
+                                    value={{
+                                        appState,
+                                        goToStep,
+                                        setAppState,
+                                    }}
+                                >
+                                    {appState.currentStep === 0 ? (
+                                        <Scene />
+                                    ) : (
+                                        appState.currentStep === 1 && <SceneProjects />
+                                    )}
+                                </AppContext.Provider>
+                            </Canvas>
+                        </div>
+                    </StepContent>
                 </FadeInOut>
             </Content>
         </Root>

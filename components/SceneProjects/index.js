@@ -6,21 +6,22 @@ import React, {
     useState,
     //   useRef,
 } from 'react'
-import { AppContext } from '../../context/appContext'
 import { useThree, useFrame } from '@react-three/fiber'
-import { OrbitControls, ScrollControls, Sky, useProgress, Html } from '@react-three/drei'
+import { OrbitControls, ScrollControls, Sky } from '@react-three/drei'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import Camera from '../Camera/camera'
 import Cat from '../Models/Cat'
 import Plane from '../Models/Plane'
+import Totem from '../Models/Totem'
 import ButtonMesh from '../Models/Button'
 import { PerspectiveCamera } from 'three'
 import StepLoader from '../StepLoader'
+import { AppContext } from '../../context/appContext'
 import Icon from '../Icons'
 gsap.registerPlugin(ScrollTrigger)
 
-const Scene = () => {
+const SceneProjects = () => {
     const { goToStep } = useContext(AppContext)
     const [initialized, setInitialized] = useState(false)
     const { camera } = useThree()
@@ -68,30 +69,34 @@ const Scene = () => {
             })
     }
 
-    function CameraHelper() {
-        const camera = new PerspectiveCamera(60, 1, 1, 3)
-        return (
-            // rotation={[110, 0, 0]} -> vista trasera horizontal
-            <group position={[0, 2, -8]} rotation={[Math.PI, 0, 0]}>
-                <cameraHelper args={[camera]} />
-            </group>
-        )
+    // function CameraHelper() {
+    //     const camera = new PerspectiveCamera(60, 1, 1, 3)
+    //     return (
+    //         // rotation={[110, 0, 0]} -> vista trasera horizontal
+    //         <group position={[0, 2, -8]} rotation={[Math.PI, 0, 0]}>
+    //             <cameraHelper args={[camera]} />
+    //         </group>
+    //     )
+    // }
+
+    function back() {
+        goToStep(0)
     }
 
     return (
         <Fragment>
-            <Suspense fallback={<StepLoader step={0} />}>
+            <Suspense fallback={<StepLoader step={1} />}>
                 <ScrollControls pages={4} distance={1} damping={4} horizontal={false}>
                     <ambientLight intensity={0.1} />
                     <pointLight intensity={2} position={[7, 5, 1]} />
                     <Sky sunPosition={[7, 5, 1]} />
                     <Camera lookAt={lookAt} position={position} rotation={rotation} start={start} />
-                    {!initialized && <ButtonMesh handleButtonClicked={handleStart} />}
+                    {!initialized && <ButtonMesh handleButtonClicked={back} />}
                     <Cat start={start} />
-
+                    <Totem />
                     <Plane onClick={() => {}} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} />
-                    <CameraHelper />
-                    <ButtonMesh handleButtonClicked={() => goToStep(1)} position={[0, 0.124, 0.5]} />
+                    <Plane onClick={() => {}} rotation={[-Math.PI / 2, 0, 0]} position={[10, 10, 0]} />
+                    {/* <CameraHelper /> */}
                 </ScrollControls>
             </Suspense>
             {/* can't move camera rotation and zoom */}
@@ -101,4 +106,4 @@ const Scene = () => {
     )
 }
 
-export default Scene
+export default SceneProjects
