@@ -87,7 +87,7 @@ const Scene = () => {
                     <Sky sunPosition={[7, 5, 1]} />
                     <Camera lookAt={lookAt} position={position} rotation={rotation} start={start} />
                     {!initialized && <ButtonMesh handleButtonClicked={handleStart} />}
-                    <Cat start={start} scene={0} />
+                    <Cat start={start} scene={0} position rotation />
 
                     <Plane onClick={() => {}} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} />
                     <CameraHelper />

@@ -3,24 +3,24 @@
     {
       "bufferView": 2,
       "componentType": 5126,
-      "count": 292,
+      "count": 255,
       "max": [
-        1.5,
-        1.600000023841858,
-        0.9500000476837158
+        2.188349962234497,
+        1.0107300281524658,
+        2.1626698970794678
       ],
       "min": [
-        -1.5,
-        -1.600000023841858,
-        -0.6000000238418579
+        -2.2040200233459473,
+        -0.7605080008506775,
+        -2.2297000885009766
       ],
       "type": "VEC3"
     },
     {
       "bufferView": 2,
-      "byteOffset": 3504,
+      "byteOffset": 3060,
       "componentType": 5126,
-      "count": 292,
+      "count": 255,
       "max": [
         1.0,
         1.0,
@@ -34,95 +34,132 @@
       "type": "VEC3"
     },
     {
-      "bufferView": 1,
+      "bufferView": 3,
       "componentType": 5126,
-      "count": 292,
+      "count": 255,
       "max": [
-        0.9713841080665588,
-        0.9682732820510864
+        1.0,
+        1.0,
+        1.0,
+        1.0
       ],
       "min": [
-        0.040909960865974426,
-        0.09841662645339966
+        -0.8603060841560364,
+        -1.0,
+        -1.0,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 255,
+      "max": [
+        0.9073730111122131,
+        0.9980080127716064
+      ],
+      "min": [
+        0.0018111199606209993,
+        0.001992030069231987
       ],
       "type": "VEC2"
     },
     {
       "bufferView": 0,
       "componentType": 5125,
-      "count": 576,
+      "count": 420,
       "type": "SCALAR"
     }
   ],
   "asset": {
     "extras": {
-      "author": "TomaszObloj (https://sketchfab.com/tomasz_obloj)",
+      "author": "Andrew.Mischenko (https://sketchfab.com/Andrew.Mischenko)",
       "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
-      "source": "https://sketchfab.com/3d-models/cardboard-box-390e8201432a4ef3813316953cacee95",
-      "title": "Cardboard box"
+      "source": "https://sketchfab.com/3d-models/cardboard-box-f43199f19c3142c68cc672db55d9a40d",
+      "title": "Cardboard Box"
     },
-    "generator": "Sketchfab-12.68.0",
+    "generator": "Sketchfab-12.65.0",
     "version": "2.0"
   },
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 2304,
+      "byteLength": 1680,
       "name": "floatBufferViews",
       "target": 34963
     },
     {
       "buffer": 0,
-      "byteLength": 2336,
-      "byteOffset": 2304,
+      "byteLength": 2040,
+      "byteOffset": 1680,
       "byteStride": 8,
       "name": "floatBufferViews",
       "target": 34962
     },
     {
       "buffer": 0,
-      "byteLength": 7008,
-      "byteOffset": 4640,
+      "byteLength": 6120,
+      "byteOffset": 3720,
       "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 4080,
+      "byteOffset": 9840,
+      "byteStride": 16,
       "name": "floatBufferViews",
       "target": 34962
     }
   ],
   "buffers": [
     {
-      "byteLength": 11648,
+      "byteLength": 13920,
       "uri": "scene.bin"
     }
   ],
   "images": [
     {
-      "uri": "textures/Colormap_baseColor.png"
+      "uri": "textures/lambert1_baseColor.jpeg"
+    },
+    {
+      "uri": "textures/lambert1_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/lambert1_normal.png"
     }
   ],
   "materials": [
     {
       "doubleSided": true,
-      "name": "Colormap",
+      "name": "lambert1",
+      "normalTexture": {
+        "index": 2
+      },
       "pbrMetallicRoughness": {
         "baseColorTexture": {
           "index": 0
         },
-        "metallicFactor": 0.0,
-        "roughnessFactor": 0.8614359353944898
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
       }
     }
   ],
   "meshes": [
     {
-      "name": "Cardboard box_Colormap_0",
+      "name": "defaultMaterial",
       "primitives": [
         {
           "attributes": {
             "NORMAL": 1,
             "POSITION": 0,
-            "TEXCOORD_0": 2
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
           },
-          "indices": 3,
+          "indices": 4,
           "material": 0,
           "mode": 4
         }
@@ -159,58 +196,34 @@
         2
       ],
       "matrix": [
-        0.009999999776482582,
+        1.0,
         0.0,
         0.0,
         0.0,
         0.0,
+        -4.371139006309477e-08,
+        0.999999999999999,
         0.0,
-        0.009999999776482582,
         0.0,
-        0.0,
-        -0.009999999776482582,
-        0.0,
+        -0.999999999999999,
+        -4.371139006309477e-08,
         0.0,
         0.0,
         0.0,
         0.0,
         1.0
       ],
-      "name": "4913d3007621460cb852c843b09b0ea9.fbx"
+      "name": "Collada visual scene group"
     },
     {
       "children": [
         3
       ],
-      "name": "RootNode"
-    },
-    {
-      "children": [
-        4
-      ],
-      "matrix": [
-        100.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        -1.629206793918314e-05,
-        -99.99999999999868,
-        0.0,
-        0.0,
-        99.99999999999868,
-        -1.629206793918314e-05,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0
-      ],
-      "name": "Cardboard box"
+      "name": "pCube1"
     },
     {
       "mesh": 0,
-      "name": "Cardboard box_Colormap_0"
+      "name": "defaultMaterial"
     }
   ],
   "samplers": [
@@ -234,6 +247,14 @@
     {
       "sampler": 0,
       "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
     }
   ]
 }
