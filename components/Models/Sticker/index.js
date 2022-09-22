@@ -9,12 +9,6 @@ const Sticker = (props) => {
   const { nodes, materials } = useGLTF('./models/sticker/prueba-sticker.gltf')
   const ref = useRef()
 
-  useFrame(()=> {
-    console.log(ref.current.position.x+"x");
-    console.log(ref.current.position.y+"y");
-    console.log(ref.current.position.z+"z");
-
-  })
 
   return (
     <PivotControls scale={0} axisColors={["red", "green", "blue"]}>

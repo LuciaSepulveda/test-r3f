@@ -11,47 +11,162 @@ import { useGLTF, useAnimations, PivotControls, useScroll } from '@react-three/d
 import gsap from 'gsap'
 import { useFrame } from '@react-three/fiber'
 import firstScene from '../../../helpers/helpers'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
-const Cat = ({ scene, start }) => {
+gsap.registerPlugin(ScrollTrigger)
+
+const Cat = ({ scene, start, setStartProjects, startProjects }) => {
     const group = useRef()
     const { nodes, materials, animations } = useGLTF('./models/cat/scene.gltf')
     const { actions } = useAnimations(animations, group)
     //const [positionScroll, setPositionScroll] = useState(0)
     const [position, setPosition] = useState({ x: 0, y: 0.85, z: -5 })
 
+    const [aToB, setAToB] = useState("AtoB")
+    const [bToA, setBToA] = useState("BtoA")
+
+    
     const scrollY = useScroll()
 
     useEffect(() => {
-        actions?.A_idle.play()
         if (scene === 0) {
+            actions?.A_pole_loop.stop()
+            actions?.A_idle.play()
             console.log(actions, position, group, scrollY)
             firstScene(actions, position, group, scrollY)
         }
     }, [actions, position, group, scrollY, scene])
 
     useFrame(({ clock }) => {
-        const frame = clock.getElapsedTime()
-        //console.log(frame);
-        if (frame === 5) {
-            actions?.A_walk.play()
-        }
-
-        //setPositionScroll(scrollY.offset)
-
-        if (group.current && start === true) {
-            if (scrollY.visible(2 / 4, 0.49)) {
+        if (scene === 0) {
+            const frame = clock.getElapsedTime()
+            //console.log(frame);
+            if (frame === 5) {
                 actions?.A_walk.play()
-                group.current.position.z = -5 + scrollY.range(2 / 4, 2 / 4) * 7
-                group.current.position.x = scrollY.range(2 / 4, 2 / 4) * 2
-            } else {
-                actions?.A_walk.stop()
             }
         }
+
     })
 
-    // function renderAnimations() {
+    // Projects
 
-    // }
+    useEffect(()=> {
+        if (actions && group.current && scene === 1){
+            group.current.position.y = -2.85
+            let timeline = gsap.timeline();
+            timeline
+            .to(group.current.position, {
+                y:group.current.position.y+4,
+                duration:2,
+                onStart: function () { 
+                actions?.A_pole_loop.play()
+            },
+                onComplete: function () { 
+                actions?.A_pole_loop.stop()
+            },
+            },)
+            .to(group.current.position, {
+                duration:.3,
+                y: group.current.position.y+6,
+                z:group.current.position.z+2,
+                onStart: function () { 
+                actions?.A_jump_start.play()
+            },
+                onComplete: function () { 
+                actions?.A_jump_start.stop()
+            },
+            },)
+            .to(group.current.position, {
+                duration:.5,
+                y:group.current.position.y+6,
+                z:group.current.position.z+4,
+                onStart: function () { 
+                actions?.A_jump_loop.play()
+            },
+                onComplete: function () { 
+                actions?.A_jump_loop.stop()
+            },
+            },)
+            .to(group.current.position, {
+                duration:.9667,
+                y:group.current.position.y+4,
+                z:group.current.position.z+5,
+                onStart: function () { 
+                actions?.A_jump_end.play()
+            },
+                onComplete: function () { 
+                actions?.A_jump_end.stop()
+            },
+            },)
+            .to(group.current.position, {
+                duration:.5,
+                y:group.current.position.y+4,
+                z:group.current.position.z+5,
+                onStart: function () { 
+                actions?.A_idle.play()
+            },
+                onComplete: function () { 
+                actions?.A_idle.stop()
+            },
+            },)
+            .to(group.current.position, {
+                duration:1.7,
+                y:group.current.position.y+4,
+                z:group.current.position.z+10,
+                onStart: function () { 
+                actions?.A_run.play()
+            },
+                onComplete: function () { 
+                actions?.A_run.stop()
+                actions?.A_idle.play()
+            },
+            },)
+            .to(group.current.position, {
+                z:group.current.position.z+10.1,
+                onComplete: function () { 
+                setStartProjects(true)
+            },
+            },'+=1')
+            
+            
+        }
+    },[])
+    
+    useFrame(()=> {
+        
+        if(startProjects && scene === 1){
+            console.log('ctZ '+group.current.position.z);
+            console.log('ctX '+group.current.position.x);
+            console.log('sc '+scrollY.offset);
+             if (scrollY.offset>= 0 && scrollY.offset <= 0.01 ){    
+                actions?.AtoB.stop()
+                actions?.B_idle.stop()
+                actions?.A_run.stop()
+                actions?.A_idle.play()
+
+            } else if (scrollY.offset>0.01 && scrollY.offset<=0.14) {
+                actions?.AtoB.stop()
+                actions?.B_idle.stop()
+                actions?.A_idle.stop()
+                actions?.A_run.play()
+                group.current.position.z = 5.1 + scrollY.offset*150
+            } else if (scrollY.offset>0.14 && scrollY.offset<=0.20) {
+                actions?.A_run.stop()
+                actions[aToB].setLoop(1,1)
+                actions?.AtoB.play()
+                actions?.B_idle.play()
+            } else if (scrollY.offset>0.20) {
+                actions?.B_idle.stop()
+                actions[bToA].setLoop(1,1)
+                actions?.BtoA.play()
+                actions?.A_run.play()
+                group.current.position.z = 26.058 + (scrollY.offset-0.20)*150
+
+            }
+            
+            
+        }
+      })
     return (
         <PivotControls axisColors={['red', 'green', 'blue']}>
             <group ref={group} position={[position.x, position.y, position.z]} dispose={null}>
