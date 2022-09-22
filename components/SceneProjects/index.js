@@ -94,7 +94,7 @@ const SceneProjects = () => {
                 <ScrollControls pages={4} distance={1} damping={4} horizontal={false}>
                     <CameraProjects lookAt={lookAt} position={position} rotation={rotation} startProjects={startProjects} setStartProjects={setStartProjects} /> 
                     {!initialized && <ButtonMesh handleButtonClicked={back} />} 
-                    <SkyBox/>
+                    
                     <ambientLight intensity={0.3} color={'hotpink'} />
                     <pointLight intensity={7} position={[7, 5, 1]} color={'hotpink'} />
                     <Cat ref={cat} setStartProjects={setStartProjects} startProjects={startProjects} scene={1}/>

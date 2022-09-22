@@ -23,6 +23,7 @@ const Cat = ({ scene, start, setStartProjects, startProjects }) => {
     const [position, setPosition] = useState({ x: 0, y: 0.85, z: -5 })
 
     const [aToB, setAToB] = useState("AtoB")
+    const [aToF, setAToF] = useState("AtoF")
     const [bToA, setBToA] = useState("BtoA")
 
     
@@ -139,28 +140,38 @@ const Cat = ({ scene, start, setStartProjects, startProjects }) => {
             console.log('ctX '+group.current.position.x);
             console.log('sc '+scrollY.offset);
              if (scrollY.offset>= 0 && scrollY.offset <= 0.01 ){    
+                actions?.F_idle.stop()
                 actions?.AtoB.stop()
                 actions?.B_idle.stop()
                 actions?.A_run.stop()
                 actions?.A_idle.play()
 
             } else if (scrollY.offset>0.01 && scrollY.offset<=0.14) {
+                actions?.F_idle.stop()
                 actions?.AtoB.stop()
                 actions?.B_idle.stop()
                 actions?.A_idle.stop()
                 actions?.A_run.play()
                 group.current.position.z = 5.1 + scrollY.offset*150
             } else if (scrollY.offset>0.14 && scrollY.offset<=0.20) {
+                actions?.F_idle.stop()
                 actions?.A_run.stop()
                 actions[aToB].setLoop(1,1)
                 actions?.AtoB.play()
                 actions?.B_idle.play()
-            } else if (scrollY.offset>0.20) {
+            } else if (scrollY.offset>0.20 && scrollY.offset<=0.35) {
+                actions?.F_idle.stop()
                 actions?.B_idle.stop()
                 actions[bToA].setLoop(1,1)
                 actions?.BtoA.play()
                 actions?.A_run.play()
-                group.current.position.z = 26.058 + (scrollY.offset-0.20)*150
+                group.current.position.z = 26.058 + (scrollY.offset-0.20)*180
+
+            } else if (scrollY.offset>0.35) {
+                actions?.A_run.stop()
+                actions[aToF].setLoop(1,1)
+                actions?.AtoF.play()
+                actions?.F_idle.play()
 
             }
             
