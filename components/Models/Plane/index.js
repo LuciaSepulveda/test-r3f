@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import React from 'react'
-import { DoubleSide } from 'three'
+import { DoubleSide, WireframeGeometry } from 'three'
 import { useLoader } from '@react-three/fiber'
 // import PropTypes from 'prop-types';
 

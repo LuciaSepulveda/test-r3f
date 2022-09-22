@@ -58,7 +58,7 @@ const SceneProjects = () => {
 
     function NoiseEffect() {
         return (
-          <mesh scale={100} position={[0,0,20]}>
+          <mesh scale={100} position={[0,0,40]}>
             <boxGeometry args={[1, 1, 1]} />
             <LayerMaterial side={THREE.BackSide}>
               <Depth colorB="hotpink" colorA="skyblue" alpha={1} mode="normal" near={130} far={200} origin={[100, 100, -100]} />
@@ -66,7 +66,25 @@ const SceneProjects = () => {
             </LayerMaterial>
           </mesh>
         )
-      }
+    }
+
+    function Wireframe(){
+        return(
+            <mesh receiveShadow rotation={[-0.5*Math.PI,0,0]} position={[0, 0.2, 0]} >
+            <planeGeometry args={[250,470,64]} />
+            <meshStandardMaterial
+                depthTest = {true}
+                transparent= {true}
+                side = {THREE.DoubleSide}
+                wireframe
+                wireframeLinecap='butt'
+                wireframeLinejoin='miter'
+                wireframeLinewidth={0.1}
+                opacity={0.3}
+            />
+            </mesh>
+        )
+    }
       
 
     return (
@@ -80,6 +98,10 @@ const SceneProjects = () => {
                     <ambientLight intensity={0.3} color={'hotpink'} />
                     <pointLight intensity={7} position={[7, 5, 1]} color={'hotpink'} />
                     <Cat ref={cat} setStartProjects={setStartProjects} startProjects={startProjects} scene={1}/>
+                    <group rotation={[0,-0.5*Math.PI,0]}>
+                        <Wireframe/>
+                    </group>
+                        <Wireframe/>
                     <Plane texture onClick={() => {}} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} />
                     <CardboardBox position={[0,1.1,-3]}/>
                         <Totem position={[-9,1.1,30]} rotation={[0,0.75*Math.PI,0]} scale={[3,3,3]} />
