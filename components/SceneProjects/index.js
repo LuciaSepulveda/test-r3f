@@ -6,13 +6,10 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import CameraProjects from '../Camera/cameraProjects'
 import Cat from '../Models/Cat'
 import Plane from '../Models/Plane'
-import Totem from '../Models/Totem'
-import Cube from '../Models/Cube/index'
-import Cube2 from '../Models/Cube/index2'
 import CardboardBox from '../Models/CardboardBox'
-import Room from '../Models/Room'
-import Sticker from '../Models/Sticker'
-import Logo from '../Models/Logo'
+import Gargoyle from '../Models/Gargoyle'
+import Car from '../Models/Car'
+import Iphone from '../Models/Iphone'
 import ButtonMesh from '../Models/Button'
 import StepLoader from '../StepLoader'
 import { AppContext } from '../../context/appContext'
@@ -58,7 +55,7 @@ const SceneProjects = () => {
 
     function NoiseEffect() {
         return (
-          <mesh scale={100} position={[0,0,40]}>
+          <mesh scale={400}  position={[0,0,40]}>
             <boxGeometry args={[1, 1, 1]} />
             <LayerMaterial side={THREE.BackSide}>
               <Depth colorB="hotpink" colorA="skyblue" alpha={1} mode="normal" near={130} far={200} origin={[100, 100, -100]} />
@@ -71,7 +68,7 @@ const SceneProjects = () => {
     function Wireframe(){
         return(
             <mesh receiveShadow rotation={[-0.5*Math.PI,0,0]} position={[0, 0.2, 0]} >
-            <planeGeometry args={[250,470,64]} />
+            <planeGeometry args={[1000,1000,64]} />
             <meshStandardMaterial
                 depthTest = {true}
                 transparent= {true}
@@ -96,22 +93,19 @@ const SceneProjects = () => {
                     {!initialized && <ButtonMesh handleButtonClicked={back} />} 
                     
                     <ambientLight intensity={0.3} color={'hotpink'} />
-                    <pointLight intensity={7} position={[7, 5, 1]} color={'hotpink'} />
+                    <pointLight castShadow intensity={7} position={[7, 5, 1]} color={'hotpink'} />
                     <Cat ref={cat} setStartProjects={setStartProjects} startProjects={startProjects} scene={1}/>
-                    <group rotation={[0,-0.5*Math.PI,0]}>
+                    <group rotation={[0,-0.5*Math.PI,0]} scale={[0.5,0.5,0.5]} >
                         <Wireframe/>
                     </group>
+                    <group scale={[0.5,0.5,0.5]}>
                         <Wireframe/>
+                    </group>
                     <Plane texture onClick={() => {}} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} />
                     <CardboardBox position={[0,1.1,-3]}/>
-                        <Totem position={[-9,1.1,30]} rotation={[0,0.75*Math.PI,0]} scale={[3,3,3]} />
-                    <group position={[7, 0, 50]}>    
-                        <Room   scale={[5,5,5]}  receiveShadow position={[9, 0.2, 13]} rotation ={[0,-0.5*Math.PI,0]}/>
-                        <Sticker position={[9, 7, 18]} rotation={[0,0.5*Math.PI,0]} />
-                        <Cube position={[9,4,15]} rotation={[0, -Math.PI / 2, 0]} />
-                        <Cube2 position={[11,3,11]} rotation={[0, -Math.PI / 2, 0]} />
-                        <Logo scale={[1.4,1.4,1.4]} position={[9,6,15]} rotation={[0, -Math.PI / 2, 0]}/>
-                    </group>
+                    <Gargoyle scale={[15,15,15]} position={[-10,15,5]} rotation={[0, Math.PI / 2, 0]}/>
+                    <Car scale={[4,4,4]} position={[6,3,10]} rotation={[0, -Math.PI / 2, 0]}/>
+                    <Iphone scale={[5,5,5]}position={[-10,3,15]} rotation={[-0, -Math.PI / 2, 0]}/>
                     {/* <CameraHelper /> */}
                 </ScrollControls>
             </Suspense>

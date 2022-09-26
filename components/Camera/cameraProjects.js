@@ -66,8 +66,8 @@ const CameraProjects = ({position, rotation, lookAt, startProjects, setStartProj
   return (
     <PerspectiveCamera
       makeDefault
-      fov={55}
-      far={1000}
+      fov={100}
+      far={10000}
       position={[position.x, position.y, position.z]}
       rotation={[rotation.x, rotation.y, rotation.z]}
       ref={ref}

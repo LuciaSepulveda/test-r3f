@@ -1,0 +1,11 @@
+Model Information:
+* title:	IPhone Illustration
+* source:	https://sketchfab.com/3d-models/iphone-illustration-e44a498de9a74c09bcc5b3474e3561ef
+* author:	artasadmemon (https://sketchfab.com/artasadmemon)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "IPhone Illustration" (https://sketchfab.com/3d-models/iphone-illustration-e44a498de9a74c09bcc5b3474e3561ef) by artasadmemon (https://sketchfab.com/artasadmemon) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

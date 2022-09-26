@@ -190,6 +190,7 @@ const Cat = ({ scene, start, setStartProjects, startProjects }) => {
                                         <primitive object={nodes._rootJoint} />
                                         <group name="Object_6" position={[-0.01, -0.1, 0.22]} scale={1.3} />
                                         <skinnedMesh
+                                        castShadow
                                             name="Object_7"
                                             geometry={nodes.Object_7.geometry}
                                             material={materials.cu_cat2_mt}
