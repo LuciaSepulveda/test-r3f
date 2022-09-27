@@ -8,11 +8,12 @@ title: Gargoyle and Shapes
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { editable as e } from '@theatre/r3f'
 
 const Gargoyle = (props) => {
   const { nodes, materials } = useGLTF('./models/gargoyle/scene.gltf')
   return (
-    <group {...props} dispose={null}>
+    <e.group theatreKey='Gargoyle' {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={0.23}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[1.76, 1.83, -1.04]} rotation={[Math.PI / 2, 0, 0]} scale={0.31}>
@@ -82,7 +83,7 @@ const Gargoyle = (props) => {
           </group>
         </group>
       </group>
-    </group>
+    </e.group>
   )
 }
 

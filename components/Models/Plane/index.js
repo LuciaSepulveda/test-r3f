@@ -13,13 +13,10 @@ const Plane = ({ position, onClick, rotation, texture }) => {
     return (
         !!wireframe && (
             <mesh receiveShadow rotation={[-0.5*Math.PI,0,0]} >
-            <planeGeometry args={[1000,1000,164,164]} />
+            <planeGeometry args={[2000,2000,164,164]} />
             <meshStandardMaterial
-                
-                
                 side = {THREE.DoubleSide}
                 map = {texture? wireframe2:wireframe}
-                
                 alphaMap = {alpha}
             />
             </mesh>

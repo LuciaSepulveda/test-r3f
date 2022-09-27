@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, Suspense, useEffect, useState, useRef } from 'react'
 import { useThree, useFrame, useResource } from '@react-three/fiber'
-import { OrbitControls, ScrollControls, Sky, useScroll } from '@react-three/drei'
+import { OrbitControls, ScrollControls, Sky, useScroll, PerspectiveCamera } from '@react-three/drei'
 import { gsap, Power0} from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import CameraProjects from '../Camera/cameraProjects'
@@ -18,8 +18,9 @@ import { degToRad } from 'three/src/math/MathUtils';
 gsap.registerPlugin(ScrollTrigger)
 import { LayerMaterial, Depth, Noise } from 'lamina'
 import * as THREE from 'three'
+import { editable } from '@theatre/r3f'
 
-const SceneProjects = () => {
+const SceneProjects = ({demoSheet}) => {
     const { goToStep } = useContext(AppContext)
     const [initialized, setInitialized] = useState(false)
     const [startProjects, setStartProjects] = useState(false)
@@ -32,6 +33,8 @@ const SceneProjects = () => {
     const controls = useRef()
         
 
+    const EditableCamera = editable(PerspectiveCamera, 'perspectiveCamera')
+    
     function back() {
         goToStep(0)
     }
@@ -55,20 +58,20 @@ const SceneProjects = () => {
 
     function NoiseEffect() {
         return (
-          <mesh scale={400}  position={[0,0,40]}>
+          <editable.mesh theatreKey='Background Noise' scale={1000}  position={[0,0,40]}>
             <boxGeometry args={[1, 1, 1]} />
             <LayerMaterial side={THREE.BackSide}>
               <Depth colorB="hotpink" colorA="skyblue" alpha={1} mode="normal" near={130} far={200} origin={[100, 100, -100]} />
               <Noise mapping="local" type="white" scale={1000} colorA="white" colorB="black" mode="subtract" alpha={0.2} />
             </LayerMaterial>
-          </mesh>
+          </editable.mesh>
         )
     }
 
     function Wireframe(){
         return(
             <mesh receiveShadow rotation={[-0.5*Math.PI,0,0]} position={[0, 0.2, 0]} >
-            <planeGeometry args={[1000,1000,64]} />
+            <planeGeometry args={[2000,2000,64]} />
             <meshStandardMaterial
                 depthTest = {true}
                 transparent= {true}
@@ -87,14 +90,16 @@ const SceneProjects = () => {
     return (
         <Fragment>
             <Suspense fallback={<StepLoader step={1} />}>
-            <NoiseEffect/>
+            <NoiseEffect theatreKey={'Background Noise'}/>
                 <ScrollControls pages={4} distance={1} damping={4} horizontal={false}>
-                    <CameraProjects lookAt={lookAt} position={position} rotation={rotation} startProjects={startProjects} setStartProjects={setStartProjects} /> 
+                    <EditableCamera makeDefault theatreKey="Camera Projects" fov={100} far={10000} position={[0, 0, 0]} rotation={[0, 0, 0]}/>
                     {!initialized && <ButtonMesh handleButtonClicked={back} />} 
-                    
                     <ambientLight intensity={0.3} color={'hotpink'} />
-                    <pointLight castShadow intensity={7} position={[7, 5, 1]} color={'hotpink'} />
-                    <Cat ref={cat} setStartProjects={setStartProjects} startProjects={startProjects} scene={1}/>
+                    <editable.pointLight theatreKey="Point Light - Scene" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'}  penumbra={1} />
+                    <editable.pointLight theatreKey="Point Light - Gargoyle" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
+                    <editable.pointLight theatreKey="Point Light - Car" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
+                    <editable.pointLight theatreKey="Point Light - Iphone" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
+                    <Cat demoSheet={demoSheet} ref={cat} setStartProjects={setStartProjects} startProjects={startProjects} scene={1}/>
                     <group rotation={[0,-0.5*Math.PI,0]} scale={[0.5,0.5,0.5]} >
                         <Wireframe/>
                     </group>
@@ -102,14 +107,13 @@ const SceneProjects = () => {
                         <Wireframe/>
                     </group>
                     <Plane texture onClick={() => {}} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} />
-                    <CardboardBox position={[0,1.1,-3]}/>
-                    <Gargoyle scale={[15,15,15]} position={[-10,15,5]} rotation={[0, Math.PI / 2, 0]}/>
-                    <Car scale={[4,4,4]} position={[6,3,10]} rotation={[0, -Math.PI / 2, 0]}/>
-                    <Iphone scale={[5,5,5]}position={[-10,3,15]} rotation={[-0, -Math.PI / 2, 0]}/>
-                    {/* <CameraHelper /> */}
+                    <CardboardBox demoSheet={demoSheet}/>
+                    <Gargoyle demoSheet={demoSheet} scale={[15,15,15]} position={[-10,15,5]} rotation={[0, Math.PI / 2, 0]}/>
+                    <Car demoSheet={demoSheet} scale={[4,4,4]} position={[6,3,10]} rotation={[0, -Math.PI / 2, 0]}/>
+                    <Iphone demoSheet={demoSheet} scale={[5,5,5]}position={[-10,3,15]} rotation={[-0, -Math.PI / 2, 0]}/>
                 </ScrollControls>
             </Suspense>
-             {/* <OrbitControls/>  */}
+              {/* <OrbitControls/>    */}
             {/* can't move camera rotation and zoom */}
              {/* <OrbitControls ref={controls} enableRotate={false} enableZoom={false} /> */}
         </Fragment>

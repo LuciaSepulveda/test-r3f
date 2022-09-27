@@ -8,11 +8,12 @@ title: IPhone Illustration
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { editable as e } from '@theatre/r3f'
 
 const Iphone = (props) => {
   const { nodes, materials } = useGLTF('./models/iphone/scene.gltf')
   return (
-    <group {...props} dispose={null}>
+    <e.group theatreKey='Iphone' {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[-0.56, 5.51, -28.43]} rotation={[Math.PI / 2, 0, 0]} scale={17.99}>
@@ -278,7 +279,7 @@ const Iphone = (props) => {
           </group>
         </group>
       </group>
-    </group>
+    </e.group>
   )
 }
 

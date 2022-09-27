@@ -11,12 +11,10 @@ const Sticker = (props) => {
 
 
   return (
-    <PivotControls scale={0} axisColors={["red", "green", "blue"]}>
       <group {...props} dispose={null} ref={ref}>
         <mesh castShadow  geometry={nodes.Cube.geometry} material={materials.Material} />
         <mesh castShadow  geometry={nodes['giphy_1_(4)'].geometry} material={materials['giphy 1 (4)']} position={[1.5, 0, 0]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
       </group>
-    </PivotControls>
   )
 }
 

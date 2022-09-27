@@ -8,11 +8,12 @@ title: Car and Shapes
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { editable as e } from '@theatre/r3f'
 
 const Car = (props) => {
   const { nodes, materials } = useGLTF('./models/car/scene.gltf')
   return (
-    <group {...props} dispose={null}>
+    <e.group theatreKey='Car' {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[-1.63, 1.67, -0.77]} scale={0.05}>
@@ -135,7 +136,7 @@ const Car = (props) => {
           </group>
         </group>
       </group>
-    </group>
+    </e.group>
   )
 }
 

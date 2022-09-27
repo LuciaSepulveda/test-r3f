@@ -12,10 +12,11 @@ import gsap from 'gsap'
 import { useFrame } from '@react-three/fiber'
 import firstScene from '../../../helpers/helpers'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { editable as e } from '@theatre/r3f'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const Cat = ({ scene, start, setStartProjects, startProjects }) => {
+const Cat = ({ scene, startProjects, theatreSheet }) => {
     const group = useRef()
     const { nodes, materials, animations } = useGLTF('./models/cat/scene.gltf')
     const { actions } = useAnimations(animations, group)
@@ -51,7 +52,7 @@ const Cat = ({ scene, start, setStartProjects, startProjects }) => {
 
     // Projects
 
-    useEffect(()=> {
+    /*useEffect(()=> {
         if (actions && group.current && scene === 1){
             group.current.position.y = -2.85
             let timeline = gsap.timeline();
@@ -131,7 +132,7 @@ const Cat = ({ scene, start, setStartProjects, startProjects }) => {
             
             
         }
-    },[])
+    },[])*/
     
     useFrame(()=> {
         
@@ -179,8 +180,7 @@ const Cat = ({ scene, start, setStartProjects, startProjects }) => {
         }
       })
     return (
-        <PivotControls axisColors={['red', 'green', 'blue']}>
-            <group ref={group} position={[position.x, position.y, position.z]} dispose={null}>
+            <e.group theatreKey="Cat" ref={group} position={[position.x, position.y, position.z]} dispose={null}>
                 <group name="Sketchfab_Scene">
                     <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]} scale={860.73}>
                         <group name="153a0d5dcc9149cfb9856363b51a1918fbx" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
@@ -202,8 +202,7 @@ const Cat = ({ scene, start, setStartProjects, startProjects }) => {
                         </group>
                     </group>
                 </group>
-            </group>
-        </PivotControls>
+            </e.group>
     )
 }
 

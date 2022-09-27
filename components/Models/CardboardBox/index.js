@@ -8,11 +8,12 @@ title: Cardboard Box
 
 import React from 'react';
 import { useGLTF } from '@react-three/drei';
+import { editable as e } from '@theatre/r3f'
 
 const CardboardBox = (props) => {
   const { nodes, materials } = useGLTF('./models/cardboardbox/scene.gltf');
   return (
-    <group {...props} dispose={null}>
+    <e.group theatreKey='Cardbox' {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <mesh
@@ -21,7 +22,7 @@ const CardboardBox = (props) => {
           />
         </group>
       </group>
-    </group>
+    </e.group>
   );
 };
 
