@@ -24,7 +24,9 @@ import studio from '@theatre/studio'
 import { SheetProvider } from '@theatre/r3f'
 import { getProject } from '@theatre/core'
 import extension from '@theatre/r3f/dist/extension'
+// import projectState from '../public/momento2desk.json'
 
+// const demoSheet = getProject('Momento 2 Desk', { state: projectState }).sheet('Momento 2 desk - sheet')
 
 const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
 
