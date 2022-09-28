@@ -13,7 +13,7 @@ import { editable as e } from '@theatre/r3f'
 const Car = (props) => {
   const { nodes, materials } = useGLTF('./models/car/scene.gltf')
   return (
-    <e.group theatreKey='Car' {...props} dispose={null}>
+    <e.group theatreKey='Car' {...props} dispose={null} rotation={[0, 0, 0]}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[-1.63, 1.67, -0.77]} scale={0.05}>
@@ -21,9 +21,6 @@ const Car = (props) => {
           </group>
           <group position={[-0.86, 0.2, -1.41]}>
             <mesh geometry={nodes.Object_6.geometry} material={materials['Material.017']} />
-          </group>
-          <group position={[0, 0, -15.14]} rotation={[Math.PI / 2, 0, 0]} scale={7.62}>
-            <mesh geometry={nodes.Object_8.geometry} material={materials['Material.015']} />
           </group>
           <group position={[0, 0.05, 0.15]} rotation={[0.37, -0.64, 0.23]} scale={[0.78, 0.58, 1.8]}>
             <group position={[0.79, -0.47, 0.52]} rotation={[0, 0, -Math.PI / 2]} scale={[0.45, 0.34, 0.15]}>

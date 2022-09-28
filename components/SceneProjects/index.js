@@ -58,7 +58,7 @@ const SceneProjects = ({demoSheet}) => {
 
     function NoiseEffect() {
         return (
-          <editable.mesh theatreKey='Background Noise' scale={1000}  position={[0,0,40]}>
+          <editable.mesh theatreKey='Background Noise' scale={10000}  position={[0,0,40]}>
             <boxGeometry args={[1, 1, 1]} />
             <LayerMaterial side={THREE.BackSide}>
               <Depth colorB="hotpink" colorA="skyblue" alpha={1} mode="normal" near={130} far={200} origin={[100, 100, -100]} />

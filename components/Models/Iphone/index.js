@@ -13,12 +13,10 @@ import { editable as e } from '@theatre/r3f'
 const Iphone = (props) => {
   const { nodes, materials } = useGLTF('./models/iphone/scene.gltf')
   return (
-    <e.group theatreKey='Iphone' {...props} dispose={null}>
+    <e.group theatreKey='Iphone' {...props} dispose={null} rotation={[0, 0, 0]}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
-          <group position={[-0.56, 5.51, -28.43]} rotation={[Math.PI / 2, 0, 0]} scale={17.99}>
-            <mesh geometry={nodes.Object_4.geometry} material={materials.Material} />
-          </group>
+          
           <group position={[0.81, 1.59, -3.11]} rotation={[Math.PI / 2, 0, 0]} scale={0.37}>
             <mesh geometry={nodes.Object_6.geometry} material={materials['Material.019']} />
           </group>

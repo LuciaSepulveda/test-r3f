@@ -10,16 +10,16 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { editable as e } from '@theatre/r3f'
 
-const Gargoyle = (props) => {
+const Gargoyle = () => {
   const { nodes, materials } = useGLTF('./models/gargoyle/scene.gltf')
   return (
-    <e.group theatreKey='Gargoyle' {...props} dispose={null}>
-      <group rotation={[-Math.PI / 2, 0, 0]} scale={0.23}>
-        <group rotation={[Math.PI / 2, 0, 0]}>
+    <e.group theatreKey='Gargoyle'  dispose={null} rotation={[0, 0, 0]}>
+      <group scale={0.23}>
+        <group>
           <group position={[1.76, 1.83, -1.04]} rotation={[Math.PI / 2, 0, 0]} scale={0.31}>
             <mesh geometry={nodes.Object_4.geometry} material={materials['Material.004']} />
           </group>
-          <group position={[0, 0, -63.47]} rotation={[Math.PI / 2, 0, 0]} scale={6.3}>
+          <group position={[-1.2, 3.1, -33.47]} rotation={[Math.PI / 2, 0, 0]} scale={7.8}>
             <mesh geometry={nodes.Object_6.geometry} material={materials['Material.003']} />
           </group>
           <group position={[-0.55, 1.48, -0.91]}>
@@ -28,7 +28,7 @@ const Gargoyle = (props) => {
           <group position={[1.3, 1.39, -0.21]} rotation={[1.69, 0.88, -1.07]} scale={0.33}>
             <mesh geometry={nodes.Object_10.geometry} material={materials['Material.002']} />
           </group>
-          <group position={[0, 0.07, 0.5]} scale={0.17}>
+          <group position={[0, -.47, 0.5]} scale={0.17}>
             <mesh geometry={nodes.Object_12.geometry} material={materials['Material.002']} />
           </group>
           <group position={[-1.99, 1.43, 0]} scale={0.13}>

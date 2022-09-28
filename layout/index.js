@@ -28,10 +28,15 @@ import extension from '@theatre/r3f/dist/extension'
 
 const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
 
-studio.initialize()
-// studio.extend(extension)
+
 export const DefaultLayout = ({ children }) => {
     const { appState, goToStep, setAppState } = useContext(AppContext)
+    
+    useEffect(()=>{
+        studio.initialize()
+        //studio.extend(extension)
+    
+    },[])
 
     const backgroundAnimProps = {
         entryTransition: { duration: 1 },
