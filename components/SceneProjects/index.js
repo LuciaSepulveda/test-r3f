@@ -20,20 +20,30 @@ import { LayerMaterial, Depth, Noise } from 'lamina'
 import * as THREE from 'three'
 import { editable } from '@theatre/r3f'
 
+
 const SceneProjects = ({demoSheet}) => {
     const { goToStep } = useContext(AppContext)
-    const [initialized, setInitialized] = useState(false)
+    const { appState } = useContext(AppContext)
     const [startProjects, setStartProjects] = useState(false)
-    const [rotation, setRotation] = useState({x: Math.PI/6, y: Math.PI, z: 0})
-    const [position, setPosition] = useState({ x: 0, y: 5, z: -10 })
-    const [lookAt, setLookAt] = useState({ x: 0, y: 0, z: 0 })
-    
-    const scroll = useScroll()
-    const cat = useRef()
-    const controls = useRef()
         
-
     const EditableCamera = editable(PerspectiveCamera, 'perspectiveCamera')
+    
+    /*const scroll = useScroll()
+    
+    if (appState.currentStep === 1 ) {
+        setTimeout(() => demoSheet.sequence.play(), 2000)
+    }
+    
+    useFrame(()=>{
+       if (appState.currentStep === 1) {
+           console.log('scroll:');
+           console.log(scroll.offset)
+   
+       }
+       //console.log(demoSheet.sequence.position)
+       
+   })*/
+    
     
     function back() {
         goToStep(0)
@@ -91,15 +101,14 @@ const SceneProjects = ({demoSheet}) => {
         <Fragment>
             <Suspense fallback={<StepLoader step={1} />}>
             <NoiseEffect theatreKey={'Background Noise'}/>
-                <ScrollControls pages={4} distance={1} damping={4} horizontal={false}>
+                <ScrollControls pages={3} distance={1} damping={4} horizontal={false}>
                     <EditableCamera makeDefault theatreKey="Camera Projects" fov={100} far={10000} position={[0, 0, 0]} rotation={[0, 0, 0]}/>
-                    {!initialized && <ButtonMesh handleButtonClicked={back} />} 
                     <ambientLight intensity={0.3} color={'hotpink'} />
                     <editable.pointLight theatreKey="Point Light - Scene" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'}  penumbra={1} />
                     <editable.pointLight theatreKey="Point Light - Gargoyle" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
                     <editable.pointLight theatreKey="Point Light - Car" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
                     <editable.pointLight theatreKey="Point Light - Iphone" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
-                    <Cat demoSheet={demoSheet} ref={cat} setStartProjects={setStartProjects} startProjects={startProjects} scene={1}/>
+                    <Cat demoSheet={demoSheet} setStartProjects={setStartProjects} startProjects={startProjects} scene={1}/>
                     <group rotation={[0,-0.5*Math.PI,0]} scale={[0.5,0.5,0.5]} >
                         <Wireframe/>
                     </group>

@@ -15,31 +15,28 @@ import {
     StepShareBg,
 } from './layoutStyle'
 import Icon from '../components/Icons'
-import { Canvas } from '@react-three/fiber'
+import { Canvas,useFrame } from '@react-three/fiber'
 import Scene from '../components/Scene'
 import StepLoader from '../components/StepLoader'
-import { useProgress, Html } from '@react-three/drei'
+import { useProgress, Html, useScroll } from '@react-three/drei'
 import SceneProjects from '../components/SceneProjects'
 import studio from '@theatre/studio'
 import { SheetProvider } from '@theatre/r3f'
 import { getProject } from '@theatre/core'
 import extension from '@theatre/r3f/dist/extension'
-// import projectState from '../public/momento2desk.json'
+import projectState from '../public/momento2desk.json'
 
-// const demoSheet = getProject('Momento 2 Desk', { state: projectState }).sheet('Momento 2 desk - sheet')
-
-const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
-
-
-export const DefaultLayout = ({ children }) => {
-    const { appState, goToStep, setAppState } = useContext(AppContext)
+studio.initialize()
+//   studio.extend(extension)
+ const demoSheet = getProject('Momento 2 Desk', { state: projectState }).sheet('Momento 2 sheet')
+ // const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
+ 
+ 
+ 
+ export const DefaultLayout = ({ children }) => {
+     const { appState, goToStep, setAppState } = useContext(AppContext)
     
-    useEffect(()=>{
-        studio.initialize()
-        //studio.extend(extension)
     
-    },[])
-
     const backgroundAnimProps = {
         entryTransition: { duration: 1 },
         exitTransition: { duration: 1 },
