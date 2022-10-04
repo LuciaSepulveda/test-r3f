@@ -21,43 +21,79 @@ const Cat = ({ scene, demoSheet }) => {
     const group = useRef()
     const { nodes, materials, animations } = useGLTF('./models/cat/scene.gltf')
     const { actions } = useAnimations(animations, group)
-    //const [positionScroll, setPositionScroll] = useState(0)
     const [position, setPosition] = useState({ x: 0, y: 0.85, z: -5 })
     const { appState } = useContext(AppContext)
-    const [scroll, setScroll] = useState(0)
+     // const [scroll, setScroll] = useState(0)
+    // const prevScroll = usePrevious(scroll)
     
+    const scrollY = useScroll()
 
     const [aToB, setAToB] = useState("AtoB")
     const [aToF, setAToF] = useState("AtoF")
     const [aToD, setAToD] = useState("A_pole_start")
     const [bToA, setBToA] = useState("BtoA")
 
-    if (appState.currentStep === 1 ) {
+    /* if (appState.currentStep === 1 ) {
         setTimeout(() => demoSheet.sequence.play(), 2000)
-    }
+    }*/
     
-    /*const scrollY = useScroll()
+    /*function usePrevious(value) {
+        const ref = useRef()
+        useEffect(() => {
+            ref.current = value
+        })
+        return ref.current
+    }*/
+    /*
+     useEffect(() => {
+         if (!scroll && !prevScroll) return
+
+         if (scroll && prevScroll) {
+             const difference = scroll - prevScroll
+
+             if (Math.abs(difference) > 0.0001) {
+                 setWalk(true)
+             } else {
+                 setWalk(false)
+             }
+         }
+     }, [scroll])*/
     
-    const a = scrollY.range(0, 1 / 3)
-    const b = scrollY.range(1 / 3, 1 / 3)
-    const c = scrollY.range(2 / 3, 1 / 3)
-  
-    
-    
-    useEffect(()=>{
-        if (scrollY.offset !== 0 && scrollY.offset >= 0) {
-            if(a)
-                demoSheet.sequence.play({iterationCount: 1, range: [1, 7]})
+    useFrame(()=>{
+        if (appState.currentStep === 1 ){
+            console.log('1:' +scrollY.range(0,1/6)); // 0-6
+            console.log('2:' +scrollY.range(1/6,1/6)); // 6 - 7.5
+            console.log('3:' +scrollY.range(2/6,1/6)); // 7.5 - 13.5
+            console.log('4:' +scrollY.range(3/6,1/6)); // 13.5 - 15,12
+            console.log('5:' +scrollY.range(4/6,1/6)); // 15,12 - 19
+            console.log('6:' +scrollY.range(5/6,1/6)); // 19 - 23
             
-            if(b)
-                demoSheet.sequence.play({iterationCount: 1, range: [7, 15]})
+            if (scrollY.range(0,1/6) < 1 )
+                demoSheet.sequence.position = scrollY.range(0,1/6)*6
             
-            if(c)
-                demoSheet.sequence.play({iterationCount: 1, range: [15, 23]})
+            if (scrollY.range(0,1/6) === 1  && scrollY.range(1/6,1/6) < 1 )
+                demoSheet.sequence.position = 6 + scrollY.range(1/6,1/6)*.5
+                
+            if (scrollY.range(1/6,1/6) === 1  && scrollY.range(2/6,1/6) < 1 )
+            demoSheet.sequence.position = 6.5
+            
+            if (scrollY.range(2/6,1/6) === 1  && scrollY.range(3/6,1/6) < 1 )
+            demoSheet.sequence.position = 6 + scrollY.range(3/6,1/6)*7
+            
+            if (scrollY.range(3/6,1/6) === 1  && scrollY.range(4/6,1/6) < 1 )
+            demoSheet.sequence.position = 13.5
+            
+            if (scrollY.range(4/6,1/6) === 1  && scrollY.range(5/6,1/6) < 1 )
+            demoSheet.sequence.position = 15.12 + scrollY.range(5/6,1/6)*4.5
         }
+        
 
-    })*/
+    },)
 
+    /*prevScroll < scrollY.range(0, 1 / 6)
+        ? prevScroll * 7 : scrollY.range(0, 1 / 6) * 7,
+    prevScroll < scrollY.range(0, 1 / 6)
+        ? scrollY.range(0, 1 / 6) * 7 : prevScroll * 7,*/
 
 
     

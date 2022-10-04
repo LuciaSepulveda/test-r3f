@@ -28,8 +28,8 @@ import projectState from '../public/momento2desk.json'
 
 studio.initialize()
 //   studio.extend(extension)
- const demoSheet = getProject('Momento 2 Desk', { state: projectState }).sheet('Momento 2 sheet')
- // const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
+  const demoSheet = getProject('Momento 2 Desk', { state: projectState }).sheet('Momento 2 sheet')
+ //const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
  
  
  

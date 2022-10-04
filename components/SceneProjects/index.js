@@ -101,7 +101,7 @@ const SceneProjects = ({demoSheet}) => {
         <Fragment>
             <Suspense fallback={<StepLoader step={1} />}>
             <NoiseEffect theatreKey={'Background Noise'}/>
-                <ScrollControls pages={3} distance={1} damping={4} horizontal={false}>
+                <ScrollControls pages={6} distance={1} damping={4} horizontal={false}>
                     <EditableCamera makeDefault theatreKey="Camera Projects" fov={100} far={10000} position={[0, 0, 0]} rotation={[0, 0, 0]}/>
                     <ambientLight intensity={0.3} color={'hotpink'} />
                     <editable.pointLight theatreKey="Point Light - Scene" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'}  penumbra={1} />
