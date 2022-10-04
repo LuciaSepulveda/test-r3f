@@ -4,6 +4,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { Box, OrbitControls, ScrollControls, Sky, SpotLight, useTexture, useVideoTexture } from '@react-three/drei'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { ScrollToPlugin } from 'gsap/all'
 import Camera from '../Camera/camera'
 import Cat from '../Models/Cat'
 import Plane from '../Models/Plane'
@@ -16,7 +17,7 @@ import Cardbox from '../Models/Cardbox'
 import { editable } from '@theatre/r3f'
 gsap.registerPlugin(ScrollTrigger)
 
-const Scene = ({ demoSheet }) => {
+const Scene = ({ demoSheet, webcamRef, startDetection }) => {
     const { goToStep } = useContext(AppContext)
     const [initialized, setInitialized] = useState(false)
     const { camera } = useThree()
@@ -137,6 +138,12 @@ const Scene = ({ demoSheet }) => {
 
     const EditableSpotLight = editable(SpotLight, 'spotLight')
 
+    useEffect(() => {
+        if (typeof window !== undefined) {
+            gsap.to(window, { duration: 2, scrollTo: 400 })
+        }
+    }, [])
+
     return (
         <Fragment>
             <Suspense fallback={<StepLoader step={0} />}>
@@ -145,7 +152,7 @@ const Scene = ({ demoSheet }) => {
                     {/* <e.pointLight intensity={2} position={[7, 5, 1]} /> */}
                     <editable.pointLight theatreKey="point light" position={[10, 10, 10]} />
                     <Sky sunPosition={[7, 5, 1]} />
-                    <Camera demoSheet={demoSheet} start={start} />
+                    <Camera startDetection={startDetection} webcamRef={webcamRef} demoSheet={demoSheet} start={start} />
                     {!initialized && <ButtonMesh handleButtonClicked={handleStart} />}
                     <Cat demoSheet={demoSheet} start={start} scene={0} />
                     <Room />

@@ -1,4 +1,4 @@
-import React, { useContext, Suspense, useEffect } from 'react'
+import React, { useState, useContext, Suspense, useEffect, useRef } from 'react'
 
 import { AnimatePresence } from 'framer-motion'
 import { FadeInOut } from '../helpers/framer-animations'
@@ -21,10 +21,11 @@ import StepLoader from '../components/StepLoader'
 import { useProgress, Html } from '@react-three/drei'
 import SceneProjects from '../components/SceneProjects'
 import studio from '@theatre/studio'
-import { extension } from '@theatre/r3f/dist/extension'
+import extension from '@theatre/r3f/dist/extension'
 import { SheetProvider } from '@theatre/r3f'
 import { getProject } from '@theatre/core'
 import projectState from '../public/state2.json'
+import Webcam from 'react-webcam'
 
 const demoSheet = getProject('Demo Project', { state: projectState }).sheet('Demo sheet')
 
@@ -32,6 +33,7 @@ studio.initialize()
 //studio.extend(extension)
 export const DefaultLayout = ({ children }) => {
     const { appState, goToStep, setAppState } = useContext(AppContext)
+    const [startDetection, setStartDetection] = useState(false)
 
     const backgroundAnimProps = {
         entryTransition: { duration: 1 },
@@ -50,9 +52,32 @@ export const DefaultLayout = ({ children }) => {
         },
     }
 
+    let videoConstraints = {
+        height: 300,
+        width: 300,
+        facingMode: 'user',
+        frameRate: { ideal: 60 },
+    }
+
+    const webcamRef = useRef(null)
+
     return (
         <Root>
             <Content>
+                <Webcam
+                    audio={false}
+                    id="img"
+                    ref={webcamRef}
+                    videoConstraints={videoConstraints}
+                    width={300}
+                    height={300}
+                    style={{
+                        position: 'absolute',
+                        right: 0,
+                        bottom: 0,
+                        zIndex: 7,
+                    }}
+                />
                 <LayoutBackgroundContainer>
                     <AnimatePresence>
                         {appState.currentStep === 0 && (
@@ -80,6 +105,66 @@ export const DefaultLayout = ({ children }) => {
                 {/* STEPS LAYOUT */}
                 <FadeInOut component={StepContent} isVisible={true} animatePresence={true}>
                     <StepContent>
+                        <button
+                            onClick={() => setStartDetection(!startDetection)}
+                            style={{ zIndex: 5, position: 'fixed', left: 20, bottom: 120 }}
+                        >
+                            Hands
+                        </button>
+                        <div
+                            style={{
+                                background: 'red',
+                                zIndex: 5,
+                                width: '500px',
+                                height: '10px',
+                                display: 'flex',
+                                margin: 'auto',
+                                position: 'fixed',
+                                left: 0,
+                                right: 0,
+                                top: 0,
+                            }}
+                        />
+                        <div
+                            style={{
+                                background: 'red',
+                                zIndex: 5,
+                                width: '500px',
+                                height: '10px',
+                                display: 'flex',
+                                margin: 'auto',
+                                position: 'fixed',
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                            }}
+                        />
+                        <div
+                            style={{
+                                background: 'red',
+                                zIndex: 5,
+                                width: '10px',
+                                height: '100vh',
+                                display: 'flex',
+                                margin: 'auto',
+                                position: 'fixed',
+                                left: '500px',
+                                right: 0,
+                            }}
+                        />
+                        <div
+                            style={{
+                                background: 'red',
+                                zIndex: 5,
+                                width: '10px',
+                                height: '100vh',
+                                display: 'flex',
+                                margin: 'auto',
+                                position: 'fixed',
+                                left: 0,
+                                right: '500px',
+                            }}
+                        />
                         {/* CANVAS */}
 
                         <div style={{ width: '100%', height: '100vh' }}>
@@ -93,7 +178,12 @@ export const DefaultLayout = ({ children }) => {
                                         }}
                                     >
                                         {appState.currentStep === 0 ? (
-                                            <Scene demoSheet={demoSheet} />
+                                            <Scene
+                                                startDetection={startDetection}
+                                                setStartDetection={setStartDetection}
+                                                demoSheet={demoSheet}
+                                                webcamRef={webcamRef}
+                                            />
                                         ) : (
                                             appState.currentStep === 1 && <SceneProjects />
                                         )}
