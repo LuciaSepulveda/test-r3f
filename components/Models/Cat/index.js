@@ -61,30 +61,30 @@ const Cat = ({ scene, demoSheet }) => {
     
     useFrame(()=>{
         if (appState.currentStep === 1 ){
-            console.log('1:' +scrollY.range(0,1/6)); // 0-6
-            console.log('2:' +scrollY.range(1/6,1/6)); // 6 - 7.5
-            console.log('3:' +scrollY.range(2/6,1/6)); // 7.5 - 13.5
-            console.log('4:' +scrollY.range(3/6,1/6)); // 13.5 - 15,12
-            console.log('5:' +scrollY.range(4/6,1/6)); // 15,12 - 19
-            console.log('6:' +scrollY.range(5/6,1/6)); // 19 - 23
+            console.log('1:' +scrollY.range(0,1/18)); // 0-6
+            console.log('2:' +scrollY.range(1/18,1/18)); // 18 - 7.5
+            console.log('3:' +scrollY.range(2/18,1/18)); // 7.5 - 13.5
+            console.log('4:' +scrollY.range(3/18,1/18)); // 13.5 - 15,12
+            console.log('5:' +scrollY.range(4/18,1/18)); // 15,12 - 19
+            console.log('6:' +scrollY.range(5/18,1/18)); // 19 - 23
             
-            if (scrollY.range(0,1/6) < 1 )
-                demoSheet.sequence.position = scrollY.range(0,1/6)*6
+            if (scrollY.range(0,1/18) < 1 )
+                demoSheet.sequence.position = scrollY.range(0,1/18)*6
             
-            if (scrollY.range(0,1/6) === 1  && scrollY.range(1/6,1/6) < 1 )
-                demoSheet.sequence.position = 6 + scrollY.range(1/6,1/6)*.5
+            if (scrollY.range(0,1/18) === 1  && scrollY.range(1/18,1/18) < 1 )
+                demoSheet.sequence.position = 6 + scrollY.range(1/18,1/18)*.5
                 
-            if (scrollY.range(1/6,1/6) === 1  && scrollY.range(2/6,1/6) < 1 )
+            if (scrollY.range(1/18,1/18) === 1  && scrollY.range(2/18,1/18) < 1 )
             demoSheet.sequence.position = 6.5
             
-            if (scrollY.range(2/6,1/6) === 1  && scrollY.range(3/6,1/6) < 1 )
-            demoSheet.sequence.position = 6 + scrollY.range(3/6,1/6)*7
+            if (scrollY.range(2/18,1/18) === 1  && scrollY.range(3/18,1/18) < 1 )
+            demoSheet.sequence.position = 6 + scrollY.range(3/18,1/18)*7
             
-            if (scrollY.range(3/6,1/6) === 1  && scrollY.range(4/6,1/6) < 1 )
+            if (scrollY.range(3/18,1/18) === 1  && scrollY.range(4/18,1/18) < 1 )
             demoSheet.sequence.position = 13.5
             
-            if (scrollY.range(4/6,1/6) === 1  && scrollY.range(5/6,1/6) < 1 )
-            demoSheet.sequence.position = 15.12 + scrollY.range(5/6,1/6)*4.5
+            if (scrollY.range(4/18,1/18) === 1  && scrollY.range(5/18,1/18) < 1 )
+            demoSheet.sequence.position = 15.12 + scrollY.range(5/18,1/18)*4.5
         }
         
 
