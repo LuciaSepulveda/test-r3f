@@ -18,13 +18,13 @@ import Icon from '../components/Icons'
 import { Canvas,useFrame } from '@react-three/fiber'
 import Scene from '../components/Scene'
 import StepLoader from '../components/StepLoader'
-import { useProgress, Html, useScroll } from '@react-three/drei'
+import { useProgress, Html, useScroll, ScrollControls } from '@react-three/drei'
 import SceneProjects from '../components/SceneProjects'
-import studio from '@theatre/studio'
 import { SheetProvider } from '@theatre/r3f'
 import { getProject } from '@theatre/core'
 import extension from '@theatre/r3f/dist/extension'
 import projectState from '../public/momento2desk.json'
+import studio from '@theatre/studio'
 
 studio.initialize()
 //   studio.extend(extension)
@@ -95,12 +95,14 @@ studio.initialize()
                                             goToStep,
                                             setAppState,
                                         }}
-                                    >
+                                        >
+                                        <ScrollControls pages={18} distance={1} damping={4} horizontal={false}>
                                         {appState.currentStep === 0 ? (
                                             <Scene demoSheet={demoSheet} />
                                         ) : (
                                             appState.currentStep === 1 && <SceneProjects demoSheet={demoSheet} />
                                         )}
+                                        </ScrollControls>
                                     </AppContext.Provider>
                                 </SheetProvider>
                             </Canvas>

@@ -146,7 +146,7 @@
       },
       "sequence": {
         "subUnitsPerUnit": 30,
-        "length": 23.46,
+        "length": 42.84,
         "type": "PositionalSequence",
         "tracksByObject": {
           "Camera Projects": {
@@ -169,7 +169,7 @@
                   },
                   {
                     "id": "jpo6EPyZ4O",
-                    "position": 4,
+                    "position": 5.033,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -181,7 +181,7 @@
                   },
                   {
                     "id": "OnkqjTF7cc",
-                    "position": 6,
+                    "position": 8.333,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -193,7 +193,7 @@
                   },
                   {
                     "id": "VJX09fA3o3",
-                    "position": 7.433,
+                    "position": 11.967,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -205,7 +205,7 @@
                   },
                   {
                     "id": "bCs-RzS3DJ",
-                    "position": 8.433,
+                    "position": 14.333,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -217,7 +217,7 @@
                   },
                   {
                     "id": "tuSMU0SNgZ",
-                    "position": 11.433,
+                    "position": 19.2,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -229,7 +229,7 @@
                   },
                   {
                     "id": "haapqdszLK",
-                    "position": 13.433,
+                    "position": 22.267,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -241,7 +241,7 @@
                   },
                   {
                     "id": "buqz9_qYCh",
-                    "position": 15.133,
+                    "position": 25.967,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -253,7 +253,7 @@
                   },
                   {
                     "id": "FEejHGLG7j",
-                    "position": 16.133,
+                    "position": 28.133,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -261,11 +261,11 @@
                       0.5,
                       0
                     ],
-                    "value": 3
+                    "value": 2
                   },
                   {
                     "id": "KGle5p4wep",
-                    "position": 18.833,
+                    "position": 33.867,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -277,7 +277,19 @@
                   },
                   {
                     "id": "y1-JWEbn2L",
-                    "position": 19.533,
+                    "position": 35.967,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": 60
+                  },
+                  {
+                    "id": "eka0njLM3i",
+                    "position": 39.967,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -307,7 +319,7 @@
                   },
                   {
                     "id": "Lk2P_RTRZH",
-                    "position": 3.967,
+                    "position": 5,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -319,7 +331,7 @@
                   },
                   {
                     "id": "aMW8Jpcm0k",
-                    "position": 6,
+                    "position": 8.333,
                     "connectedRight": true,
                     "handles": [
                       0.211,
@@ -331,7 +343,7 @@
                   },
                   {
                     "id": "4hz_BYQfPa",
-                    "position": 7.433,
+                    "position": 11.967,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -343,7 +355,7 @@
                   },
                   {
                     "id": "Nt1-Vau0Za",
-                    "position": 8.433,
+                    "position": 14.333,
                     "connectedRight": true,
                     "handles": [
                       0.325,
@@ -355,7 +367,7 @@
                   },
                   {
                     "id": "UXygQ9VKIU",
-                    "position": 11.433,
+                    "position": 19.2,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -367,7 +379,7 @@
                   },
                   {
                     "id": "id-lybbQuG",
-                    "position": 13.433,
+                    "position": 22.267,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -379,7 +391,7 @@
                   },
                   {
                     "id": "JRToLtPIJe",
-                    "position": 15.133,
+                    "position": 25.967,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -391,7 +403,19 @@
                   },
                   {
                     "id": "j_B_mqdoIZ",
-                    "position": 16.133,
+                    "position": 28.467,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": 1.5
+                  },
+                  {
+                    "id": "IQy7IhSINY",
+                    "position": 39.967,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -421,7 +445,7 @@
                   },
                   {
                     "id": "IztxwyAf0c",
-                    "position": 4,
+                    "position": 5.033,
                     "connectedRight": true,
                     "handles": [
                       0.484375,
@@ -433,7 +457,7 @@
                   },
                   {
                     "id": "QX9-KjC8Ga",
-                    "position": 6,
+                    "position": 8.333,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -445,7 +469,7 @@
                   },
                   {
                     "id": "arfUwIrAwx",
-                    "position": 7.433,
+                    "position": 11.967,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -457,7 +481,7 @@
                   },
                   {
                     "id": "oZ7Bz3jbGL",
-                    "position": 8.433,
+                    "position": 14.333,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -468,24 +492,12 @@
                     "value": -49
                   },
                   {
-                    "id": "W2aqThpNp6",
-                    "position": 12.4,
-                    "connectedRight": true,
-                    "handles": [
-                      0.538808228648952,
-                      0.4105178949174557,
-                      0.5,
-                      0
-                    ],
-                    "value": 88.54330708661418
-                  },
-                  {
                     "id": "Fwik7sT797",
-                    "position": 13.433,
+                    "position": 22.267,
                     "connectedRight": true,
                     "handles": [
-                      0.3023715415019762,
-                      0.9125093632958801,
+                      0.34620285599080297,
+                      0.14868247837524506,
                       0.5,
                       0
                     ],
@@ -493,43 +505,31 @@
                   },
                   {
                     "id": "F0Sxv9Fi24",
-                    "position": 15.133,
+                    "position": 25.967,
                     "connectedRight": true,
                     "handles": [
                       0.5,
                       1,
-                      0.1108761528326746,
-                      1.519
+                      0.26126858782085427,
+                      -0.7470135501355011
                     ],
                     "value": 115
                   },
                   {
-                    "id": "_AVNXgN3ro",
-                    "position": 16.133,
-                    "connectedRight": true,
-                    "handles": [
-                      0.6185770750988143,
-                      2.216666666666667,
-                      0.5,
-                      0
-                    ],
-                    "value": 95
-                  },
-                  {
-                    "id": "iOhdXkkWGl",
-                    "position": 18.8,
-                    "connectedRight": true,
-                    "handles": [
-                      0.5,
-                      1,
-                      0.5,
-                      0
-                    ],
-                    "value": 200
-                  },
-                  {
                     "id": "OCHdvcBw2D",
-                    "position": 19.533,
+                    "position": 35.967,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5214846335697401,
+                      0.7607601053702389,
+                      0.5,
+                      0
+                    ],
+                    "value": 235
+                  },
+                  {
+                    "id": "VVlzGKJUHI",
+                    "position": 39.967,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -559,7 +559,7 @@
                   },
                   {
                     "id": "4vhiszJLz9",
-                    "position": 5.2,
+                    "position": 7.533,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -571,7 +571,7 @@
                   },
                   {
                     "id": "1KeZlY4HUD",
-                    "position": 6,
+                    "position": 8.333,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -583,7 +583,7 @@
                   },
                   {
                     "id": "ckcl03HnY4",
-                    "position": 7.433,
+                    "position": 11.967,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -613,7 +613,7 @@
                   },
                   {
                     "id": "kZwyTkkCUr",
-                    "position": 4,
+                    "position": 5.033,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -625,7 +625,7 @@
                   },
                   {
                     "id": "7vkEnmIK-C",
-                    "position": 6,
+                    "position": 8.333,
                     "connectedRight": true,
                     "handles": [
                       0.45,
@@ -637,7 +637,7 @@
                   },
                   {
                     "id": "USmvibWhH7",
-                    "position": 7.433,
+                    "position": 11.967,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -649,7 +649,7 @@
                   },
                   {
                     "id": "HtICfg0kQy",
-                    "position": 8.433,
+                    "position": 14.333,
                     "connectedRight": true,
                     "handles": [
                       0.7880288028802879,
@@ -661,7 +661,7 @@
                   },
                   {
                     "id": "bJUZyG5a_O",
-                    "position": 11.433,
+                    "position": 19.2,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -673,7 +673,7 @@
                   },
                   {
                     "id": "lql98uxAeG",
-                    "position": 13.4,
+                    "position": 22.233,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -685,7 +685,7 @@
                   },
                   {
                     "id": "e4LaXodFyL",
-                    "position": 15.133,
+                    "position": 25.967,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -697,7 +697,7 @@
                   },
                   {
                     "id": "rPMAgzsTqr",
-                    "position": 16.133,
+                    "position": 28.133,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -709,23 +709,35 @@
                   },
                   {
                     "id": "A9tuH6VI6t",
-                    "position": 18.8,
+                    "position": 33.833,
                     "connectedRight": true,
                     "handles": [
                       0.5,
                       1,
-                      0.521,
-                      0.052
+                      0.445491681455928,
+                      0.34457980226736257
                     ],
                     "value": 3.142
                   },
                   {
                     "id": "wmRVt0m4Db",
-                    "position": 19.533,
+                    "position": 35.967,
                     "connectedRight": true,
                     "handles": [
                       0.283,
                       0.938,
+                      0.5,
+                      0
+                    ],
+                    "value": 1.5705926535898105
+                  },
+                  {
+                    "id": "aFQENWq-oz",
+                    "position": 39.967,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
                       0.5,
                       0
                     ],
@@ -751,7 +763,7 @@
                   },
                   {
                     "id": "yqgEnAQnne",
-                    "position": 5,
+                    "position": 7.167,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -763,7 +775,7 @@
                   },
                   {
                     "id": "PuVoL0OWnN",
-                    "position": 7.433,
+                    "position": 11.967,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -858,18 +870,18 @@
                     "handles": [
                       0.5,
                       1,
-                      0.3328595741599072,
-                      0.23855126153418582
+                      0.33035811170358875,
+                      0.20616813948345558
                     ],
                     "value": -242.26
                   },
                   {
                     "id": "3UBm06I9Nl",
-                    "position": 6,
+                    "position": 8.333,
                     "connectedRight": true,
                     "handles": [
-                      0.4736656286210892,
-                      0.6471439852592787,
+                      0.4761670910774076,
+                      0.7766764734621997,
                       0.5,
                       0
                     ],
@@ -877,7 +889,7 @@
                   },
                   {
                     "id": "lq3guABx9M",
-                    "position": 7.433,
+                    "position": 11.967,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -889,7 +901,7 @@
                   },
                   {
                     "id": "sOZs68kU8J",
-                    "position": 8.267,
+                    "position": 14.167,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -901,11 +913,11 @@
                   },
                   {
                     "id": "cpwBN7pQbP",
-                    "position": 13.4,
+                    "position": 22.233,
                     "connectedRight": true,
                     "handles": [
-                      0.6478865670264067,
-                      0.9026057020980751,
+                      0.6608078952240891,
+                      0.8134351774067171,
                       0.5,
                       0
                     ],
@@ -913,19 +925,31 @@
                   },
                   {
                     "id": "vrwKd-4vIc",
-                    "position": 15.133,
+                    "position": 25.967,
                     "connectedRight": true,
                     "handles": [
                       0.5,
                       1,
-                      0.5,
-                      0
+                      0.4198938242375942,
+                      -0.10473509075593607
                     ],
                     "value": 100
                   },
                   {
                     "id": "vLTDawzXdo",
-                    "position": 19.533,
+                    "position": 35.967,
+                    "connectedRight": true,
+                    "handles": [
+                      0.49493630835697766,
+                      0.9789380387693614,
+                      0.5,
+                      0
+                    ],
+                    "value": 230
+                  },
+                  {
+                    "id": "qn9QKdyqjA",
+                    "position": 40,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -933,7 +957,7 @@
                       0.5,
                       0
                     ],
-                    "value": 220
+                    "value": 230
                   }
                 ]
               },
@@ -1145,7 +1169,7 @@
                   },
                   {
                     "id": "AHp52HsEQW",
-                    "position": 6,
+                    "position": 8.333,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -1175,7 +1199,7 @@
                   },
                   {
                     "id": "i867eIw_oi",
-                    "position": 6,
+                    "position": 8.333,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -1205,7 +1229,7 @@
                   },
                   {
                     "id": "6DuPash2Io",
-                    "position": 6,
+                    "position": 8.333,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -1644,6 +1668,7 @@
   },
   "definitionVersion": "0.4.0",
   "revisionHistory": [
+    "9Qq5biod4DV9IX2t",
     "jOd0060Ry_gQOiME",
     "saOnbDCSfZzAiqBk",
     "ce5_QVkMqBoF4Q-E",
