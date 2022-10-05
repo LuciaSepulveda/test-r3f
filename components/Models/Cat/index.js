@@ -24,18 +24,43 @@ const Cat = ({ scene, demoSheet }) => {
     const [position, setPosition] = useState({ x: 0, y: -2.85, z: -247 })
     const { appState } = useContext(AppContext)
     const [startScroll, setStartScroll] = useState(false)
+    const [positionZ, setPositionZ] = useState(0)
+    const prevPositionZ = usePrevious(positionZ)
     
-
+    // Transiciones de animaciones
     const [aToB, setAToB] = useState("AtoB")
     const [aToF, setAToF] = useState("AtoF")
     const [aToD, setAToD] = useState("A_pole_start")
     const [bToA, setBToA] = useState("BtoA")
     
-    
+    function usePrevious(value) {
+        const ref = useRef()
+        useEffect(() => {
+            ref.current = value
+        })
+        return ref.current
+    }
+
+    useEffect(() => {
+        if (!positionZ && !prevPositionZ) return
+
+        if (positionZ && prevPositionZ) {
+            const difference = positionZ - prevPositionZ
+
+            if (Math.abs(difference) > 0.1) {
+                actions?.A_run.play()
+                actions?.A_idle.stop()
+            } else {
+                actions?.A_walk.stop()
+                actions?.A_run.stop()
+                actions?.A_idle.play()
+            }
+        }
+    }, [positionZ])
     // Inicio gato sale de la caja
     useEffect(()=> {
-    
-        if (actions && group.current && scene === 1){
+        setStartScroll(false)
+        if (!startScroll && actions && group.current && scene === 1){
             let timeline = gsap.timeline();
             timeline
             .to(group.current.position, {
@@ -63,7 +88,7 @@ const Cat = ({ scene, demoSheet }) => {
             },
             },)
             .to(group.current.position, {
-                duration:.35,
+                duration:.30,
                 y: 2.85,
                 z:-244.16,
                 onStart: function () { 
@@ -76,7 +101,7 @@ const Cat = ({ scene, demoSheet }) => {
             },
             },)
             .to(group.current.position, {
-                duration:.55,
+                duration:.5,
                 y:2.85,
                 z:-243.86,
                 onStart: function () { 
@@ -89,7 +114,7 @@ const Cat = ({ scene, demoSheet }) => {
             },
             },)
             .to(group.current.position, {
-                duration:.9677,
+                duration:.9377,
                 y:0.85,
                 z:-242.26,
                 onStart: function () { 
@@ -108,6 +133,7 @@ const Cat = ({ scene, demoSheet }) => {
     // Theatre Proyectos
     useFrame(()=> {
         // Inicio - estático
+        setPositionZ(group.current.position.z)
         if (actions &&
             startScroll && 
             group.current && 
@@ -124,14 +150,14 @@ const Cat = ({ scene, demoSheet }) => {
                 actions?.D_idle.stop()
                 actions?.A_idle.play()
             }
-            // Yendo hacia primer Tótem
-            else if (group.current.position.z >-242.26 && group.current.position.z <-100) {
-            actions?.A_idle.stop()
-            actions?.B_idle.stop()
-            actions?.F_idle.stop()
-            actions?.D_idle.stop()
-            actions?.A_walk.stop()
-            actions?.A_run.play()
+        // Yendo hacia primer Tótem
+        else if (group.current.position.z >-242.26 && group.current.position.z <-100) {
+                actions?.A_idle.stop()
+                actions?.B_idle.stop()
+                actions?.F_idle.stop()
+                actions?.D_idle.stop()
+                actions?.A_walk.stop()
+                actions?.A_run.play()
         }
         // Llegando a 1°T
         else if (group.current.position.z > -100 &&   group.current.position.z < -63){
@@ -319,7 +345,7 @@ const Cat = ({ scene, demoSheet }) => {
     },[])
     */
     return (
-            <e.group theatreKey="Cat" ref={group} position={[position.x, position.y, position.z]} dispose={null}>
+            <e.group theatreKey="Cat" ref={group}  dispose={null}>
                 <group name="Sketchfab_Scene">
                     <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]} scale={860.73}>
                         <group name="153a0d5dcc9149cfb9856363b51a1918fbx" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
