@@ -8,7 +8,6 @@ title: Cat IS2
 
 import React, { useEffect, useRef, useState } from 'react'
 import { useGLTF, useAnimations, PivotControls, useScroll } from '@react-three/drei'
-import gsap from 'gsap'
 import { useFrame } from '@react-three/fiber'
 import firstScene from '../../../helpers/helpers'
 import { editable as e } from '@theatre/r3f'

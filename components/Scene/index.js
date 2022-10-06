@@ -2,9 +2,6 @@ import React, { Fragment, useContext, Suspense, useEffect, useState, useRef } fr
 import { AppContext } from '../../context/appContext'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Box, OrbitControls, ScrollControls, Sky, SpotLight, useTexture, useVideoTexture } from '@react-three/drei'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-import { ScrollToPlugin } from 'gsap/all'
 import Camera from '../Camera/camera'
 import Cat from '../Models/Cat'
 import Plane from '../Models/Plane'
@@ -15,7 +12,6 @@ import Room from '../Models/Room'
 import * as THREE from 'three'
 import Cardbox from '../Models/Cardbox'
 import { editable } from '@theatre/r3f'
-gsap.registerPlugin(ScrollTrigger)
 
 const Scene = ({ demoSheet, webcamRef, startDetection }) => {
     const { goToStep } = useContext(AppContext)
@@ -140,7 +136,7 @@ const Scene = ({ demoSheet, webcamRef, startDetection }) => {
 
     useEffect(() => {
         if (typeof window !== undefined) {
-            gsap.to(window, { duration: 2, scrollTo: 400 })
+            // gsap.to(window, { duration: 2, scrollTo: 400 })
         }
     }, [])
 

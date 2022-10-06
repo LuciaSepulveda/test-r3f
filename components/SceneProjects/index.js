@@ -8,8 +8,6 @@ import React, {
 } from 'react'
 import { useThree, useFrame } from '@react-three/fiber'
 import { OrbitControls, ScrollControls, Sky } from '@react-three/drei'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import Camera from '../Camera/camera'
 import Cat from '../Models/Cat'
 import Plane from '../Models/Plane'
@@ -19,7 +17,6 @@ import { PerspectiveCamera } from 'three'
 import StepLoader from '../StepLoader'
 import { AppContext } from '../../context/appContext'
 import Icon from '../Icons'
-gsap.registerPlugin(ScrollTrigger)
 
 const SceneProjects = () => {
     const { goToStep } = useContext(AppContext)
@@ -36,37 +33,37 @@ const SceneProjects = () => {
 
     function handleStart() {
         setInitialized(true)
-        let timeline = gsap.timeline()
-        timeline
-            .to(position, { duration: 0.2 })
-            .to(position, {
-                y: 2,
-                z: -10,
-                duration: 3,
-                onUpdate: function () {
-                    setLookAt({ x: 0, y: 0, z: -1 })
-                    setPosition(position)
-                },
-            })
-            .to(
-                rotation,
-                {
-                    x: Math.PI,
-                    duration: 3,
-                    onUpdate: function () {
-                        setLookAt({ x: 0, y: 0, z: -1 })
-                        setRotation(rotation)
-                    },
-                },
-                '<'
-            )
-            .to(position, {
-                duration: 0.1,
-                onComplete: function () {
-                    setStart(true)
-                    console.log('Seteo start en true')
-                },
-            })
+        // let timeline = gsap.timeline()
+        // timeline
+        //     .to(position, { duration: 0.2 })
+        //     .to(position, {
+        //         y: 2,
+        //         z: -10,
+        //         duration: 3,
+        //         onUpdate: function () {
+        //             setLookAt({ x: 0, y: 0, z: -1 })
+        //             setPosition(position)
+        //         },
+        //     })
+        //     .to(
+        //         rotation,
+        //         {
+        //             x: Math.PI,
+        //             duration: 3,
+        //             onUpdate: function () {
+        //                 setLookAt({ x: 0, y: 0, z: -1 })
+        //                 setRotation(rotation)
+        //             },
+        //         },
+        //         '<'
+        //     )
+        //     .to(position, {
+        //         duration: 0.1,
+        //         onComplete: function () {
+        //             setStart(true)
+        //             console.log('Seteo start en true')
+        //         },
+        //     })
     }
 
     // function CameraHelper() {
