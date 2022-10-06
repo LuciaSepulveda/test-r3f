@@ -25,7 +25,9 @@ const Cat = ({ scene, demoSheet }) => {
     const { appState } = useContext(AppContext)
     const [startScroll, setStartScroll] = useState(false)
     const [positionZ, setPositionZ] = useState(0)
+    const [action, setAction] = useState("A_run");
     const prevPositionZ = usePrevious(positionZ)
+    const previousAction = usePrevious(action);
     
     // Transiciones de animaciones
     const [aToB, setAToB] = useState("AtoB")
@@ -33,13 +35,14 @@ const Cat = ({ scene, demoSheet }) => {
     const [aToD, setAToD] = useState("A_pole_start")
     const [bToA, setBToA] = useState("BtoA")
     
-    function usePrevious(value) {
-        const ref = useRef()
-        useEffect(() => {
-            ref.current = value
-        })
-        return ref.current
-    }
+    // useEffect(() => {
+    //     if (previousAction) {
+    //       actions[previousAction].fadeOut(0.9);
+    //       actions[action].stop().fadeOut(0.9);
+    //     }
+    //     actions[action].play();
+    //     actions[action].fadeIn(0.9);
+    //   }, [actions, action, previousAction]);
 
     useEffect(() => {
         if (!positionZ && !prevPositionZ) return
@@ -47,11 +50,10 @@ const Cat = ({ scene, demoSheet }) => {
         if (positionZ && prevPositionZ) {
             const difference = positionZ - prevPositionZ
 
-            if (Math.abs(difference) > 0.1) {
-                actions?.A_run.play()
-                actions?.A_idle.stop()
+            if (Math.abs(difference) > 0.06) {
+                actions?.A_idle.stop().fadeOut(0.1)
             } else {
-                actions?.A_walk.stop()
+                actions?.A_walk.stop().fadeOut(0.1)
                 actions?.A_run.stop()
                 actions?.A_idle.play()
             }
@@ -77,27 +79,31 @@ const Cat = ({ scene, demoSheet }) => {
                 y:0.85,
                 duration:2,
                 onStart: function () { 
-                    actions?.A_walk.stop()
-                    actions?.B_idle.stop()
-                    actions?.F_idle.stop()
-                    actions?.D_idle.stop()
+                    actions?.A_walk.stop().fadeOut(0.9)
+                    actions?.A_idle.stop().fadeOut(0.9)
+                    actions?.B_idle.stop().fadeOut(0.9)
+                    actions?.F_idle.stop().fadeOut(0.9)
+                    actions?.D_idle.stop().fadeOut(0.9)
                     actions?.A_pole_loop.play()
             },
                 onComplete: function () { 
-                    actions?.A_pole_loop.stop()
+                    actions?.A_pole_loop.stop().fadeOut(0.9)
+                    actions?.A_idle.stop().fadeOut(0.9)
             },
             },)
             .to(group.current.position, {
                 duration:.30,
                 y: 2.85,
                 z:-244.16,
-                onStart: function () { 
-                    actions?.A_pole_loop.stop()
+                onStart: function () {
+                    actions?.A_idle.stop().fadeOut(0.9)
+                    actions?.A_pole_loop.stop().fadeOut(0.9)
                     actions?.A_jump_start.play()
             },
-                onComplete: function () { 
-                    actions?.A_pole_loop.stop()
-                    actions?.A_jump_start.stop()
+                onComplete: function () {
+                    actions?.A_idle.stop().fadeOut(0.9) 
+                    actions?.A_pole_loop.stop().fadeOut(0.9)
+                    actions?.A_jump_start.stop().fadeOut(0.9)
             },
             },)
             .to(group.current.position, {
@@ -105,25 +111,29 @@ const Cat = ({ scene, demoSheet }) => {
                 y:2.85,
                 z:-243.86,
                 onStart: function () { 
-                    actions?.A_pole_loop.stop()
+                    actions?.A_idle.stop().fadeOut(0.9)
+                    actions?.A_pole_loop.stop().fadeOut(0.9)
                     actions?.A_jump_loop.play()
             },
                 onComplete: function () { 
-                    actions?.A_pole_loop.stop()
-                    actions?.A_jump_loop.stop()
+                    actions?.A_idle.stop().fadeOut(0.9)
+                    actions?.A_pole_loop.stop().fadeOut(0.9)
+                    actions?.A_jump_loop.stop().fadeOut(0.9)
             },
             },)
             .to(group.current.position, {
                 duration:.9377,
                 y:0.85,
                 z:-242.26,
-                onStart: function () { 
-                    actions?.A_pole_loop.stop()
+                onStart: function () {
+                    actions?.A_idle.stop().fadeOut(0.9) 
+                    actions?.A_pole_loop.stop().fadeOut(0.9)
                     actions?.A_jump_end.play()
             },
                 onComplete: function () { 
-                    actions?.A_pole_loop.stop()
-                    actions?.A_jump_end.stop()
+                    actions?.A_idle.stop().fadeOut(0.9)
+                    actions?.A_pole_loop.stop().fadeOut(0.9)
+                    actions?.A_jump_end.stop().fadeOut(0.9)
                     setStartScroll(true)
             }, 
             },)
@@ -171,6 +181,7 @@ const Cat = ({ scene, demoSheet }) => {
         } 
         // En 1°T
         else if (group.current.position.z === -44){
+            actions?.A_idle.stop()
             actions?.A_run.stop()
             actions?.A_walk.stop()
             actions[aToB].setLoop(1,1)
@@ -202,6 +213,7 @@ const Cat = ({ scene, demoSheet }) => {
         } 
         // En 2°T
         else if (group.current.position.z === 100){
+            actions?.A_idle.stop()
             actions?.A_run.stop()
             actions?.A_walk.stop()
             actions[aToF].setLoop(1,1)
@@ -216,14 +228,14 @@ const Cat = ({ scene, demoSheet }) => {
             actions?.A_walk.stop()
             actions?.A_run.play()
         }
-        // Llegando a 2°T
+        // Llegando a 3°T
         else if (group.current.position.z > 205 &&   group.current.position.z < 220){
             actions?.A_walk.play()
             actions?.B_idle.stop()
             actions?.F_idle.stop()
             actions?.D_idle.stop()
         } 
-        // Acercándose a 2°T
+        // Acercándose a 3°T
         else if (group.current.position.z > 216 &&   group.current.position.z < 230){
             actions?.A_run.stop()
             actions?.B_idle.stop()
@@ -231,8 +243,9 @@ const Cat = ({ scene, demoSheet }) => {
             actions?.D_idle.stop()
 
         } 
-        // En 2°T
+        // En 3°T
         else if (group.current.position.z === 230){
+            actions?.A_idle.stop()
             actions?.A_run.stop()
             actions?.A_walk.stop()
             actions[aToD].setLoop(1,1)
@@ -244,108 +257,10 @@ const Cat = ({ scene, demoSheet }) => {
     /*
             */
     
-   /* useFrame(()=> {
-        
-        if(startProjects && scene === 1){
-            console.log('ctZ '+group.current.position.z);
-            console.log('ctX '+group.current.position.x);
-            console.log('sc '+scrollY.offset);
-             if (scrollY.offset>= 0 && scrollY.offset <= 0.01 ){    
-                actions?.F_idle.stop()
-                actions?.AtoB.stop()
-                actions?.B_idle.stop()
-                actions?.A_run.stop()
-                actions?.A_idle.play()
-
-            } else if (scrollY.offset>0.01 && scrollY.offset<=0.14) {
-                actions?.F_idle.stop()
-                actions?.AtoB.stop()
-                actions?.B_idle.stop()
-                actions?.A_idle.stop()
-                actions?.A_run.play()
-                group.current.position.z = 5.1 + scrollY.offset*150
-            } else if (scrollY.offset>0.14 && scrollY.offset<=0.20) {
-                actions?.F_idle.stop()
-                actions?.A_run.stop()
-                actions[aToB].setLoop(1,1)
-                actions?.AtoB.play()
-                actions?.B_idle.play()
-            } else if (scrollY.offset>0.20 && scrollY.offset<=0.35) {
-                actions?.F_idle.stop()
-                actions?.B_idle.stop()
-                actions[bToA].setLoop(1,1)
-                actions?.BtoA.play()
-                actions?.A_run.play()
-                group.current.position.z = 26.058 + (scrollY.offset-0.20)*180
-
-            } else if (scrollY.offset>0.35) {
-                actions?.A_run.stop()
-                actions[aToF].setLoop(1,1)
-                actions?.AtoF.play()
-                actions?.F_idle.play()
-
-            }
-            
-            
-        }
-      })
       
-      useEffect(() => {
-        if (scene === 0) {
-            actions?.A_pole_loop.stop()
-            actions?.A_idle.play()
-            console.log(actions, position, group, scrollY)
-            firstScene(actions, position, group, scrollY)
-        }
-    }, [actions, position, group, scrollY, scene])
-
-    useFrame(({ clock }) => {
-        if (scene === 0) {
-            const frame = clock.getElapsedTime()
-            //console.log(frame);
-            if (frame === 5) {
-                actions?.A_walk.play()
-            }
-        }
-
-    })   
-
-    .to(group.current.position, {
-                duration:.5,
-                y:group.current.position.y+4,
-                z:group.current.position.z+5,
-                onStart: function () { 
-                actions?.A_idle.play()
-            },
-                onComplete: function () { 
-                actions?.A_idle.stop()
-            },
-            },)
-            .to(group.current.position, {
-                duration:1.7,
-                y:group.current.position.y+4,
-                z:group.current.position.z+10,
-                onStart: function () { 
-                actions?.A_run.play()
-            },
-                onComplete: function () { 
-                actions?.A_run.stop()
-                actions?.A_idle.play()
-            },
-            },)
-            .to(group.current.position, {
-                z:group.current.position.z+10.1,
-                onComplete: function () { 
-                setStartProjects(true)
-            },
-            },'+=1')
-            
-            
-        }
-    },[])
-    */
+     
     return (
-            <e.group theatreKey="Cat" ref={group}  dispose={null}>
+            <e.group theatreKey="Cat" ref={group} dispose={null}>
                 <group name="Sketchfab_Scene">
                     <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]} scale={860.73}>
                         <group name="153a0d5dcc9149cfb9856363b51a1918fbx" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
@@ -374,3 +289,11 @@ const Cat = ({ scene, demoSheet }) => {
 useGLTF.preload('/models/cat/scene.gltf')
 
 export default Cat
+
+function usePrevious(value) {
+    const ref = useRef()
+    useEffect(() => {
+        ref.current = value
+    })
+    return ref.current
+}

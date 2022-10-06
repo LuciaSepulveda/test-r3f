@@ -28,7 +28,7 @@ const SceneProjects = ({demoSheet}) => {
         
     const EditableCamera = editable(PerspectiveCamera, 'perspectiveCamera')
 
-     // const [scroll, setScroll] = useState(0)
+    // const [scroll, setScroll] = useState(0)
     // const prevScroll = usePrevious(scroll)
     
     const scrollY = useScroll()
@@ -67,41 +67,37 @@ const SceneProjects = ({demoSheet}) => {
             console.log('4:' +scrollY.range(3/18,1/18)); // 22.34 - 26 (3.26t) 2°totem
             console.log('5:' +scrollY.range(4/18,1/18)); // 26 - 36 (10t)
             console.log('6:' +scrollY.range(5/18,1/18)); // 36 - 40 (4t) 3°totem
-            
-             
+
+            // console.log(demoSheet.sequence.position)
+                         
             // 1° scroll (yendo al 1)
             if (scrollY.range(0,1/18) < 1 )
                 demoSheet.sequence.position = scrollY.range(0,1/18)*8.35 //tiene que llegar a la posición 8.35
             // 2° scroll (1°totem)
             if (scrollY.range(0,1/18) === 1  && scrollY.range(1/18,1/18) < 1 )
-                demoSheet.sequence.position = 8.35 + scrollY.range(1/18,1/18)*3.65
+                demoSheet.sequence.position = 8.35 + scrollY.range(1/18,1/18)*3.65 // tiene que llegar a la posición 12
             // 3°scroll (yendo al 2)                
             if (scrollY.range(1/18,1/18) === 1  && scrollY.range(2/18,1/18) < 1 )
-            demoSheet.sequence.position = 12  + scrollY.range(2/18,1/18)*10.34
+                demoSheet.sequence.position = 12  + scrollY.range(2/18,1/18)*10.34
             // 4°scroll (2°totem)
             if (scrollY.range(2/18,1/18) === 1  && scrollY.range(3/18,1/18) < 1 )
-            demoSheet.sequence.position = 22.34 + scrollY.range(3/18,1/18)*3.26
+                demoSheet.sequence.position = 22.34 + scrollY.range(3/18,1/18)*3.26
             // 5° scroll (yendo al 3)
             if (scrollY.range(3/18,1/18) === 1  && scrollY.range(4/18,1/18) < 1 )
-            demoSheet.sequence.position = 26 + scrollY.range(4/18,1/18)*10
+                demoSheet.sequence.position = 26 + scrollY.range(4/18,1/18)*10
             // 6° scroll (3°totem)
             if (scrollY.range(4/18,1/18) === 1  && scrollY.range(5/18,1/18) < 1 )
-            demoSheet.sequence.position = 36 + scrollY.range(5/18,1/18)*4
+                demoSheet.sequence.position = 36 + scrollY.range(5/18,1/18)*4
         }
         
 
     },)
 
-    /*prevScroll < scrollY.range(0, 1 / 6)
-        ? prevScroll * 7 : scrollY.range(0, 1 / 6) * 7,
-    prevScroll < scrollY.range(0, 1 / 6)
-        ? scrollY.range(0, 1 / 6) * 7 : prevScroll * 7,*/
-
 
     
     useFrame(()=>{
        if (appState.currentStep === 1) { 
-          console.log(demoSheet.sequence.position)
+
        }
     })
 
