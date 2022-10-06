@@ -22,21 +22,27 @@ const Cat = ({ scene, demoSheet }) => {
     const { nodes, materials, animations } = useGLTF('./models/cat/scene.gltf')
     const { actions } = useAnimations(animations, group)
     const [position, setPosition] = useState({ x: 0, y: 0.85, z: -5 })
-    const { appState } = useContext(AppContext)
-     // const [scroll, setScroll] = useState(0)
+    const { appState, changeStateProject } = useContext(AppContext)
+    const [moment, setMoment] = useState('moment2')
+    // const [scroll, setScroll] = useState(0)
     // const prevScroll = usePrevious(scroll)
-    
+
     const scrollY = useScroll()
 
-    const [aToB, setAToB] = useState("AtoB")
-    const [aToF, setAToF] = useState("AtoF")
-    const [aToD, setAToD] = useState("A_pole_start")
-    const [bToA, setBToA] = useState("BtoA")
+    const [aToB, setAToB] = useState('AtoB')
+    const [aToF, setAToF] = useState('AtoF')
+    const [aToD, setAToD] = useState('A_pole_start')
+    const [bToA, setBToA] = useState('BtoA')
+    const [cToA, setDToA] = useState('CtoA')
+
+    useEffect(() => {
+        console.log('ACTIONS: ', actions)
+    }, [])
 
     /* if (appState.currentStep === 1 ) {
         setTimeout(() => demoSheet.sequence.play(), 2000)
     }*/
-    
+
     /*function usePrevious(value) {
         const ref = useRef()
         useEffect(() => {
@@ -58,54 +64,62 @@ const Cat = ({ scene, demoSheet }) => {
              }
          }
      }, [scroll])*/
-    
-    useFrame(()=>{
-        if (appState.currentStep === 1 ){
-            console.log('1:' +scrollY.range(0,1/18)); // 0-6
-            console.log('2:' +scrollY.range(1/18,1/18)); // 18 - 7.5
-            console.log('3:' +scrollY.range(2/18,1/18)); // 7.5 - 13.5
-            console.log('4:' +scrollY.range(3/18,1/18)); // 13.5 - 15,12
-            console.log('5:' +scrollY.range(4/18,1/18)); // 15,12 - 19
-            console.log('6:' +scrollY.range(5/18,1/18)); // 19 - 23
-            
-            if (scrollY.range(0,1/18) < 1 )
-                demoSheet.sequence.position = scrollY.range(0,1/18)*6
-            
-            if (scrollY.range(0,1/18) === 1  && scrollY.range(1/18,1/18) < 1 )
-                demoSheet.sequence.position = 6 + scrollY.range(1/18,1/18)*.5
-                
-            if (scrollY.range(1/18,1/18) === 1  && scrollY.range(2/18,1/18) < 1 )
-            demoSheet.sequence.position = 6.5
-            
-            if (scrollY.range(2/18,1/18) === 1  && scrollY.range(3/18,1/18) < 1 )
-            demoSheet.sequence.position = 6 + scrollY.range(3/18,1/18)*7
-            
-            if (scrollY.range(3/18,1/18) === 1  && scrollY.range(4/18,1/18) < 1 )
-            demoSheet.sequence.position = 13.5
-            
-            if (scrollY.range(4/18,1/18) === 1  && scrollY.range(5/18,1/18) < 1 )
-            demoSheet.sequence.position = 15.12 + scrollY.range(5/18,1/18)*4.5
-        }
-        
 
-    },)
+    useFrame(() => {
+        if (appState.currentStep === 1) {
+            // console.log('1:' +scrollY.range(0,1/18)); // 0-6
+            // console.log('2:' +scrollY.range(1/18,1/18)); // 18 - 7.5
+            // console.log('3:' +scrollY.range(2/18,1/18)); // 7.5 - 13.5
+            // console.log('4:' +scrollY.range(3/18,1/18)); // 13.5 - 15,12
+            // console.log('5:' +scrollY.range(4/18,1/18)); // 15,12 - 19
+            // console.log('6:' +scrollY.range(5/18,1/18)); // 19 - 23
+
+            if (scrollY.range(0, 1 / 18) < 1) demoSheet.sequence.position = scrollY.range(0, 1 / 18) * 6
+
+            if (scrollY.range(0, 1 / 18) === 1 && scrollY.range(1 / 18, 1 / 18) < 1)
+                demoSheet.sequence.position = 6 + scrollY.range(1 / 18, 1 / 18) * 0.5
+
+            if (scrollY.range(1 / 18, 1 / 18) === 1 && scrollY.range(2 / 18, 1 / 18) < 1)
+                demoSheet.sequence.position = 6.5
+
+            if (scrollY.range(2 / 18, 1 / 18) === 1 && scrollY.range(3 / 18, 1 / 18) < 1)
+                demoSheet.sequence.position = 6 + scrollY.range(3 / 18, 1 / 18) * 7
+
+            if (scrollY.range(3 / 18, 1 / 18) === 1 && scrollY.range(4 / 18, 1 / 18) < 1)
+                demoSheet.sequence.position = 13.5
+
+            if (scrollY.range(4 / 18, 1 / 18) === 1 && scrollY.range(5 / 18, 1 / 18) < 1)
+                {demoSheet.sequence.position = 15.12 + scrollY.range(5 / 18, 1 / 18) * 4.5
+            }
+
+            if (scrollY.range(6 / 18, 1)) {
+                if (moment !== 'moment3') {
+                    changeStateProject(3)
+                    setMoment('moment3')
+                }
+            } else {
+                if (moment !== 'moment2') {
+                    changeStateProject(2)
+                    setMoment('moment2')
+                }
+            }
+
+            if (scrollY.visible(6 / 18, 4 / 18) && scrollY.range(6 / 18, 4 / 18) < 1){
+                demoSheet.sequence.position = scrollY.range(6 / 18, 4 / 18) * 14
+            }
+        }
+    })
 
     /*prevScroll < scrollY.range(0, 1 / 6)
         ? prevScroll * 7 : scrollY.range(0, 1 / 6) * 7,
     prevScroll < scrollY.range(0, 1 / 6)
         ? scrollY.range(0, 1 / 6) * 7 : prevScroll * 7,*/
 
-
-    
-    useFrame(()=>{
-       if (appState.currentStep === 1) {
-           
-        
-       //console.log(demoSheet.sequence.position)
-       }
+    useFrame(() => {
+        if (appState.currentStep === 1) {
+            //console.log(demoSheet.sequence.position)
+        }
     })
-
-    
 
     useEffect(() => {
         if (scene === 0) {
@@ -124,25 +138,21 @@ const Cat = ({ scene, demoSheet }) => {
                 actions?.A_walk.play()
             }
         }
-
     })
 
     // Momento 2 - Proyectos
-    useFrame(()=> {
+    useFrame(() => {
         // Inicio - estático
-        if (actions && 
-            group.current && 
-            scene === 1 &&
-            group.current.position.z === -242.26){
-                actions?.A_idle.play()
-                actions?.A_run.stop()
-                actions?.A_walk.stop()
-                actions?.B_idle.stop()
-                actions?.F_idle.stop()
-                actions?.D_idle.stop()
-            }
+        if (actions && group.current && scene === 1 && group.current.position.z === -242.26) {
+            actions?.A_idle.play()
+            actions?.A_run.stop()
+            actions?.A_walk.stop()
+            actions?.B_idle.stop()
+            actions?.F_idle.stop()
+            actions?.D_idle.stop()
+        }
         // Yendo hacia primer Tótem
-        else if (group.current.position.z >-242.26 && group.current.position.z <-100) {
+        else if (group.current.position.z > -242.26 && group.current.position.z < -100) {
             actions?.A_idle.stop()
             actions?.B_idle.stop()
             actions?.F_idle.stop()
@@ -151,26 +161,25 @@ const Cat = ({ scene, demoSheet }) => {
             actions?.A_run.play()
         }
         // Llegando a 1°T
-        else if (group.current.position.z > -100 &&   group.current.position.z < -63){
+        else if (group.current.position.z > -100 && group.current.position.z < -63) {
             actions?.A_walk.play()
-        } 
+        }
         // Acercándose a 1°T
-        else if (group.current.position.z > -63 &&   group.current.position.z < -46){
+        else if (group.current.position.z > -63 && group.current.position.z < -46) {
             actions?.A_run.stop()
             actions?.B_idle.stop()
             actions?.A_walk.play()
-        } 
+        }
         // En 1°T
-        else if (group.current.position.z === -44){
+        else if (group.current.position.z === -44) {
             actions?.A_run.stop()
             actions?.A_walk.stop()
-            actions[aToB].setLoop(1,1)
+            actions[aToB].setLoop(1, 1)
             actions?.AtoB.play()
             actions?.B_idle.play()
-            
-        } 
-         // Yendo hacia 2°T
-         else if (group.current.position.z >-44 && group.current.position.z <82) {  
+        }
+        // Yendo hacia 2°T
+        else if (group.current.position.z > -44 && group.current.position.z < 82) {
             actions?.B_idle.stop()
             actions?.F_idle.stop()
             actions?.D_idle.stop()
@@ -178,29 +187,29 @@ const Cat = ({ scene, demoSheet }) => {
             actions?.A_run.play()
         }
         // Llegando a 2°T
-        else if (group.current.position.z > 82 &&   group.current.position.z < 100){
+        else if (group.current.position.z > 82 && group.current.position.z < 100) {
             actions?.A_walk.play()
             actions?.B_idle.stop()
             actions?.F_idle.stop()
             actions?.D_idle.stop()
-        } 
+        }
         // Acercándose a 2°T
-        else if (group.current.position.z > 70 &&   group.current.position.z < 100){
+        else if (group.current.position.z > 70 && group.current.position.z < 100) {
             actions?.A_run.stop()
             actions?.B_idle.stop()
             actions?.F_idle.stop()
             actions?.D_idle.stop()
-        } 
+        }
         // En 2°T
-        else if (group.current.position.z === 100){
+        else if (group.current.position.z === 100) {
             actions?.A_run.stop()
             actions?.A_walk.stop()
-            actions[aToF].setLoop(1,1)
+            actions[aToF].setLoop(1, 1)
             actions?.AtoF.play()
             actions?.F_idle.play()
-        } 
-         // Yendo hacia 3°T
-         else if (group.current.position.z >100 && group.current.position.z <210) {  
+        }
+        // Yendo hacia 3°T
+        else if (group.current.position.z > 100 && group.current.position.z < 210) {
             actions?.B_idle.stop()
             actions?.F_idle.stop()
             actions?.D_idle.stop()
@@ -208,29 +217,40 @@ const Cat = ({ scene, demoSheet }) => {
             actions?.A_run.play()
         }
         // Llegando a 2°T
-        else if (group.current.position.z > 205 &&   group.current.position.z < 220){
+        else if (group.current.position.z > 205 && group.current.position.z < 220) {
             actions?.A_walk.play()
             actions?.B_idle.stop()
             actions?.F_idle.stop()
             actions?.D_idle.stop()
-        } 
+        }
         // Acercándose a 2°T
-        else if (group.current.position.z > 216 &&   group.current.position.z < 220){
+        else if (group.current.position.z > 216 && group.current.position.z < 220) {
             actions?.A_run.stop()
             actions?.B_idle.stop()
             actions?.F_idle.stop()
             actions?.D_idle.stop()
-
-        } 
+        }
         // En 2°T
-        else if (group.current.position.z === 220){
+        // else if (group.current.position.z === 220) {
+        //     actions?.A_run.stop()
+        //     actions?.A_walk.stop()
+        //     actions[aToD].setLoop(1, 1)
+        //     actions?.A_pole_start.play()
+        //     actions?.D_idle.play()
+        //}
+        else if (group.current.position.z === 220) {
             actions?.A_run.stop()
             actions?.A_walk.stop()
-            actions[aToD].setLoop(1,1)
-            actions?.A_pole_start.play()
-            actions?.D_idle.play()
-        } 
-        
+            actions[aToB].setLoop(1, 1)
+            actions?.AtoB.play()
+            actions?.B_idle.play()
+        } else if (group.current.position.z > 220) {
+            actions?.B_idle.stop()
+            actions?.F_idle.stop()
+            actions?.D_idle.stop()
+            actions?.A_walk.stop()
+            actions?.A_run.play()
+        }
     })
     /*useEffect(()=> {
         if (actions && group.current && scene === 1){
@@ -313,8 +333,8 @@ const Cat = ({ scene, demoSheet }) => {
             
         }
     },[])*/
-    
-   /* useFrame(()=> {
+
+    /* useFrame(()=> {
         
         if(startProjects && scene === 1){
             console.log('ctZ '+group.current.position.z);
@@ -360,29 +380,29 @@ const Cat = ({ scene, demoSheet }) => {
         }
       })*/
     return (
-            <e.group theatreKey="Cat" ref={group} position={[position.x, position.y, position.z]} dispose={null}>
-                <group name="Sketchfab_Scene">
-                    <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]} scale={860.73}>
-                        <group name="153a0d5dcc9149cfb9856363b51a1918fbx" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
-                            <group name="Object_2">
-                                <group name="RootNode">
-                                    <group name="Object_4">
-                                        <primitive object={nodes._rootJoint} />
-                                        <group name="Object_6" position={[-0.01, -0.1, 0.22]} scale={1.3} />
-                                        <skinnedMesh
+        <e.group theatreKey="Cat" ref={group} position={[position.x, position.y, position.z]} dispose={null}>
+            <group name="Sketchfab_Scene">
+                <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]} scale={860.73}>
+                    <group name="153a0d5dcc9149cfb9856363b51a1918fbx" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
+                        <group name="Object_2">
+                            <group name="RootNode">
+                                <group name="Object_4">
+                                    <primitive object={nodes._rootJoint} />
+                                    <group name="Object_6" position={[-0.01, -0.1, 0.22]} scale={1.3} />
+                                    <skinnedMesh
                                         castShadow
-                                            name="Object_7"
-                                            geometry={nodes.Object_7.geometry}
-                                            material={materials.cu_cat2_mt}
-                                            skeleton={nodes.Object_7.skeleton}
-                                        />
-                                    </group>
+                                        name="Object_7"
+                                        geometry={nodes.Object_7.geometry}
+                                        material={materials.cu_cat2_mt}
+                                        skeleton={nodes.Object_7.skeleton}
+                                    />
                                 </group>
                             </group>
                         </group>
                     </group>
                 </group>
-            </e.group>
+            </group>
+        </e.group>
     )
 }
 

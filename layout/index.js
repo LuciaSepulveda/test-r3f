@@ -15,7 +15,7 @@ import {
     StepShareBg,
 } from './layoutStyle'
 import Icon from '../components/Icons'
-import { Canvas,useFrame } from '@react-three/fiber'
+import { Canvas, useFrame } from '@react-three/fiber'
 import Scene from '../components/Scene'
 import StepLoader from '../components/StepLoader'
 import { useProgress, Html, useScroll } from '@react-three/drei'
@@ -28,15 +28,12 @@ import projectState from '../public/momento2desk.json'
 
 studio.initialize()
 //   studio.extend(extension)
-  const demoSheet = getProject('Momento 2 Desk', { state: projectState }).sheet('Momento 2 sheet')
- //const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
- 
- 
- 
- export const DefaultLayout = ({ children }) => {
-     const { appState, goToStep, setAppState } = useContext(AppContext)
-    
-    
+//const demoSheet = getProject('Momento 2 Desk', { state: projectState }).sheet('Momento 2 sheet')
+//const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
+
+export const DefaultLayout = ({ children }) => {
+    const { appState, goToStep, setAppState, changeStateProject } = useContext(AppContext)
+
     const backgroundAnimProps = {
         entryTransition: { duration: 1 },
         exitTransition: { duration: 1 },
@@ -86,20 +83,21 @@ studio.initialize()
                     <StepContent>
                         {/* CANVAS */}
 
-                        <div style={{ width: '100%', height: '100vh' }}>
+                        <div style={{ width: '100%', height: '100vh' }} className="hola" id="hola">
                             <Canvas shadows gl={{ preserveDrawingBuffer: true }}>
-                                <SheetProvider sheet={demoSheet}>
+                                <SheetProvider sheet={appState.projectState}>
                                     <AppContext.Provider
                                         value={{
                                             appState,
                                             goToStep,
                                             setAppState,
+                                            changeStateProject,
                                         }}
                                     >
                                         {appState.currentStep === 0 ? (
-                                            <Scene demoSheet={demoSheet} />
+                                            <Scene demoSheet={appState.projectState} />
                                         ) : (
-                                            appState.currentStep === 1 && <SceneProjects demoSheet={demoSheet} />
+                                            appState.currentStep === 1 && <SceneProjects />
                                         )}
                                     </AppContext.Provider>
                                 </SheetProvider>
