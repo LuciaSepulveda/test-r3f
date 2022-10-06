@@ -27,7 +27,7 @@ const SceneProjects = ({demoSheet}) => {
     const [startProjects, setStartProjects] = useState(false)
         
     const EditableCamera = editable(PerspectiveCamera, 'perspectiveCamera')
-
+    
     // const [scroll, setScroll] = useState(0)
     // const prevScroll = usePrevious(scroll)
     

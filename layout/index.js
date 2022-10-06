@@ -96,7 +96,7 @@ studio.initialize()
                                             setAppState,
                                         }}
                                         >
-                                        <ScrollControls pages={18} distance={1} damping={2} horizontal={false}>
+                                        <ScrollControls pages={18} distance={1} damping={3} horizontal={false}>
                                         {appState.currentStep === 0 ? (
                                             <Scene demoSheet={demoSheet} />
                                         ) : (
