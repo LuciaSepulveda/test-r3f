@@ -116,7 +116,7 @@ const SceneProjects = () => {
             <Suspense fallback={<StepLoader step={1} />}>
                 <Text />
                 <NoiseEffect theatreKey={'Background Noise'} />
-                <ScrollControls className="hola" id="hola" pages={18} distance={1} damping={4} horizontal={false}>
+                
                     <EditableCamera
                         makeDefault
                         theatreKey="Camera Projects"
@@ -160,6 +160,7 @@ const SceneProjects = () => {
                         setStartProjects={setStartProjects}
                         startProjects={startProjects}
                         scene={1}
+                        position={[2.679999999999992,0.85,220]}
                     />
                     <group rotation={[0, -0.5 * Math.PI, 0]} scale={[0.5, 0.5, 0.5]}>
                         <Wireframe />
@@ -187,7 +188,7 @@ const SceneProjects = () => {
                         position={[-10, 3, 15]}
                         rotation={[-0, -Math.PI / 2, 0]}
                     />
-                </ScrollControls>
+              
             </Suspense>
             {/* <OrbitControls/>    */}
             {/* can't move camera rotation and zoom */}

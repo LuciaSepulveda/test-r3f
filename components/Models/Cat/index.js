@@ -7,13 +7,14 @@ title: Cat IS2
 */
 
 import React, { useEffect, useRef, useState, useContext } from 'react'
-import { useGLTF, useAnimations, PivotControls, useScroll } from '@react-three/drei'
+import { useGLTF, useAnimations, PivotControls } from '@react-three/drei'
 import gsap from 'gsap'
 import { useFrame } from '@react-three/fiber'
 import firstScene from '../../../helpers/helpers'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { editable as e } from '@theatre/r3f'
 import { AppContext } from '../../../context/appContext'
+import { useScroll } from 'framer-motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -27,7 +28,7 @@ const Cat = ({ scene, demoSheet }) => {
     // const [scroll, setScroll] = useState(0)
     // const prevScroll = usePrevious(scroll)
 
-    const scrollY = useScroll()
+    const { scrollY, scrollYProgress } = useScroll()
 
     const [aToB, setAToB] = useState('AtoB')
     const [aToF, setAToF] = useState('AtoF')
@@ -65,15 +66,58 @@ const Cat = ({ scene, demoSheet }) => {
          }
      }, [scroll])*/
 
+    const [scroll, setScroll] = useState(0)
+
+    useEffect(() => {
+        if (appState.currentStep === 1) {
+            return scrollYProgress.onChange((latest) => {
+                console.log('PROGRESS', parseFloat(latest.toFixed(2)))
+                // if (parseFloat(latest.toFixed(2)) === 0.2) {
+                //     //scrollY.set(4000, true)
+                //     //scrollYProgress.set(0.8, false)
+                //     console.log('ENTRA ACA')
+                //     //refDiv.current.scrollTo(4000)
+                //     window.scrollTo(0, 4000)
+                // }
+                setScroll(latest)
+            })
+        }
+    }, [])
+
     useFrame(() => {
         if (appState.currentStep === 1) {
+            /*
             // console.log('1:' +scrollY.range(0,1/18)); // 0-6
             // console.log('2:' +scrollY.range(1/18,1/18)); // 18 - 7.5
             // console.log('3:' +scrollY.range(2/18,1/18)); // 7.5 - 13.5
             // console.log('4:' +scrollY.range(3/18,1/18)); // 13.5 - 15,12
             // console.log('5:' +scrollY.range(4/18,1/18)); // 15,12 - 19
             // console.log('6:' +scrollY.range(5/18,1/18)); // 19 - 23
+*/
+            if (scroll !== 0 && scroll < 6 / 18) {
+                demoSheet.sequence.position = scroll * 60
+            }
+            // if (scroll >= 1 /18 && scroll < 2 /18) {
+            //     demoSheet.sequence.position = 6 + scroll * 0.5
+            // }
 
+            if (scroll >= 6 / 18) {
+                if (moment !== 'moment3') {
+                    changeStateProject(3)
+                    setMoment('moment3')
+                }
+            } else {
+                if (moment !== 'moment2') {
+                    changeStateProject(2)
+                    setMoment('moment2')
+                }
+            }
+
+            if (scroll >= 6/18) {
+                demoSheet.sequence.position = (scroll - 0.3333) * 40
+            }
+
+            /*
             if (scrollY.range(0, 1 / 18) < 1) demoSheet.sequence.position = scrollY.range(0, 1 / 18) * 6
 
             if (scrollY.range(0, 1 / 18) === 1 && scrollY.range(1 / 18, 1 / 18) < 1)
@@ -107,6 +151,7 @@ const Cat = ({ scene, demoSheet }) => {
             if (scrollY.visible(6 / 18, 4 / 18) && scrollY.range(6 / 18, 4 / 18) < 1){
                 demoSheet.sequence.position = scrollY.range(6 / 18, 4 / 18) * 14
             }
+            */
         }
     })
 

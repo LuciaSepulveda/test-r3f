@@ -1,19 +1,12 @@
 import styled from 'styled-components'
 
 export const Root = styled.div`
-    min-height: var(--app-height);
-    overflow-y: auto;
-    position: relative;
+  
 `
 
 export const Content = styled.div`
-    display: flex;
     width: 100%;
-    height: 100vh;
-    min-height: 100%;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    height: 1200vh;
 `
 
 export const LayoutBackgroundContainer = styled.div`
@@ -49,12 +42,11 @@ export const StepShareBg = styled.div`
 `
 
 export const StepContent = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
     width: 100%;
     height: 100vh;
+    position: fixed;
+    top: 0;
+    min-height: 100vh;
 `
 
 export const HeaderBlock = styled.div`

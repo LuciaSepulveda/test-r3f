@@ -18,7 +18,7 @@ import Icon from '../components/Icons'
 import { Canvas, useFrame } from '@react-three/fiber'
 import Scene from '../components/Scene'
 import StepLoader from '../components/StepLoader'
-import { useProgress, Html, useScroll } from '@react-three/drei'
+import { useProgress, Html } from '@react-three/drei'
 import SceneProjects from '../components/SceneProjects'
 import studio from '@theatre/studio'
 import { SheetProvider } from '@theatre/r3f'
@@ -51,61 +51,40 @@ export const DefaultLayout = ({ children }) => {
         },
     }
 
+    const goToScroll = () => {
+        window.scrollTo(0, 0)
+    }
+
     return (
         <Root>
-            <Content>
-                <LayoutBackgroundContainer>
-                    <AnimatePresence>
-                        {appState.currentStep === 0 && (
-                            <FadeInOut key="StepShareBg" {...backgroundAnimProps}>
-                                {/* <StepShareBg desktopBg="./bg.jpg" mobileBg="./bg.jpg"></StepShareBg> */}
-                                <Image alt="background" layout="fill" objectFit="cover" src="/bg.jpg" />
-                            </FadeInOut>
-                        )}
-                    </AnimatePresence>
-                    <div className="background-overlay"></div>
-                </LayoutBackgroundContainer>
-
-                {/* HEADER */}
-                {appState.loading === false && appState.currentStep >= 0 && (
-                    <HeaderBlock>
-                        <FadeInOut component={LogoGenoshaContainer} isVisible={true} animatePresence={true}>
-                            <Icon name="genoshaIsotipo" onClick={() => goToStep(0)} />
-                        </FadeInOut>
-                        <FadeInOut component={MenuContainer} isVisible={true} animatePresence={true}>
-                            <Icon name="menu" />
-                        </FadeInOut>
-                    </HeaderBlock>
-                )}
-
+            <div style={{ width: '100%', height: '1200vh' }}>
                 {/* STEPS LAYOUT */}
-                <FadeInOut component={StepContent} isVisible={true} animatePresence={true}>
-                    <StepContent>
-                        {/* CANVAS */}
+                <button style={{ position: 'fixed', top: 10, left: 60, zIndex: 10 }} onClick={() => goToScroll()}>
+                    BOTON
+                </button>
+                <div style={{ width: '100%', height: '100vh', position: 'fixed', top: 0 }}>
+                    {/* CANVAS */}
 
-                        <div style={{ width: '100%', height: '100vh' }} className="hola" id="hola">
-                            <Canvas shadows gl={{ preserveDrawingBuffer: true }}>
-                                <SheetProvider sheet={appState.projectState}>
-                                    <AppContext.Provider
-                                        value={{
-                                            appState,
-                                            goToStep,
-                                            setAppState,
-                                            changeStateProject,
-                                        }}
-                                    >
-                                        {appState.currentStep === 0 ? (
-                                            <Scene demoSheet={appState.projectState} />
-                                        ) : (
-                                            appState.currentStep === 1 && <SceneProjects />
-                                        )}
-                                    </AppContext.Provider>
-                                </SheetProvider>
-                            </Canvas>
-                        </div>
-                    </StepContent>
-                </FadeInOut>
-            </Content>
+                    <Canvas shadows gl={{ preserveDrawingBuffer: true }}>
+                        <SheetProvider sheet={appState.projectState}>
+                            <AppContext.Provider
+                                value={{
+                                    appState,
+                                    goToStep,
+                                    setAppState,
+                                    changeStateProject,
+                                }}
+                            >
+                                {appState.currentStep === 0 ? (
+                                    <Scene demoSheet={appState.projectState} />
+                                ) : (
+                                    appState.currentStep === 1 && <SceneProjects />
+                                )}
+                            </AppContext.Provider>
+                        </SheetProvider>
+                    </Canvas>
+                </div>
+            </div>
         </Root>
     )
 }

@@ -141,6 +141,16 @@
                             "y": 10000,
                             "z": 10000
                         }
+                    },
+                    "text": {
+                        "rotation": {
+                            "y": 3.14
+                        },
+                        "scale": {
+                            "x": 2,
+                            "y": 2,
+                            "z": 2
+                        }
                     }
                 }
             },
@@ -944,7 +954,15 @@
                             "j_mO6li9dF": {
                                 "type": "BasicKeyframedTrack",
                                 "__debugName": "text:[\"position\",\"x\"]",
-                                "keyframes": []
+                                "keyframes": [
+                                    {
+                                        "id": "eZzHnldUU4",
+                                        "position": 0,
+                                        "connectedRight": true,
+                                        "handles": [0.5, 1, 0.5, 0],
+                                        "value": 9
+                                    }
+                                ]
                             },
                             "VaHxTeBuxY": {
                                 "type": "BasicKeyframedTrack",
@@ -975,7 +993,7 @@
                                         "position": 0,
                                         "connectedRight": true,
                                         "handles": [0.5, 1, 0.5, 0],
-                                        "value": 300
+                                        "value": 310
                                     }
                                 ]
                             }
@@ -992,6 +1010,7 @@
     },
     "definitionVersion": "0.4.0",
     "revisionHistory": [
+        "LASNRpBFpq59OG3y",
         "l6O8UB7ndjcE5J6i",
         "tCfToUw765BnveRs",
         "6paw6kPL5x7HEk7y",
