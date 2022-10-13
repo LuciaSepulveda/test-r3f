@@ -19,9 +19,9 @@ const Gargoyle = () => {
           <group position={[1.76, 1.83, -1.04]} rotation={[Math.PI / 2, 0, 0]} scale={0.31}>
             <mesh geometry={nodes.Object_4.geometry} material={materials['Material.004']} />
           </group>
-          <group position={[-1.2, 3.1, -33.47]} rotation={[Math.PI / 2, 0, 0]} scale={7.8}>
+          <e.group theatreKey='cuadrado azul' position={[-1.2, 3.1, -33.47]} rotation={[Math.PI / 2, 0, 0]} scale={7.8}>
             <mesh geometry={nodes.Object_6.geometry} material={materials['Material.003']} />
-          </group>
+          </e.group>
           <group position={[-0.55, 1.48, -0.91]}>
             <mesh geometry={nodes.Object_8.geometry} material={materials['Material.002']} />
           </group>

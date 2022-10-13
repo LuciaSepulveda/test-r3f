@@ -80,7 +80,7 @@ const Scene = () => {
 
     return (
         <Fragment>
-            <Suspense fallback={<StepLoader step={0} />}>
+            <Suspense fallback={<StepLoader step={1} />}>
                 <ScrollControls pages={4} distance={1} damping={4} horizontal={false}>
                     <ambientLight intensity={0.1} />
                     <pointLight intensity={2} position={[7, 5, 1]} />

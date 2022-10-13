@@ -27,7 +27,7 @@ import projectState from '../public/momento2desk.json'
 import studio from '@theatre/studio'
 
 studio.initialize()
-//   studio.extend(extension)
+//studio.extend(extension)
   const demoSheet = getProject('Momento 2 Desk', { state: projectState }).sheet('Momento 2 sheet')
  //const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
  
@@ -96,7 +96,7 @@ studio.initialize()
                                             setAppState,
                                         }}
                                         >
-                                        <ScrollControls pages={18} distance={1} damping={3} horizontal={false}>
+                                        <ScrollControls pages={18} distance={2} damping={3} horizontal={false}>
                                         {appState.currentStep === 0 ? (
                                             <Scene demoSheet={demoSheet} />
                                         ) : (

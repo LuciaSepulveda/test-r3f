@@ -17,24 +17,24 @@ import { AppContext } from '../../../context/appContext'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const Cat = ({ scene }) => {
+const Cat = ({ scene, setStartScroll, setScrollTop }) => {
     const group = useRef()
     const { nodes, materials, animations } = useGLTF('./models/cat/scene.gltf')
     const { actions } = useAnimations(animations, group)
-    // const [position, setPosition] = useState({ x: 0, y: -2.85, z: -247 })
-    // const { appState } = useContext(AppContext)
-    const [startScroll, setStartScroll] = useState(false)
     const [positionZ, setPositionZ] = useState(0)
     const prevPositionZ = usePrevious(positionZ)
     const [action, setAction] = useState('A_idle');
     const previousAction = usePrevious(action);
     
-    // Transiciones de animaciones
+    // Estados de transiciones del modelo
     const [aToB] = useState("AtoB")
     const [aToF] = useState("AtoF")
     const [aToD] = useState("A_pole_start")
+    const [jumpEnd] = useState("A_jump_end")
+
     
     
+    // Transición entre animación
     useEffect(() => {
     
         if (previousAction) {
@@ -47,6 +47,7 @@ const Cat = ({ scene }) => {
 
     }, [actions, action, previousAction]);
 
+    // Frenar cuando el scroll no se mueve
     useEffect(() => {
         if (!positionZ && !prevPositionZ) return
 
@@ -65,77 +66,43 @@ const Cat = ({ scene }) => {
             }
         }
     }, [positionZ])
-    // Inicio gato sale de la caja
-    useEffect(()=> {
-        setStartScroll(false)
-        if (!startScroll && actions && group.current && scene === 1){
-            let timeline = gsap.timeline();
-            timeline
-            .to(group.current.position, {
-                duration:0.0000001,
-                y: group.current.position.y = -2.85,
-                z: group.current.position.z = -247.7
-            })
-            .to(group.current.position, {
-                duration:2,
-                y: group.current.position.y = -2.85,
-                z: group.current.position.z = -247.7
-            })
-            .to(group.current.position, {
-                y:0.85,
-                duration:2,
-                onStart: function () { 
-                    setAction('A_pole_loop')
-                    
-            },
-            },)
-            .to(group.current.position, {
-                duration:.30,
-                y: 2.85,
-                z:-244.16,
-                onStart: function () {
-                    setAction('A_jump_start')
-                    
-            },
-            },)
-            .to(group.current.position, {
-                duration:.5,
-                y:2.85,
-                z:-243.86,
-                onStart: function () { 
-                    setAction('A_jump_loop')
-                    
-            },
-            },)
-            .to(group.current.position, {
-                duration:.9377,
-                y:0.85,
-                z:-242.26,
-                onStart: function () {
-                    setAction('A_jump_end')
-            },
-                onComplete: function () { 
-                    setStartScroll(true)
-            }, 
-            },)
-        }
-    },[])
-    
+
+    useFrame(()=>{
+        
+        
+    }, [])
+   
     // Theatre Proyectos
     useFrame(()=> {
-        // Inicio - estático
         setPositionZ(group.current.position.z)
+        
+        // Sale de la caja
         if (actions &&
-            startScroll && 
             group.current && 
             scene === 1 &&
-            group.current.position.z === -242.26){
-                setAction('A_idle')
-            }
-         
+            group.current.position.z === -249)
+        {
+            setAction('A_pole_loop')
+        }
+        else if(group.current.position.z >= -247.9 && group.current.position.z <= -244.9){
+            // setAction('A_jump_start')
+            setAction('A_jump_loop')
+        }
+        else if(  group.current.position.z >= -244.9 && group.current.position.z <= -243){
+            actions[jumpEnd].setLoop(1,1)
+            setAction('A_jump_end')
+            setStartScroll(true)
+            setScrollTop(true)
+            
+        }
+        else if (group.current.position.z === -242.26){
+
+            setAction('A_idle')
+        }
+        
         // En 1°T
         else if (group.current.position.z === -44){
-          
+        
             actions[aToB].setLoop(1,1)
             setAction('AtoB')
             setAction('B_idle')
@@ -158,12 +125,9 @@ const Cat = ({ scene }) => {
             setAction('D_idle')
             
         }
+       
         
-    },[startScroll])
-    /*
-            */
-    
-      
+    },[])
      
     return (
             <e.group theatreKey="Cat" ref={group} dispose={null}>
@@ -203,3 +167,5 @@ function usePrevious(value) {
     })
     return ref.current
 }
+
+

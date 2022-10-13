@@ -25,86 +25,65 @@ const SceneProjects = ({demoSheet}) => {
     const { goToStep } = useContext(AppContext)
     const { appState } = useContext(AppContext)
     const [startProjects, setStartProjects] = useState(false)
+    const [startScroll, setStartScroll] = useState(false)
+    const [scrollTop, setScrollTop] = useState(false)
         
     const EditableCamera = editable(PerspectiveCamera, 'perspectiveCamera')
-    
-    // const [scroll, setScroll] = useState(0)
-    // const prevScroll = usePrevious(scroll)
-    
+            
     const scrollY = useScroll()
         
-     if (appState.currentStep === 1 ) {
-      //  setTimeout(() => demoSheet.sequence.play(), 2000)
-    }
-    
-    /*function usePrevious(value) {
-        const ref = useRef()
-        useEffect(() => {
-            ref.current = value
-        })
-        return ref.current
-    }*/
-    /*
-     useEffect(() => {
-         if (!scroll && !prevScroll) return
+    useState(()=>{
+        if (appState.currentStep === 1 ) {
+            setTimeout(() =>demoSheet.sequence.play({ range: [0, 4], iterationCount: 1 }), 4000)
+        }
+    },[]) 
 
-         if (scroll && prevScroll) {
-             const difference = scroll - prevScroll
-
-             if (Math.abs(difference) > 0.0001) {
-                 setWalk(true)
-             } else {
-                 setWalk(false)
-             }
-         }
-     }, [scroll])*/
-    
+    useEffect(() => {
+        const scrollToTop = () => {
+          const scrollY = window.scrollY || window.pageYOffset;
+          if (scrollY > 0) {
+            window.scrollTo(0, 0);
+          }
+        };
+        scrollToTop();
+      }, [scrollTop]);
+   
+     
      useFrame(()=>{
-        if (appState.currentStep === 1 ){
-            console.log('1:' +scrollY.range(0,1/18)); // 0 - 8.35 (8.35t)
-            console.log('2:' +scrollY.range(1/18,1/18)); // 8.35 - 12 (3.25t) 1°totem
-            console.log('3:' +scrollY.range(2/18,1/18)); // 12 - 22.34 (10.34t)
-            console.log('4:' +scrollY.range(3/18,1/18)); // 22.34 - 26 (3.26t) 2°totem
-            console.log('5:' +scrollY.range(4/18,1/18)); // 26 - 36 (10t)
-            console.log('6:' +scrollY.range(5/18,1/18)); // 36 - 40 (4t) 3°totem
+        if (appState.currentStep === 1 && startScroll ){
+            console.log('1:' +scrollY.range(0,1/18)); // 4 - 12.35 (8.35t)
+            console.log('2:' +scrollY.range(1/18,1/18)); // 12.35 - 16 (3.25t) 1°totem
+            console.log('3:' +scrollY.range(2/18,1/18)); // 16 - 26.34 (10.34t)
+            console.log('4:' +scrollY.range(3/18,1/18)); // 26.34 - 30 (3.26t) 2°totem
+            console.log('5:' +scrollY.range(4/18,1/18)); // 30 - 40 (10t)
+            console.log('6:' +scrollY.range(5/18,1/18)); // 40 - 44 (4t) 3°totem
 
             // console.log(demoSheet.sequence.position)
                          
             // 1° scroll (yendo al 1)
             if (scrollY.range(0,1/18) < 1 )
-                demoSheet.sequence.position = scrollY.range(0,1/18)*8.35 //tiene que llegar a la posición 8.35
+                demoSheet.sequence.position = 4 + scrollY.range(0,1/18)*8.35 //tiene que llegar a la posición 12.35
             // 2° scroll (1°totem)
             if (scrollY.range(0,1/18) === 1  && scrollY.range(1/18,1/18) < 1 )
-                demoSheet.sequence.position = 8.35 + scrollY.range(1/18,1/18)*3.65 // tiene que llegar a la posición 12
+                demoSheet.sequence.position = 12.35 + scrollY.range(1/18,1/18)*3.65 // tiene que llegar a la posición 12
             // 3°scroll (yendo al 2)                
             if (scrollY.range(1/18,1/18) === 1  && scrollY.range(2/18,1/18) < 1 )
-                demoSheet.sequence.position = 12  + scrollY.range(2/18,1/18)*10.34
+                demoSheet.sequence.position = 16  + scrollY.range(2/18,1/18)*10.34
             // 4°scroll (2°totem)
             if (scrollY.range(2/18,1/18) === 1  && scrollY.range(3/18,1/18) < 1 )
-                demoSheet.sequence.position = 22.34 + scrollY.range(3/18,1/18)*3.26
+                demoSheet.sequence.position = 26.34 + scrollY.range(3/18,1/18)*3.26
             // 5° scroll (yendo al 3)
             if (scrollY.range(3/18,1/18) === 1  && scrollY.range(4/18,1/18) < 1 )
-                demoSheet.sequence.position = 26 + scrollY.range(4/18,1/18)*10
+                demoSheet.sequence.position = 30 + scrollY.range(4/18,1/18)*10
             // 6° scroll (3°totem)
             if (scrollY.range(4/18,1/18) === 1  && scrollY.range(5/18,1/18) < 1 )
-                demoSheet.sequence.position = 36 + scrollY.range(5/18,1/18)*4
+                demoSheet.sequence.position = 40 + scrollY.range(5/18,1/18)*4
         }
         
 
     },)
-
-
-    
-    useFrame(()=>{
-       if (appState.currentStep === 1) { 
-
-       }
-    })
-
     
 
-    
-    
     function back() {
         goToStep(0)
     }
@@ -161,13 +140,26 @@ const SceneProjects = ({demoSheet}) => {
         <Fragment>
             <Suspense fallback={<StepLoader step={1} />}>
             <NoiseEffect theatreKey={'Background Noise'}/>
-                    <EditableCamera makeDefault theatreKey="Camera Projects" fov={100} far={10000} position={[0, 0, 0]} rotation={[0, 0, 0]}/>
+                    <editable.group theatreKey="Camera Projects - ROTATION X">
+                            <EditableCamera makeDefault theatreKey="Camera Projects" fov={100} far={10000} position={[0, 0, 0]} rotation={[0, 0, 0]}/>
+                    </editable.group>
                     <ambientLight intensity={0.3} color={'hotpink'} />
+                    <ButtonMesh handleButtonClicked={() => back(0)} position={[-4, 1, -240]} />
+                    <editable.group theatreKey='btn gargoyle' rotation={[0,-0.5*Math.PI,0]}>
+                        <ButtonMesh handleButtonClicked={() => back(0)}  />
+                    </editable.group>
+                    <editable.group theatreKey='btn car' rotation={[Math.PI,-0.5*Math.PI,0]}>
+                        <ButtonMesh handleButtonClicked={() => back(0)}  />
+                    </editable.group>
+                    <editable.group theatreKey='btn phone' rotation={[Math.PI,-0.5*Math.PI,0]}>
+                        <ButtonMesh handleButtonClicked={() => back(0)}  />
+                    </editable.group>
+                    
                     <editable.pointLight theatreKey="Point Light - Scene" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'}  penumbra={1} />
                     <editable.pointLight theatreKey="Point Light - Gargoyle" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
                     <editable.pointLight theatreKey="Point Light - Car" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
                     <editable.pointLight theatreKey="Point Light - Iphone" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
-                    <Cat demoSheet={demoSheet} setStartProjects={setStartProjects} startProjects={startProjects} scene={1}/>
+                    <Cat setScrollTop={setScrollTop} demoSheet={demoSheet} setStartScroll={setStartScroll} setStartProjects={setStartProjects} startProjects={startProjects} scene={1}/>
                     <group rotation={[0,-0.5*Math.PI,0]} scale={[0.5,0.5,0.5]} >
                         <Wireframe/>
                     </group>
