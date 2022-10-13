@@ -2540,6 +2540,18 @@
                 "__debugName": "btn car:[\"position\",\"y\"]",
                 "keyframes": [
                   {
+                    "id": "c8FROsoKYO",
+                    "position": 4,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": 250
+                  },
+                  {
                     "id": "Sqb10X3N0U",
                     "position": 26.833,
                     "connectedRight": true,
@@ -3028,6 +3040,7 @@
   },
   "definitionVersion": "0.4.0",
   "revisionHistory": [
+    "DLI3nr8b5UpIWBuC",
     "7lHq47i6LCjSuGrF",
     "Kmb1GXiI_j5UVsDc",
     "qR2aSQv0ORZDbdDx",
