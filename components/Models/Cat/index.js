@@ -77,7 +77,7 @@ const Cat = ({ scene, demoSheet }) => {
     })
 
     useEffect(() => {
-        console.log('SMOO', scrollSmooth.current)
+        console.log('SMOO: ', scrollSmooth.current)
     })
 
     useEffect(() => {
