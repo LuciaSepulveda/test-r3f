@@ -21,20 +21,21 @@ import StepLoader from '../components/StepLoader'
 import { useProgress, Html, useScroll, ScrollControls } from '@react-three/drei'
 import SceneProjects from '../components/SceneProjects'
 import { SheetProvider } from '@theatre/r3f'
-import { getProject } from '@theatre/core'
 import extension from '@theatre/r3f/dist/extension'
-import projectState from '../public/momento2desk.json'
 import studio from '@theatre/studio'
+import { getProject } from '@theatre/core'
+import momento2desk from '../public/momento2desk.json'
 
 studio.initialize()
 //studio.extend(extension)
-  const demoSheet = getProject('Momento 2 Desk', { state: projectState }).sheet('Momento 2 sheet')
+
  //const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
- 
- 
- 
+ const demoSheet = getProject('Momento 2 Desk', { state: momento2desk }).sheet('Momento 2 sheet')
+  
  export const DefaultLayout = ({ children }) => {
-     const { appState, goToStep, setAppState } = useContext(AppContext)
+     const { appState, goToStep, setAppState, changeStateProject } = useContext(AppContext)
+
+     
     
     
     const backgroundAnimProps = {
@@ -52,6 +53,10 @@ studio.initialize()
                 height: '100%',
             },
         },
+    }
+
+    const goToScroll = () => {
+        window.scrollTo(0, 0)
     }
 
     return (
@@ -97,11 +102,11 @@ studio.initialize()
                                         }}
                                         >
                                         <ScrollControls pages={18} distance={2} damping={3} horizontal={false}>
-                                        {appState.currentStep === 0 ? (
-                                            <Scene demoSheet={demoSheet} />
-                                        ) : (
-                                            appState.currentStep === 1 && <SceneProjects demoSheet={demoSheet} />
-                                        )}
+                                            {appState.currentStep === 0 ? (
+                                                <Scene demoSheet={demoSheet} />
+                                            ) : (
+                                                appState.currentStep === 1 && <SceneProjects demoSheet={demoSheet} />
+                                            )}
                                         </ScrollControls>
                                     </AppContext.Provider>
                                 </SheetProvider>

@@ -10,6 +10,7 @@ import CardboardBox from '../Models/CardboardBox'
 import Gargoyle from '../Models/Gargoyle'
 import Car from '../Models/Car'
 import Iphone from '../Models/Iphone'
+import Totem1 from '../Models/Totem1'
 import ButtonMesh from '../Models/Button'
 import StepLoader from '../StepLoader'
 import { AppContext } from '../../context/appContext'
@@ -32,13 +33,16 @@ const SceneProjects = ({demoSheet}) => {
             
     const scrollY = useScroll()
         
-    useState(()=>{
+    useEffect(()=>{
         if (appState.currentStep === 1 ) {
             setTimeout(() =>demoSheet.sequence.play({ range: [0, 4], iterationCount: 1 }), 4000)
+           //setTimeout(() =>demoSheet.sequence.play(), 5000)
+           //demoSheet.sequence.play({ range: [0, 4], iterationCount: 1 })
+           
         }
     },[]) 
 
-    useEffect(() => {
+    /*useEffect(() => {
         const scrollToTop = () => {
           const scrollY = window.scrollY || window.pageYOffset;
           if (scrollY > 0) {
@@ -46,7 +50,7 @@ const SceneProjects = ({demoSheet}) => {
           }
         };
         scrollToTop();
-      }, [scrollTop]);
+      }, [scrollTop]);*/
    
      
      useFrame(()=>{
@@ -168,6 +172,7 @@ const SceneProjects = ({demoSheet}) => {
                     </group>
                     <Plane texture onClick={() => {}} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} />
                     <CardboardBox demoSheet={demoSheet}/>
+                    <Totem1 demoSheet={demoSheet} scale={[15,15,15]} position={[-10,15,5]} rotation={[0, Math.PI / 2, 0]}/>
                     <Gargoyle demoSheet={demoSheet} scale={[15,15,15]} position={[-10,15,5]} rotation={[0, Math.PI / 2, 0]}/>
                     <Car demoSheet={demoSheet} scale={[4,4,4]} position={[6,3,10]} rotation={[0, -Math.PI / 2, 0]}/>
                     <Iphone demoSheet={demoSheet} scale={[5,5,5]}position={[-10,3,15]} rotation={[-0, -Math.PI / 2, 0]}/>

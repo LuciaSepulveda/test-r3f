@@ -88,11 +88,11 @@ const Cat = ({ scene, setStartScroll, setScrollTop }) => {
             // setAction('A_jump_start')
             setAction('A_jump_loop')
         }
-        else if(  group.current.position.z >= -244.9 && group.current.position.z <= -243){
+        else if(  group.current.position.z > -244.9 && group.current.position.z <= -243){
             actions[jumpEnd].setLoop(1,1)
             setAction('A_jump_end')
             setStartScroll(true)
-            setScrollTop(true)
+            // setScrollTop(true)
             
         }
         else if (group.current.position.z === -242.26){
