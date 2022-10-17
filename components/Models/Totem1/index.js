@@ -13,7 +13,7 @@ const Totem1 = (props)=> {
   return (
     <e.group theatreKey='Totem1' ref={group} {...props} dispose={null}>
       <group name="Scene">
-        <group name="Sketchfab_model" position={[-0.68, -0.71, 0.94]} rotation={[-1.78, -0.36, 0.29]} scale={1.83}>
+        <group name="Sketchfab_model" position={[-0.68, -1.41, 0.94]} rotation={[-1.6, -0.2, 0.29]} scale={1}>
           <group name="part1objcleanermaterialmergergles">
             <mesh name="Object_2" geometry={nodes.Object_2.geometry} material={materials.body} />
             <mesh name="Object_3" geometry={nodes.Object_3.geometry} material={materials.tail} />

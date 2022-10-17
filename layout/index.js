@@ -25,16 +25,26 @@ import extension from '@theatre/r3f/dist/extension'
 import studio from '@theatre/studio'
 import { getProject } from '@theatre/core'
 import momento2desk from '../public/momento2desk.json'
+import momento2mob from '../public/momento2mob.json'
 
 studio.initialize()
-//studio.extend(extension)
+// studio.extend(extension)
+let demoSheet;
 
- //const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
- const demoSheet = getProject('Momento 2 Desk', { state: momento2desk }).sheet('Momento 2 sheet')
-  
- export const DefaultLayout = ({ children }) => {
-     const { appState, goToStep, setAppState, changeStateProject } = useContext(AppContext)
-
+export const DefaultLayout = ({ children }) => {
+    const { appState, goToStep, setAppState, changeStateProject, isMobile } = useContext(AppContext)
+    
+     
+         //const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
+      if(isMobile){
+        demoSheet = getProject('Momento 2 Mob', { state: momento2mob }).sheet('Momento 2 sheet')
+          
+      } else {
+        demoSheet = getProject('Momento 2 Desk', { state: momento2desk }).sheet('Momento 2 sheet')
+          
+      }
+            
+         //const demoSheet = getProject('Momento 2 Desk', { state: momento2desk }).sheet('Momento 2 sheet')
      
     
     
@@ -89,6 +99,60 @@ studio.initialize()
                 {/* STEPS LAYOUT */}
                 <FadeInOut component={StepContent} isVisible={true} animatePresence={true}>
                     <StepContent>
+                    <div
+                            style={{
+                                background: 'red',
+                                zIndex: 5,
+                                width: '500px',
+                                height: '10px',
+                                display: 'flex',
+                                margin: 'auto',
+                                position: 'fixed',
+                                left: 0,
+                                right: 0,
+                                top: 0,
+                            }}
+                        />
+                        <div
+                            style={{
+                                background: 'red',
+                                zIndex: 5,
+                                width: '500px',
+                                height: '10px',
+                                display: 'flex',
+                                margin: 'auto',
+                                position: 'fixed',
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                            }}
+                        />
+                        <div
+                            style={{
+                                background: 'red',
+                                zIndex: 5,
+                                width: '10px',
+                                height: '100vh',
+                                display: 'flex',
+                                margin: 'auto',
+                                position: 'fixed',
+                                left: '500px',
+                                right: 0,
+                            }}
+                        />
+                        <div
+                            style={{
+                                background: 'red',
+                                zIndex: 5,
+                                width: '10px',
+                                height: '100vh',
+                                display: 'flex',
+                                margin: 'auto',
+                                position: 'fixed',
+                                left: 0,
+                                right: '500px',
+                            }}
+                        />
                         {/* CANVAS */}
 
                         <div style={{ width: '100%', height: '100vh' }}>
@@ -99,6 +163,7 @@ studio.initialize()
                                             appState,
                                             goToStep,
                                             setAppState,
+                                            isMobile
                                         }}
                                         >
                                         <ScrollControls pages={18} distance={2} damping={3} horizontal={false}>

@@ -52,6 +52,7 @@ export const ContextProviderApp = (props) => {
                 setAppState,
                 goToStep,
                 changeStateProject,
+                isMobile
             }}
         >
             {props.children}
