@@ -25,6 +25,8 @@ import { SheetProvider } from '@theatre/r3f'
 import { getProject } from '@theatre/core'
 import extension from '@theatre/r3f/dist/extension'
 import projectState from '../public/momento2desk.json'
+import { useState } from 'react'
+import Photobooth from '../components/Photobooth'
 
 studio.initialize()
 //   studio.extend(extension)
@@ -54,6 +56,8 @@ export const DefaultLayout = ({ children }) => {
     const goToScroll = () => {
         window.scrollTo(0, 0)
     }
+    const [openIframe, setOpenIframe] = useState(false)
+
 
     return (
         <Root>
@@ -62,6 +66,13 @@ export const DefaultLayout = ({ children }) => {
                 <button style={{ position: 'fixed', top: 10, left: 60, zIndex: 10 }} onClick={() => goToScroll()}>
                     BOTON
                 </button>
+                <button style={{ position: 'fixed', bottom: 10, left: 150, zIndex: 10 }} onClick={() => setOpenIframe(true)}>
+                    photobooth
+                </button>
+                {
+                    openIframe && 
+                    <Photobooth/>
+                }
                 <div style={{ width: '100%', height: '100vh', position: 'fixed', top: 0 }}>
                     {/* CANVAS */}
 
