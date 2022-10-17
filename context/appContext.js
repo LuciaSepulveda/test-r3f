@@ -8,9 +8,10 @@ const demoSheet2 = getProject('Momento 3 Desk', { state: moment3 }).sheet('Momen
 
 const initialContext = {
     appState: {
-        currentStep: 0,
+        currentStep: 1,
         loading: true,
         projectState: demoSheet,
+        loadingNew: true,
     },
     setAppState: () => null,
 }
@@ -19,9 +20,10 @@ export const AppContext = createContext(initialContext)
 
 export const ContextProviderApp = (props) => {
     const [appState, setAppState] = useState({
-        currentStep: 0,
+        currentStep: 1,
         loading: true,
         projectState: demoSheet,
+        loadingNew: true,
     })
 
     const goToStep = function (stepIndex) {

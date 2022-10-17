@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, Suspense, useEffect, useState, useRef } from 'react'
 import { useThree, useFrame, useResource } from '@react-three/fiber'
-import { OrbitControls, ScrollControls, Sky, useScroll, PerspectiveCamera } from '@react-three/drei'
+import { OrbitControls, ScrollControls, Sky, useScroll, PerspectiveCamera, Text3D } from '@react-three/drei'
 import { gsap, Power0 } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import CameraProjects from '../Camera/cameraProjects'
@@ -28,6 +28,8 @@ const SceneProjects = () => {
 
     const EditableCamera = editable(PerspectiveCamera, 'perspectiveCamera')
     const [elementScroll, setElementScroll] = useState()
+
+    const EditableText3D = editable(Text3D, 'text3d')
 
     /*const scroll = useScroll()
     
@@ -114,81 +116,148 @@ const SceneProjects = () => {
     return (
         <Fragment>
             <Suspense fallback={<StepLoader step={1} />}>
-                <Text />
                 <NoiseEffect theatreKey={'Background Noise'} />
-                
-                    <EditableCamera
-                        makeDefault
-                        theatreKey="Camera Projects"
-                        fov={100}
-                        far={10000}
-                        position={[0, 0, 0]}
-                        rotation={[0, 0, 0]}
-                    />
-                    <ambientLight intensity={0.3} color={'hotpink'} />
-                    <editable.pointLight
-                        theatreKey="Point Light - Scene"
-                        castShadow
-                        intensity={7}
-                        position={[1, 5, 1]}
-                        color={'hotpink'}
-                        penumbra={1}
-                    />
-                    <editable.pointLight
-                        theatreKey="Point Light - Gargoyle"
-                        castShadow
-                        intensity={7}
-                        position={[1, 5, 1]}
-                        color={'hotpink'}
-                    />
-                    <editable.pointLight
-                        theatreKey="Point Light - Car"
-                        castShadow
-                        intensity={7}
-                        position={[1, 5, 1]}
-                        color={'hotpink'}
-                    />
-                    <editable.pointLight
-                        theatreKey="Point Light - Iphone"
-                        castShadow
-                        intensity={7}
-                        position={[1, 5, 1]}
-                        color={'hotpink'}
-                    />
-                    <Cat
-                        demoSheet={appState.projectState}
-                        setStartProjects={setStartProjects}
-                        startProjects={startProjects}
-                        scene={1}
-                        position={[2.679999999999992,0.85,220]}
-                    />
-                    <group rotation={[0, -0.5 * Math.PI, 0]} scale={[0.5, 0.5, 0.5]}>
-                        <Wireframe />
-                    </group>
-                    <group scale={[0.5, 0.5, 0.5]}>
-                        <Wireframe />
-                    </group>
-                    <Plane texture onClick={() => {}} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} />
-                    <CardboardBox demoSheet={appState.projectState} />
-                    <Gargoyle
-                        demoSheet={appState.projectState}
-                        scale={[15, 15, 15]}
-                        position={[-10, 15, 5]}
-                        rotation={[0, Math.PI / 2, 0]}
-                    />
-                    <Car
-                        demoSheet={appState.projectState}
-                        scale={[4, 4, 4]}
-                        position={[6, 3, 10]}
-                        rotation={[0, -Math.PI / 2, 0]}
-                    />
-                    <Iphone
-                        demoSheet={appState.projectState}
-                        scale={[5, 5, 5]}
-                        position={[-10, 3, 15]}
-                        rotation={[-0, -Math.PI / 2, 0]}
-                    />
-              
+
+                <EditableCamera
+                    makeDefault
+                    theatreKey="Camera Projects"
+                    fov={100}
+                    far={10000}
+                    position={[0, 0, 0]}
+                    rotation={[0, 0, 0]}
+                />
+                <ambientLight intensity={0.3} color={'hotpink'} />
+                <editable.pointLight
+                    theatreKey="Point Light - Scene"
+                    castShadow
+                    intensity={7}
+                    position={[1, 5, 1]}
+                    color={'hotpink'}
+                    penumbra={1}
+                />
+                <editable.pointLight
+                    theatreKey="Point Light - Gargoyle"
+                    castShadow
+                    intensity={7}
+                    position={[1, 5, 1]}
+                    color={'hotpink'}
+                />
+                <editable.pointLight
+                    theatreKey="Point Light - Car"
+                    castShadow
+                    intensity={7}
+                    position={[1, 5, 1]}
+                    color={'hotpink'}
+                />
+                <editable.pointLight
+                    theatreKey="Point Light - Iphone"
+                    castShadow
+                    intensity={7}
+                    position={[1, 5, 1]}
+                    color={'hotpink'}
+                />
+                <Cat
+                    demoSheet={appState.projectState}
+                    setStartProjects={setStartProjects}
+                    startProjects={startProjects}
+                    scene={1}
+                    position={[2.679999999999992, 0.85, 220]}
+                />
+                <editable.group rotation={[0, 3.14, 0]} position={[14, 1000, 320]} theatreKey={'QueHacemos'}>
+                    <Text3D
+                        curveSegments={32}
+                        bevelEnabled
+                        bevelSize={0.09}
+                        size={2}
+                        height={0.8}
+                        lineHeight={0.5}
+                        letterSpacing={-0.06}
+                        font="./inter_bold.json"
+                    >
+                        {`SERVICIOS`}
+                        <meshNormalMaterial />
+                    </Text3D>
+                </editable.group>
+                <editable.group rotation={[0, 3.14, 0]} position={[14, 1000, 420]} theatreKey={'Ux'}>
+                    <Text3D
+                        curveSegments={32}
+                        bevelEnabled
+                        bevelSize={0.09}
+                        size={2}
+                        height={0.8}
+                        lineHeight={0.5}
+                        letterSpacing={-0.06}
+                        font="./inter_bold.json"
+                    >
+                        UX
+                        <meshNormalMaterial />
+                    </Text3D>
+                </editable.group>
+                <editable.group rotation={[0, 3.14, 0]} position={[14, 1000, 400]} theatreKey={'Machine'}>
+                    <Text3D
+                        curveSegments={32}
+                        bevelEnabled
+                        bevelSize={0.09}
+                        size={2}
+                        height={0.8}
+                        lineHeight={0.5}
+                        letterSpacing={-0.06}
+                        font="./inter_bold.json"
+                    >
+                        MACHINE LEARNING
+                        <meshNormalMaterial />
+                    </Text3D>
+                </editable.group>
+                <editable.group rotation={[0, 3.14, 0]} position={[14, 1000, 450]} theatreKey={'Machine2'}>
+                    <Text3D
+                        curveSegments={32}
+                        bevelEnabled
+                        bevelSize={0.09}
+                        size={2}
+                        height={0.8}
+                        lineHeight={0.5}
+                        letterSpacing={-0.06}
+                        font="./inter_bold.json"
+                    >
+                        MACHINE LEARNING2
+                        <meshNormalMaterial />
+                    </Text3D>
+                </editable.group>
+                {/* <EditableText3D theatreKey="ux" font="/inter_bold.json">
+                    UX
+                </EditableText3D>
+                <EditableText3D theatreKey="machine1" font="/inter_bold.json">
+                    MACHINE LEARNING
+                </EditableText3D>
+                <EditableText3D theatreKey="machine2" font="/inter_bold.json">
+                    MACHINE LEARNING
+                </EditableText3D> */}
+                <group rotation={[0, -0.5 * Math.PI, 0]} scale={[0.5, 0.5, 0.5]}>
+                    <Wireframe />
+                </group>
+                <group scale={[0.5, 0.5, 0.5]}>
+                    <Wireframe />
+                </group>
+                <Plane texture onClick={() => {}} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} />
+                <CardboardBox demoSheet={appState.projectState} />
+                <Gargoyle
+                    demoSheet={appState.projectState}
+                    scale={[15, 15, 15]}
+                    position={[-10, 15, 5]}
+                    rotation={[0, Math.PI / 2, 0]}
+                />
+                <Car
+                    demoSheet={appState.projectState}
+                    scale={[4, 4, 4]}
+                    position={[6, 3, 10]}
+                    rotation={[0, -Math.PI / 2, 0]}
+                />
+                <Iphone
+                    demoSheet={appState.projectState}
+                    scale={[5, 5, 5]}
+                    position={[-10, 3, 15]}
+                    rotation={[-0, -Math.PI / 2, 0]}
+                />
             </Suspense>
             {/* <OrbitControls/>    */}
             {/* can't move camera rotation and zoom */}

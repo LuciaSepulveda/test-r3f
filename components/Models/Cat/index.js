@@ -14,7 +14,7 @@ import firstScene from '../../../helpers/helpers'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { editable as e } from '@theatre/r3f'
 import { AppContext } from '../../../context/appContext'
-import { useScroll } from 'framer-motion'
+import { useScroll, useSpring, useVelocity, useTransform } from 'framer-motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -68,6 +68,18 @@ const Cat = ({ scene, demoSheet }) => {
 
     const [scroll, setScroll] = useState(0)
 
+    const scrollSmooth = useSpring(scrollYProgress, {
+        stiffness: 50,
+        damping: 20,
+        mass: 0.5,
+        restDelta: 0.001,
+        //restSpeed: 0.05,
+    })
+
+    useEffect(() => {
+        console.log('SMOO', scrollSmooth.current)
+    })
+
     useEffect(() => {
         if (appState.currentStep === 1) {
             return scrollYProgress.onChange((latest) => {
@@ -95,7 +107,7 @@ const Cat = ({ scene, demoSheet }) => {
             // console.log('6:' +scrollY.range(5/18,1/18)); // 19 - 23
 */
             if (scroll !== 0 && scroll < 6 / 18) {
-                demoSheet.sequence.position = scroll * 60
+                demoSheet.sequence.position = scrollSmooth.current * 60
             }
             // if (scroll >= 1 /18 && scroll < 2 /18) {
             //     demoSheet.sequence.position = 6 + scroll * 0.5
@@ -113,8 +125,8 @@ const Cat = ({ scene, demoSheet }) => {
                 }
             }
 
-            if (scroll >= 6/18) {
-                demoSheet.sequence.position = (scroll - 0.3333) * 40
+            if (scroll >= 6 / 18) {
+                demoSheet.sequence.position = (scroll - 6 / 18) * 40
             }
 
             /*
