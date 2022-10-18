@@ -1,6 +1,6 @@
 {
   "sheetsById": {
-    "Momento 2 sheet": {
+    "Momento 2 sheet desk": {
       "staticOverrides": {
         "byObject": {
           "Point Light": {
@@ -173,6 +173,17 @@
               "x": 8.559999999999992,
               "z": 1.2400000000000004,
               "y": 3.1699999999999937
+            }
+          },
+          "Totem1": {
+            "position": {
+              "z": -40,
+              "y": 25
+            },
+            "scale": {
+              "x": 13,
+              "y": 13,
+              "z": 13
             }
           }
         }
@@ -3040,6 +3051,7 @@
   },
   "definitionVersion": "0.4.0",
   "revisionHistory": [
+    "89MKCqarpdTy2N2s",
     "DLI3nr8b5UpIWBuC",
     "7lHq47i6LCjSuGrF",
     "Kmb1GXiI_j5UVsDc",

@@ -27,7 +27,7 @@ import { getProject } from '@theatre/core'
 import momento2desk from '../public/momento2desk.json'
 import momento2mob from '../public/momento2mob.json'
 
-studio.initialize()
+// studio.initialize()
 // studio.extend(extension)
 let demoSheet;
 
@@ -37,10 +37,10 @@ export const DefaultLayout = ({ children }) => {
      
          //const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
       if(isMobile){
-        demoSheet = getProject('Momento 2 Mob', { state: momento2mob }).sheet('Momento 2 sheet')
+        demoSheet = getProject('Momento 2 Mob', { state: momento2mob }).sheet('Momento 2 sheet mob')
           
       } else {
-        demoSheet = getProject('Momento 2 Desk', { state: momento2desk }).sheet('Momento 2 sheet')
+        demoSheet = getProject('Momento 2 Desk', { state: momento2desk }).sheet('Momento 2 sheet desk')
           
       }
             
@@ -98,13 +98,15 @@ export const DefaultLayout = ({ children }) => {
 
                 {/* STEPS LAYOUT */}
                 <FadeInOut component={StepContent} isVisible={true} animatePresence={true}>
-                    <StepContent>
+                    <StepContent> 
+                {/*!isMobile ? (
+                    <div>
                     <div
                             style={{
                                 background: 'red',
                                 zIndex: 5,
                                 width: '500px',
-                                height: '10px',
+                                height: '2px',
                                 display: 'flex',
                                 margin: 'auto',
                                 position: 'fixed',
@@ -118,7 +120,7 @@ export const DefaultLayout = ({ children }) => {
                                 background: 'red',
                                 zIndex: 5,
                                 width: '500px',
-                                height: '10px',
+                                height: '2px',
                                 display: 'flex',
                                 margin: 'auto',
                                 position: 'fixed',
@@ -131,7 +133,7 @@ export const DefaultLayout = ({ children }) => {
                             style={{
                                 background: 'red',
                                 zIndex: 5,
-                                width: '10px',
+                                width: '2px',
                                 height: '100vh',
                                 display: 'flex',
                                 margin: 'auto',
@@ -144,7 +146,7 @@ export const DefaultLayout = ({ children }) => {
                             style={{
                                 background: 'red',
                                 zIndex: 5,
-                                width: '10px',
+                                width: '2px',
                                 height: '100vh',
                                 display: 'flex',
                                 margin: 'auto',
@@ -152,7 +154,7 @@ export const DefaultLayout = ({ children }) => {
                                 left: 0,
                                 right: '500px',
                             }}
-                        />
+                        /></div>):(null)*/}
                         {/* CANVAS */}
 
                         <div style={{ width: '100%', height: '100vh' }}>

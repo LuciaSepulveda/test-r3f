@@ -160,7 +160,7 @@ const SceneProjects = ({demoSheet}) => {
                     </editable.group>
                     
                     <editable.pointLight theatreKey="Point Light - Scene" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'}  penumbra={1} />
-                    <editable.pointLight theatreKey="Point Light - Gargoyle" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
+                    <editable.pointLight theatreKey="Point Light - Diego" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
                     <editable.pointLight theatreKey="Point Light - Car" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
                     <editable.pointLight theatreKey="Point Light - Iphone" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
                     <Cat setScrollTop={setScrollTop} demoSheet={demoSheet} setStartScroll={setStartScroll} setStartProjects={setStartProjects} startProjects={startProjects} scene={1}/>
@@ -173,7 +173,7 @@ const SceneProjects = ({demoSheet}) => {
                     <Plane texture onClick={() => {}} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} />
                     <CardboardBox demoSheet={demoSheet}/>
                     <Totem1 demoSheet={demoSheet} scale={[15,15,15]} position={[-10,15,5]} rotation={[0, Math.PI / 2, 0]}/>
-                    <Gargoyle demoSheet={demoSheet} scale={[15,15,15]} position={[-10,15,5]} rotation={[0, Math.PI / 2, 0]}/>
+                    
                     <Car demoSheet={demoSheet} scale={[4,4,4]} position={[6,3,10]} rotation={[0, -Math.PI / 2, 0]}/>
                     <Iphone demoSheet={demoSheet} scale={[5,5,5]}position={[-10,3,15]} rotation={[-0, -Math.PI / 2, 0]}/>
             </Suspense>
