@@ -9,9 +9,32 @@ import '@tensorflow/tfjs-backend-webgl'
 import '@tensorflow/tfjs-core'
 import * as mpHands from '@mediapipe/hands'
 
+const connections = [
+    [0, 1],
+    [1, 2],
+    [2, 3],
+    [3, 4],
+    [0, 5],
+    [5, 6],
+    [6, 7],
+    [7, 8],
+    [0, 9],
+    [9, 10],
+    [10, 11],
+    [11, 12],
+    [0, 13],
+    [13, 14],
+    [14, 15],
+    [15, 16],
+    [0, 17],
+    [17, 18],
+    [18, 19],
+    [19, 20],
+  ]
+
 const EditableCamera = editable(PerspectiveCamera, 'perspectiveCamera')
 
-const Camera = ({ position, rotation, lookAt, demoSheet, webcamRef, startDetection }) => {
+const Camera = ({ position, rotation, lookAt, demoSheet, webcamRef, startDetection, canvasRef }) => {
     const refCamera = useRef()
     const [scroll, setScroll] = useState(0)
     const prevScroll = usePrevious(scroll)
@@ -52,8 +75,18 @@ const Camera = ({ position, rotation, lookAt, demoSheet, webcamRef, startDetecti
         }
     }, [startDetection])
 
+    const makeLines = (prediction, ctx) => {
+        connections.forEach((elem) => {
+            ctx.beginPath()
+            ctx.strokeStyle = '#ff000090'
+            ctx.moveTo(prediction.keypoints[elem[0]].x, prediction.keypoints[elem[0]].y)
+            ctx.lineTo(prediction.keypoints[elem[1]].x, prediction.keypoints[elem[1]].y)
+            ctx.stroke()
+        })
+    }
+
     const detectHands = async () => {
-        if (typeof window !== undefined && webcamRef.current !== null) {
+        if (typeof window !== undefined && webcamRef.current !== null && canvasRef.current !== null && model) {
             console.log('ENTRA EN DETECT HANDS')
             const predictions = await model.estimateHands(webcamRef.current.video)
             setStart(true)
@@ -65,26 +98,44 @@ const Camera = ({ position, rotation, lookAt, demoSheet, webcamRef, startDetecti
     }
 
     const predictionFunction = async (predictions) => {
-        if (typeof window !== undefined && webcamRef.current !== null) {
+        if (typeof window !== undefined && webcamRef.current !== null && canvasRef.current !== null) {
             if (model !== null) {
+                const cnvs = canvasRef.current
+                let ctx = cnvs.getContext('2d')
                 //const predictions = await model.estimateHands(webcamRef.current.video)
-                if (predictions.length > 0) {
-                    const finger1 = predictions[0].keypoints[4]
-                    const finger2 = predictions[0].keypoints[12]
-                    const finger3 = predictions[0].keypoints[20]
-                    //setPoints(predictions[0].keypoints3D)
-                    console.log('PRED finger1 x: ', finger1.x)
+                if (cnvs !== null && ctx !== null) {
+                    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+                    ctx.drawImage(webcamRef.current.video, 0, 0, 200, 200)
+                    if (predictions.length > 0) {
+                        const finger1 = predictions[0].keypoints[4]
+                        const finger2 = predictions[0].keypoints[12]
+                        const finger3 = predictions[0].keypoints[20]
+                        //setPoints(predictions[0].keypoints3D)
+                        console.log('PRED finger1 x: ', finger1.x)
 
-                    setX(finger1.x)
-                    setY(finger1.y)
-                    setZ(finger1.z)
-                    // refCamera.current.position.x = finger1.x * 10
-                    // refCamera.current.position.y = finger1.y * 10
-                    // refCamera.current.position.z = finger1.z * 10
+                        //setX(finger1.x)
+                        //setY(finger1.y)
+                        //setZ(finger1.z)
+                        // refCamera.current.position.x = finger1.x * 10
+                        // refCamera.current.position.y = finger1.y * 10
+                        // refCamera.current.position.z = finger1.z * 10
 
-                    if (finger1 && finger2 && finger3) {
-                        let midval = (finger1.x + finger2.x + finger3.x) / 3
-                        setMidPoint({ val: midval, time: new Date().getTime() })
+                        if (finger1 && finger2 && finger3) {
+                            let midval = (finger1.x + finger2.x + finger3.x) / 3
+                            //setMidPoint({ val: midval, time: new Date().getTime() })
+                        }
+
+                        predictions.forEach((pred) => {
+                            if (ctx !== null) makeLines(pred, ctx)
+                            pred.keypoints.map((elem) => {
+                                const x = elem.x
+                                const y = elem.y
+
+                                ctx.strokeStyle = '#ff0000'
+                                ctx.lineWidth = 2
+                                ctx.strokeRect(x, y, 1, 1)
+                            })
+                        })
                     }
                 }
             }

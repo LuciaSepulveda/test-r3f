@@ -13,7 +13,7 @@ import * as THREE from 'three'
 import Cardbox from '../Models/Cardbox'
 import { editable } from '@theatre/r3f'
 
-const Scene = ({ demoSheet, webcamRef, startDetection }) => {
+const Scene = ({ demoSheet, webcamRef, startDetection, canvasRef }) => {
     const { goToStep } = useContext(AppContext)
     const [initialized, setInitialized] = useState(false)
     const { camera } = useThree()
@@ -148,7 +148,7 @@ const Scene = ({ demoSheet, webcamRef, startDetection }) => {
                     {/* <e.pointLight intensity={2} position={[7, 5, 1]} /> */}
                     <editable.pointLight theatreKey="point light" position={[10, 10, 10]} />
                     <Sky sunPosition={[7, 5, 1]} />
-                    <Camera startDetection={startDetection} webcamRef={webcamRef} demoSheet={demoSheet} start={start} />
+                    <Camera canvasRef={canvasRef} startDetection={startDetection} webcamRef={webcamRef} demoSheet={demoSheet} start={start} />
                     {!initialized && <ButtonMesh handleButtonClicked={handleStart} />}
                     <Cat demoSheet={demoSheet} start={start} scene={0} />
                     <Room />
