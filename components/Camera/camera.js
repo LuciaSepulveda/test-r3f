@@ -7,6 +7,7 @@ import * as handPoseDetection from '@tensorflow-models/hand-pose-detection'
 import * as tf from '@tensorflow/tfjs-core'
 import '@tensorflow/tfjs-backend-webgl'
 import '@tensorflow/tfjs-core'
+import * as mpHands from '@mediapipe/hands'
 
 const EditableCamera = editable(PerspectiveCamera, 'perspectiveCamera')
 
@@ -28,7 +29,8 @@ const Camera = ({ position, rotation, lookAt, demoSheet, webcamRef, startDetecti
         try {
             const modelHands = await handPoseDetection.SupportedModels.MediaPipeHands
             const detectorHands = await handPoseDetection.createDetector(modelHands, {
-                runtime: 'tfjs',
+                runtime: 'mediapipe',
+                solutionPath: `https://cdn.jsdelivr.net/npm/@mediapipe/hands@${mpHands.VERSION}`,
                 maxHands: 1,
             })
 
@@ -108,7 +110,7 @@ const Camera = ({ position, rotation, lookAt, demoSheet, webcamRef, startDetecti
 
     useFrame(() => {
         if (start && rateState && Math.abs(rateState) > 0.2) {
-            refCamera.current.rotation.y = x / 50
+            refCamera.current.rotation.y = x / 30
             // refCamera.current.position.y = y
             // refCamera.current.position.z = z
         }
