@@ -111,6 +111,11 @@ export const DefaultLayout = ({ children }) => {
                         >
                             Hands
                         </button>
+                        {startDetection && (
+                            <div style={{ color: 'red', zIndex: 5, position: 'fixed', left: 60, bottom: 90 }}>
+                                Tocaste
+                            </div>
+                        )}
                         <div
                             style={{
                                 background: 'red',
