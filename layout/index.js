@@ -29,7 +29,7 @@ import Webcam from 'react-webcam'
 
 const demoSheet = getProject('Demo Project', { state: projectState }).sheet('Demo sheet')
 
-studio.initialize()
+//studio.initialize()
 //studio.extend(extension)
 export const DefaultLayout = ({ children }) => {
     const { appState, goToStep, setAppState } = useContext(AppContext)
@@ -53,8 +53,8 @@ export const DefaultLayout = ({ children }) => {
     }
 
     let videoConstraints = {
-        height: 300,
-        width: 300,
+        height: 200,
+        width: 200,
         facingMode: 'user',
         frameRate: { ideal: 60 },
     }
@@ -69,8 +69,8 @@ export const DefaultLayout = ({ children }) => {
                     id="img"
                     ref={webcamRef}
                     videoConstraints={videoConstraints}
-                    width={300}
-                    height={300}
+                    width={200}
+                    height={200}
                     style={{
                         position: 'absolute',
                         right: 0,
@@ -107,7 +107,7 @@ export const DefaultLayout = ({ children }) => {
                     <StepContent>
                         <button
                             onClick={() => setStartDetection(!startDetection)}
-                            style={{ zIndex: 5, position: 'fixed', left: 20, bottom: 120 }}
+                            style={{ zIndex: 5, position: 'fixed', left: 60, bottom: 120 }}
                         >
                             Hands
                         </button>
