@@ -17,35 +17,31 @@ import { AppContext } from '../../../context/appContext'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const Cat = ({ scene, setStartScroll, setScrollTop }) => {
+const Cat = ({ scene, setStartScroll, setScrollTop, v, ok }) => {
     const group = useRef()
     const { nodes, materials, animations } = useGLTF('./models/cat/scene.gltf')
     const { actions } = useAnimations(animations, group)
     const [positionZ, setPositionZ] = useState(0)
     const prevPositionZ = usePrevious(positionZ)
-    const [action, setAction] = useState('A_idle');
-    const previousAction = usePrevious(action);
-    
-    // Estados de transiciones del modelo
-    const [aToB] = useState("AtoB")
-    const [aToF] = useState("AtoF")
-    const [aToD] = useState("A_pole_start")
-    const [jumpEnd] = useState("A_jump_end")
+    const [action, setAction] = useState('A_idle')
+    const previousAction = usePrevious(action)
 
-    
-    
+    // Estados de transiciones del modelo
+    const [aToB] = useState('AtoB')
+    const [aToF] = useState('AtoF')
+    const [aToD] = useState('A_pole_start')
+    const [jumpEnd] = useState('A_jump_end')
+
     // Transición entre animación
     useEffect(() => {
-    
         if (previousAction) {
-            actions[previousAction].fadeOut(0.3);
-            actions[action].stop().fadeOut(0.3);
+            actions[previousAction].fadeOut(0.3)
+            actions[action].stop().fadeOut(0.3)
         }
-        
-        actions[action].play();
-        actions[action].fadeIn(0.5);
 
-    }, [actions, action, previousAction]);
+        actions[action].play()
+        actions[action].fadeIn(0.5)
+    }, [actions, action, previousAction])
 
     // Frenar cuando el scroll no se mueve
     useEffect(() => {
@@ -58,101 +54,92 @@ const Cat = ({ scene, setStartScroll, setScrollTop }) => {
                 setAction('A_run')
             } else if (Math.abs(difference) > 0.07) {
                 setAction('A_walk')
-               
-            }
-             else {
+            } else {
                 setAction('A_idle')
-               
             }
         }
     }, [positionZ])
 
-    useFrame(()=>{
-        
-        
-    }, [])
-   
+    useFrame(() => {}, [])
+
     // Theatre Proyectos
-    useFrame(()=> {
+    useFrame(() => {
         setPositionZ(group.current.position.z)
-        
+
         // Sale de la caja
-        if (actions &&
-            group.current && 
-            scene === 1 &&
-            group.current.position.z === -249)
-        {
+        if (actions && group.current && scene === 1 && group.current.position.z === -249) {
             setAction('A_pole_loop')
-        }
-        else if(group.current.position.z >= -247.9 && group.current.position.z <= -244.9){
+        } else if (group.current.position.z >= -247.9 && group.current.position.z <= -244.9) {
             // setAction('A_jump_start')
             setAction('A_jump_loop')
-        }
-        else if(  group.current.position.z > -244.9 && group.current.position.z <= -243){
-            actions[jumpEnd].setLoop(1,1)
+        } else if (group.current.position.z > -244.9 && group.current.position.z <= -243) {
+            actions[jumpEnd].setLoop(1, 1)
             setAction('A_jump_end')
             setStartScroll(true)
             // setScrollTop(true)
-            
-        }
-        else if (group.current.position.z === -242.26){
-
+        } else if (group.current.position.z === -242.26) {
             setAction('A_idle')
         }
-        
+
         // En 1°T
-        else if (group.current.position.z === -44){
-        
-            actions[aToB].setLoop(1,1)
+        else if (group.current.position.z === -44) {
+            actions[aToB].setLoop(1, 1)
             setAction('AtoB')
             setAction('B_idle')
-            
-        } 
-        
-        // En 2°T
-        else if (group.current.position.z === 100){
+        }
 
-            actions[aToF].setLoop(1,1)
+        // En 2°T
+        else if (group.current.position.z === 100) {
+            actions[aToF].setLoop(1, 1)
             setAction('AtoF')
             setAction('F_idle')
-            
-        } 
-        
+        }
+
         // En 3°T
-        else if (group.current.position.z === 230){
-            actions[aToD].setLoop(1,1)
+        else if (group.current.position.z === 230) {
+            actions[aToD].setLoop(1, 1)
             setAction('A_pole_start')
             setAction('D_idle')
-            
         }
-       
-        
-    },[])
-     
+
+        if (v) {
+            actions[aToB].setLoop(1, 1)
+            setAction('AtoB')
+            setAction('B_idle')
+        } else if (ok) {
+            setAction('AtoF')
+            setAction('F_idle')
+        } else {
+            actions[aToD].setLoop(1, 1)
+            setAction('A_pole_start')
+            setAction('D_idle')
+        }
+    }, [])
+
     return (
-            <e.group theatreKey="Cat" ref={group} dispose={null}>
-                <group name="Sketchfab_Scene">
-                    <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]} scale={860.73}>
-                        <group name="153a0d5dcc9149cfb9856363b51a1918fbx" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
-                            <group name="Object_2">
-                                <group name="RootNode">
-                                    <group name="Object_4">
-                                        <primitive object={nodes._rootJoint} />
-                                        <group name="Object_6" position={[-0.01, -0.1, 0.22]} scale={1.3} />
-                                        <skinnedMesh
+        <e.group theatreKey="Cat" ref={group} dispose={null}>
+            <group name="Sketchfab_Scene">
+                <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]} scale={860.73}>
+                    <group name="153a0d5dcc9149cfb9856363b51a1918fbx" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
+                        <group name="Object_2">
+                            <group name="RootNode">
+                                <group name="Object_4">
+                                    <primitive object={nodes._rootJoint} />
+                                    <group name="Object_6" position={[-0.01, -0.1, 0.22]} scale={1.3} />
+                                    <skinnedMesh
                                         castShadow
-                                            name="Object_7"
-                                            geometry={nodes.Object_7.geometry}
-                                            material={materials.cu_cat2_mt}
-                                            skeleton={nodes.Object_7.skeleton}
-                                        />
-                                    </group>
+                                        name="Object_7"
+                                        geometry={nodes.Object_7.geometry}
+                                        material={materials.cu_cat2_mt}
+                                        skeleton={nodes.Object_7.skeleton}
+                                    />
                                 </group>
                             </group>
                         </group>
                     </group>
                 </group>
-            </e.group>
+            </group>
+        </e.group>
     )
 }
 
@@ -167,5 +154,3 @@ function usePrevious(value) {
     })
     return ref.current
 }
-
-

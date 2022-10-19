@@ -9,11 +9,15 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@mediapipe/hands": "^0.4.1646424915",
         "@react-three/drei": "^9.29.1",
         "@react-three/fiber": "^8.7.2",
+        "@tensorflow-models/hand-pose-detection": "^2.0.0",
+        "@tensorflow-models/handpose": "^0.0.7",
         "@theatre/core": "^0.5.0",
         "@theatre/r3f": "^0.5.0",
         "@theatre/studio": "^0.5.0",
+        "fingerpose": "^0.1.0",
         "framer-motion": "^7.3.2",
         "gsap": "^3.11.1",
         "lamina": "^1.1.23",
@@ -21,6 +25,7 @@
         "postcss-loader": "^7.0.1",
         "react": "18.2.0",
         "react-dom": "18.2.0",
+        "react-webcam": "^7.0.1",
         "styled-components": "^5.3.5",
         "three": "^0.144.0"
     },

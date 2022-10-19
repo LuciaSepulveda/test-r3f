@@ -1,4 +1,4 @@
-import React, { useContext, Suspense, useEffect } from 'react'
+import React, { useContext, useRef, useState, Suspense, useEffect } from 'react'
 
 import { AnimatePresence } from 'framer-motion'
 import { FadeInOut } from '../helpers/framer-animations'
@@ -15,7 +15,7 @@ import {
     StepShareBg,
 } from './layoutStyle'
 import Icon from '../components/Icons'
-import { Canvas,useFrame } from '@react-three/fiber'
+import { Canvas, useFrame } from '@react-three/fiber'
 import Scene from '../components/Scene'
 import StepLoader from '../components/StepLoader'
 import { useProgress, Html, useScroll, ScrollControls } from '@react-three/drei'
@@ -26,28 +26,24 @@ import studio from '@theatre/studio'
 import { getProject } from '@theatre/core'
 import momento2desk from '../public/momento2desk.json'
 import momento2mob from '../public/momento2mob.json'
+import Webcam from 'react-webcam'
 
 // studio.initialize()
 // studio.extend(extension)
-let demoSheet;
+let demoSheet
 
 export const DefaultLayout = ({ children }) => {
     const { appState, goToStep, setAppState, changeStateProject, isMobile } = useContext(AppContext)
-    
-     
-         //const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
-      if(isMobile){
+
+    //const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
+    if (isMobile) {
         demoSheet = getProject('Momento 2 Mob', { state: momento2mob }).sheet('Momento 2 sheet mob')
-          
-      } else {
+    } else {
         demoSheet = getProject('Momento 2 Desk', { state: momento2desk }).sheet('Momento 2 sheet desk')
-          
-      }
-            
-         //const demoSheet = getProject('Momento 2 Desk', { state: momento2desk }).sheet('Momento 2 sheet')
-     
-    
-    
+    }
+
+    //const demoSheet = getProject('Momento 2 Desk', { state: momento2desk }).sheet('Momento 2 sheet')
+
     const backgroundAnimProps = {
         entryTransition: { duration: 1 },
         exitTransition: { duration: 1 },
@@ -69,9 +65,38 @@ export const DefaultLayout = ({ children }) => {
         window.scrollTo(0, 0)
     }
 
+    let videoConstraints = {
+        height: 200,
+        width: 200,
+        facingMode: 'user',
+        frameRate: { ideal: 60 },
+    }
+
+    const webcamRef = useRef(null)
+    const canvasRef = useRef(null)
+    const [startDetection, setStartDetection] = useState(false)
+    const [dpr, setDpr] = useState(1.5)
+    const [v, setV] = useState(false)
+    const [ok, setOK] = useState(false)
+
     return (
         <Root>
             <Content>
+                <Webcam
+                    audio={false}
+                    id="img"
+                    ref={webcamRef}
+                    videoConstraints={videoConstraints}
+                    width={200}
+                    height={200}
+                    style={{
+                        position: 'absolute',
+                        right: 0,
+                        bottom: 0,
+                        zIndex: 7,
+                        visibility: 'hidden',
+                    }}
+                />
                 <LayoutBackgroundContainer>
                     <AnimatePresence>
                         {appState.currentStep === 0 && (
@@ -98,8 +123,19 @@ export const DefaultLayout = ({ children }) => {
 
                 {/* STEPS LAYOUT */}
                 <FadeInOut component={StepContent} isVisible={true} animatePresence={true}>
-                    <StepContent> 
-                {/*!isMobile ? (
+                    <StepContent>
+                        <button
+                            onClick={() => setStartDetection(true)}
+                            style={{ zIndex: 5, position: 'fixed', left: 60, bottom: 120 }}
+                        >
+                            Hands
+                        </button>
+                        {startDetection && (
+                            <div style={{ color: 'red', zIndex: 5, position: 'fixed', left: 60, bottom: 90 }}>
+                                Tocaste
+                            </div>
+                        )}
+                        {/*!isMobile ? (
                     <div>
                     <div
                             style={{
@@ -158,21 +194,33 @@ export const DefaultLayout = ({ children }) => {
                         {/* CANVAS */}
 
                         <div style={{ width: '100%', height: '100vh' }}>
-                            <Canvas shadows gl={{ preserveDrawingBuffer: true }}>
+                            <Canvas dpr={dpr} shadows gl={{ preserveDrawingBuffer: true }}>
                                 <SheetProvider sheet={demoSheet}>
                                     <AppContext.Provider
                                         value={{
                                             appState,
                                             goToStep,
                                             setAppState,
-                                            isMobile
+                                            isMobile,
                                         }}
-                                        >
+                                    >
                                         <ScrollControls pages={18} distance={2} damping={3} horizontal={false}>
                                             {appState.currentStep === 0 ? (
                                                 <Scene demoSheet={demoSheet} />
                                             ) : (
-                                                appState.currentStep === 1 && <SceneProjects demoSheet={demoSheet} />
+                                                appState.currentStep === 1 && (
+                                                    <SceneProjects
+                                                        startDetection={startDetection}
+                                                        setStartDetection={setStartDetection}
+                                                        demoSheet={demoSheet}
+                                                        webcamRef={webcamRef}
+                                                        canvasRef={canvasRef}
+                                                        setV={setV}
+                                                        setOK={setOK}
+                                                        v={v}
+                                                        ok={ok}
+                                                    />
+                                                )
                                             )}
                                         </ScrollControls>
                                     </AppContext.Provider>
@@ -181,6 +229,43 @@ export const DefaultLayout = ({ children }) => {
                         </div>
                     </StepContent>
                 </FadeInOut>
+                <canvas
+                    id="canvas"
+                    width={200}
+                    height={200}
+                    ref={canvasRef}
+                    style={{ width: 200, height: 200, position: 'fixed', zIndex: 10, bottom: 0, right: 0 }}
+                />
+                {v && (
+                    <p
+                        style={{
+                            zIndex: 100,
+                            position: 'fixed',
+                            top: 80,
+                            left: 100,
+                            height: '60px',
+                            display: 'inline',
+                            fontSize: '50px',
+                        }}
+                    >
+                        ✌🏻
+                    </p>
+                )}
+                {ok && (
+                    <p
+                        style={{
+                            zIndex: 100,
+                            position: 'fixed',
+                            top: 10,
+                            left: 100,
+                            height: '60px',
+                            display: 'inline',
+                            fontSize: '50px',
+                        }}
+                    >
+                        👍
+                    </p>
+                )}
             </Content>
         </Root>
     )
