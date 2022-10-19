@@ -330,7 +330,7 @@ const SceneProjects = ({ demoSheet, webcamRef, startDetection, canvasRef, setV, 
                 <editable.pointLight
                     theatreKey="Point Light - Scene"
                     castShadow
-                    intensity={7}
+                    intensity={ok ? 0 : 7}
                     position={[1, 5, 1]}
                     color={'hotpink'}
                     penumbra={1}
