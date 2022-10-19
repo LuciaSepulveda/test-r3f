@@ -96,23 +96,24 @@ const Cat = ({ scene, setStartScroll, setScrollTop, v, ok }) => {
         }
 
         // En 3°T
-        else if (group.current.position.z === 230) {
-            actions[aToD].setLoop(1, 1)
-            setAction('A_pole_start')
-            setAction('D_idle')
-        }
-
-        if (v) {
-            actions[aToB].setLoop(1, 1)
-            setAction('AtoB')
-            setAction('B_idle')
-        } else if (ok) {
-            setAction('AtoF')
-            setAction('F_idle')
-        } else {
-            actions[aToD].setLoop(1, 1)
-            setAction('A_pole_start')
-            setAction('D_idle')
+        // else if (group.current.position.z === 230) {
+        //     actions[aToD].setLoop(1, 1)
+        //     setAction('A_pole_start')
+        //     setAction('D_idle')
+        //} 
+        else if (group.current.position.z >= 230) {
+            if (v) {
+                actions[aToB].setLoop(1, 1)
+                setAction('AtoB')
+                setAction('B_idle')
+            } else if (ok) {
+                setAction('AtoF')
+                setAction('F_idle')
+            } else {
+                actions[aToD].setLoop(1, 1)
+                setAction('A_pole_start')
+                setAction('D_idle')
+            }
         }
     }, [])
 
