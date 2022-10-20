@@ -41,7 +41,8 @@ export const DefaultLayout = ({ children }) => {
         demoSheet = getProject('Momento 2 Mob', { state: momento2mob }).sheet('Momento 2 sheet mob')
           
       } else {
-        demoSheet = getProject('Momento 2 Desk', { state: momento2desk }).sheet('Momento 2 sheet desk')
+        demoSheet = getProject('Momento 2 Mob', { state: momento2mob }).sheet('Momento 2 sheet mob')
+        //demoSheet = getProject('Momento 2 Desk', { state: momento2desk }).sheet('Momento 2 sheet desk')
           
       }
             
@@ -70,22 +71,7 @@ export const DefaultLayout = ({ children }) => {
         window.scrollTo(0, 0)
     }
 
-    function SkyBox() {
-        const { scene } = useThree();
-        const loader = new CubeTextureLoader();
-        
-        const texture = loader.load([
-          'models/skybox/right.png',
-          'models/skybox/left.png',
-          'models/skybox/top.png',
-          'models/skybox/bottom.png',
-          'models/skybox/front.png',
-          'models/skybox/back.png',
-      ]);
     
-        scene.background = texture;
-        return null;
-    }
 
     return (
         <Root>
@@ -117,7 +103,7 @@ export const DefaultLayout = ({ children }) => {
                 {/* STEPS LAYOUT */}
                 <FadeInOut component={StepContent} isVisible={true} animatePresence={true}>
                     <StepContent> 
-                {!isMobile ? (
+                {/*!isMobile ?*/ (
                     <div>
                     <div
                             style={{
@@ -172,12 +158,11 @@ export const DefaultLayout = ({ children }) => {
                                 left: 0,
                                 right: '500px',
                             }}
-                        /></div>):(null)}
+                        /></div>)/*:(null)*/}
                         {/* CANVAS */}
 
                         <div style={{ width: '100%', height: '100vh' }}>
                             <Canvas shadows gl={{ preserveDrawingBuffer: true }}>
-                                <SkyBox/>
                                 <SheetProvider sheet={demoSheet}>
                                     <AppContext.Provider
                                         value={{

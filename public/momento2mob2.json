@@ -191,6 +191,17 @@
               "y": 23,
               "z": 23
             }
+          },
+          "Skybox": {
+            "rotation": {
+              "x": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 400,
+              "y": 400,
+              "z": 10
+            }
           }
         }
       },
@@ -2794,7 +2805,7 @@
                       0.5,
                       0
                     ],
-                    "value": 250
+                    "value": 1250
                   },
                   {
                     "id": "Sqb10X3N0U",
@@ -3285,6 +3296,7 @@
   },
   "definitionVersion": "0.4.0",
   "revisionHistory": [
+    "QYRGDo0udJ23EAmb",
     "hoTz_1KkW6-5Vnax",
     "5otQRh-ujKPyLTS4",
     "0DZqLmcVSozEVFXE",

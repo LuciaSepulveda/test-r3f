@@ -119,7 +119,7 @@ const SceneProjects = ({demoSheet}) => {
         'front.png', 'back.png'
     ] );
 
-    const material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube } );
+    //const material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube } );
 
             const texture_1 = useLoader(TextureLoader, 'models/skybox/right.png')
             const texture_2 = useLoader(TextureLoader, 'models/skybox/left.png')
@@ -128,15 +128,15 @@ const SceneProjects = ({demoSheet}) => {
             const texture_5 = useLoader(TextureLoader, 'models/skybox/front.png')
             const texture_6 = useLoader(TextureLoader, 'models/skybox/back.png')
         return (
-            <editable.mesh theatreKey='Skybox' position={[0,0,40]}  >
-                <meshBasicMaterial attachArray="material" map={texture_1} />
-                <meshBasicMaterial attachArray="material" map={texture_2} />
-                <meshBasicMaterial attachArray="material" map={texture_3} />
-                <meshBasicMaterial attachArray="material" map={texture_4} />
-                <meshBasicMaterial attachArray="material" map={texture_5} />
-                <meshBasicMaterial attachArray="material" map={texture_6} />
-                <boxGeometry args={[100, 100, 100]} />
-            </editable.mesh>
+            <mesh  position={[0,0,40]}>
+                <meshBasicMaterial attachArray="material" map={texture_1} side={THREE.BackSide}/>
+                <meshBasicMaterial attachArray="material" map={texture_2} side={THREE.BackSide}/>
+                <meshBasicMaterial attachArray="material" map={texture_3} side={THREE.BackSide}/>
+                <meshBasicMaterial attachArray="material" map={texture_4} side={THREE.BackSide}/>
+                <meshBasicMaterial attachArray="material" map={texture_5} side={THREE.BackSide}/>
+                <meshBasicMaterial attachArray="material" map={texture_6} side={THREE.BackSide}/>
+                <boxGeometry args={[1500, 1500, 1500]} />
+            </mesh>
         );
     }
 
