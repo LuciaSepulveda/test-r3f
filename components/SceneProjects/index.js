@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, Suspense, useEffect, useState, useRef } from 'react'
-import { useThree, useFrame, useResource } from '@react-three/fiber'
+import { useThree, useFrame, useResource, useLoader } from '@react-three/fiber'
 import { OrbitControls, ScrollControls, Sky, useScroll, PerspectiveCamera } from '@react-three/drei'
 import { gsap, Power0} from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
@@ -10,11 +10,11 @@ import CardboardBox from '../Models/CardboardBox'
 import Gargoyle from '../Models/Gargoyle'
 import Car from '../Models/Car'
 import Iphone from '../Models/Iphone'
-import Totem1 from '../Models/Totem1'
+import Totem1 from '../Models/Totem1/Totem_1_NUEVAS_NUBES'
 import ButtonMesh from '../Models/Button'
 import StepLoader from '../StepLoader'
 import { AppContext } from '../../context/appContext'
-import { CubeTextureLoader } from "three";
+import { CubeTextureLoader, RepeatWrapping, TextureLoader } from "three";
 import { degToRad } from 'three/src/math/MathUtils';
 gsap.registerPlugin(ScrollTrigger)
 import { LayerMaterial, Depth, Noise } from 'lamina'
@@ -52,7 +52,7 @@ const SceneProjects = ({demoSheet}) => {
         scrollToTop();
       }, [scrollTop]);*/
    
-     
+    
      useFrame(()=>{
         if (appState.currentStep === 1 && startScroll ){
             console.log('1:' +scrollY.range(0,1/18)); // 4 - 12.35 (8.35t)
@@ -93,8 +93,9 @@ const SceneProjects = ({demoSheet}) => {
     }
     
     function SkyBox() {
-        const { scene } = useThree();
+        /*const { scene } = useThree();
         const loader = new CubeTextureLoader();
+
         
         const texture = loader.load([
           'models/skybox/right.png',
@@ -104,18 +105,48 @@ const SceneProjects = ({demoSheet}) => {
           'models/skybox/front.png',
           'models/skybox/back.png',
       ]);
-    
-        scene.background = texture;
-        return null;
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.repeat.set( 4, 4 );
+        scene.background = texture;*/
+
+    const loader = new THREE.CubeTextureLoader();
+    loader.setPath( 'models/skybox/' );
+
+    const textureCube = loader.load( [
+        'right.png', 'left.png',
+        'top.png', 'bottom.png',
+        'front.png', 'back.png'
+    ] );
+
+    const material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube } );
+
+            const texture_1 = useLoader(TextureLoader, 'models/skybox/right.png')
+            const texture_2 = useLoader(TextureLoader, 'models/skybox/left.png')
+            const texture_3 = useLoader(TextureLoader, 'models/skybox/top.png')
+            const texture_4 = useLoader(TextureLoader, 'models/skybox/bottom.png')
+            const texture_5 = useLoader(TextureLoader, 'models/skybox/front.png')
+            const texture_6 = useLoader(TextureLoader, 'models/skybox/back.png')
+        return (
+            <editable.mesh theatreKey='Skybox' position={[0,0,40]}  >
+                <meshBasicMaterial attachArray="material" map={texture_1} />
+                <meshBasicMaterial attachArray="material" map={texture_2} />
+                <meshBasicMaterial attachArray="material" map={texture_3} />
+                <meshBasicMaterial attachArray="material" map={texture_4} />
+                <meshBasicMaterial attachArray="material" map={texture_5} />
+                <meshBasicMaterial attachArray="material" map={texture_6} />
+                <boxGeometry args={[100, 100, 100]} />
+            </editable.mesh>
+        );
     }
 
     function NoiseEffect() {
         return (
-          <editable.mesh theatreKey='Background Noise' scale={10000}  position={[0,0,40]}>
+          <editable.mesh theatreKey='Background Noise' scale={100}  position={[0,0,40]} >
             <boxGeometry args={[1, 1, 1]} />
             <LayerMaterial side={THREE.BackSide}>
               <Depth colorB="hotpink" colorA="skyblue" alpha={1} mode="normal" near={130} far={200} origin={[100, 100, -100]} />
-              <Noise mapping="local" type="white" scale={1000} colorA="white" colorB="black" mode="subtract" alpha={0.2} />
+              <Noise mapping="local" type="white" scale={1000} colorA="white" colorB="black" mode="subtract" alpha={0.2}  />
             </LayerMaterial>
           </editable.mesh>
         )
@@ -124,7 +155,7 @@ const SceneProjects = ({demoSheet}) => {
     function Wireframe(){
         return(
             <mesh receiveShadow rotation={[-0.5*Math.PI,0,0]} position={[0, 0.2, 0]} >
-            <planeGeometry args={[2000,2000,64]} />
+            <planeGeometry args={[10000,10000,256]} />
             <meshStandardMaterial
                 depthTest = {true}
                 transparent= {true}
@@ -133,7 +164,7 @@ const SceneProjects = ({demoSheet}) => {
                 wireframeLinecap='butt'
                 wireframeLinejoin='miter'
                 wireframeLinewidth={0.1}
-                opacity={0.3}
+                opacity={0.5}
             />
             </mesh>
         )
@@ -142,12 +173,14 @@ const SceneProjects = ({demoSheet}) => {
 
     return (
         <Fragment>
-            <Suspense fallback={<StepLoader step={1} />}>
-            <NoiseEffect theatreKey={'Background Noise'}/>
+            <Suspense fallback={<StepLoader step={1} />}>            
+                <SkyBox/>
+                    <NoiseEffect/>
+                <editable.group theatreKey='EDITAR SKYBOX'>
                     <editable.group theatreKey="Camera Projects - ROTATION X">
-                            <EditableCamera makeDefault theatreKey="Camera Projects" fov={100} far={10000} position={[0, 0, 0]} rotation={[0, 0, 0]}/>
+                            <EditableCamera makeDefault theatreKey="Camera Projects" fov={100} far={100000} position={[0, 0, 0]} rotation={[0, 0, 0]}/>
                     </editable.group>
-                    <ambientLight intensity={0.3} color={'hotpink'} />
+                    {/* <ambientLight intensity={0.3} color={'hotpink'} /> */}
                     <ButtonMesh handleButtonClicked={() => back(0)} position={[-4, 1, -240]} />
                     <editable.group theatreKey='btn gargoyle' rotation={[0,-0.5*Math.PI,0]}>
                         <ButtonMesh handleButtonClicked={() => back(0)}  />
@@ -158,11 +191,14 @@ const SceneProjects = ({demoSheet}) => {
                     <editable.group theatreKey='btn phone' rotation={[Math.PI,-0.5*Math.PI,0]}>
                         <ButtonMesh handleButtonClicked={() => back(0)}  />
                     </editable.group>
+                        
+                        <editable.directionalLight theatreKey="Directional Light - Diego" castShadow intensity={.5}  color={'hotpink'} position={[0,1,0]}/>
+                        <editable.pointLight theatreKey="Point Light - Diego" castShadow intensity={4} color={'hotpink'} />
+                    {/*
+                    <editable.pointLight theatreKey="Point Light - Scene" castShadow intensity={2} position={[1, 5, 1]} scale={[5,5,5]}  penumbra={1} />
                     
-                    <editable.pointLight theatreKey="Point Light - Scene" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'}  penumbra={1} />
-                    <editable.pointLight theatreKey="Point Light - Diego" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
                     <editable.pointLight theatreKey="Point Light - Car" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
-                    <editable.pointLight theatreKey="Point Light - Iphone" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} />
+                    <editable.pointLight theatreKey="Point Light - Iphone" castShadow intensity={7} position={[1, 5, 1]} color={'hotpink'} /> */}
                     <Cat setScrollTop={setScrollTop} demoSheet={demoSheet} setStartScroll={setStartScroll} setStartProjects={setStartProjects} startProjects={startProjects} scene={1}/>
                     <group rotation={[0,-0.5*Math.PI,0]} scale={[0.5,0.5,0.5]} >
                         <Wireframe/>
@@ -170,14 +206,16 @@ const SceneProjects = ({demoSheet}) => {
                     <group scale={[0.5,0.5,0.5]}>
                         <Wireframe/>
                     </group>
+                    
                     <Plane texture onClick={() => {}} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} />
                     <CardboardBox demoSheet={demoSheet}/>
                     <Totem1 demoSheet={demoSheet} scale={[15,15,15]} position={[-10,15,5]} rotation={[0, Math.PI / 2, 0]}/>
                     
                     <Car demoSheet={demoSheet} scale={[4,4,4]} position={[6,3,10]} rotation={[0, -Math.PI / 2, 0]}/>
                     <Iphone demoSheet={demoSheet} scale={[5,5,5]}position={[-10,3,15]} rotation={[-0, -Math.PI / 2, 0]}/>
+                </editable.group>
             </Suspense>
-              {/* <OrbitControls/>    */}
+               {/* <OrbitControls/>     */}
             {/* can't move camera rotation and zoom */}
              {/* <OrbitControls ref={controls} enableRotate={false} enableZoom={false} /> */}
         </Fragment>

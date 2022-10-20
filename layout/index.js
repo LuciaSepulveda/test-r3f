@@ -15,7 +15,8 @@ import {
     StepShareBg,
 } from './layoutStyle'
 import Icon from '../components/Icons'
-import { Canvas,useFrame } from '@react-three/fiber'
+import { CubeTextureLoader } from "three";
+import { Canvas, useThree } from '@react-three/fiber'
 import Scene from '../components/Scene'
 import StepLoader from '../components/StepLoader'
 import { useProgress, Html, useScroll, ScrollControls } from '@react-three/drei'
@@ -25,9 +26,9 @@ import extension from '@theatre/r3f/dist/extension'
 import studio from '@theatre/studio'
 import { getProject } from '@theatre/core'
 import momento2desk from '../public/momento2desk.json'
-import momento2mob from '../public/momento2mob.json'
+import momento2mob from '../public/momento2mob2.json'
 
-// studio.initialize()
+studio.initialize()
 // studio.extend(extension)
 let demoSheet;
 
@@ -36,7 +37,7 @@ export const DefaultLayout = ({ children }) => {
     
      
          //const demoSheet = getProject('Momento 2').sheet('Momento 2 sheet')
-      if(isMobile){
+      if(!isMobile){
         demoSheet = getProject('Momento 2 Mob', { state: momento2mob }).sheet('Momento 2 sheet mob')
           
       } else {
@@ -69,6 +70,23 @@ export const DefaultLayout = ({ children }) => {
         window.scrollTo(0, 0)
     }
 
+    function SkyBox() {
+        const { scene } = useThree();
+        const loader = new CubeTextureLoader();
+        
+        const texture = loader.load([
+          'models/skybox/right.png',
+          'models/skybox/left.png',
+          'models/skybox/top.png',
+          'models/skybox/bottom.png',
+          'models/skybox/front.png',
+          'models/skybox/back.png',
+      ]);
+    
+        scene.background = texture;
+        return null;
+    }
+
     return (
         <Root>
             <Content>
@@ -99,7 +117,7 @@ export const DefaultLayout = ({ children }) => {
                 {/* STEPS LAYOUT */}
                 <FadeInOut component={StepContent} isVisible={true} animatePresence={true}>
                     <StepContent> 
-                {/*!isMobile ? (
+                {!isMobile ? (
                     <div>
                     <div
                             style={{
@@ -154,11 +172,12 @@ export const DefaultLayout = ({ children }) => {
                                 left: 0,
                                 right: '500px',
                             }}
-                        /></div>):(null)*/}
+                        /></div>):(null)}
                         {/* CANVAS */}
 
                         <div style={{ width: '100%', height: '100vh' }}>
                             <Canvas shadows gl={{ preserveDrawingBuffer: true }}>
+                                <SkyBox/>
                                 <SheetProvider sheet={demoSheet}>
                                     <AppContext.Provider
                                         value={{
