@@ -18,7 +18,7 @@ import Icon from '../components/Icons'
 import { Canvas, useFrame } from '@react-three/fiber'
 import Scene from '../components/Scene'
 import StepLoader from '../components/StepLoader'
-import { useProgress, Html, useScroll, ScrollControls } from '@react-three/drei'
+import { useProgress, Html, useScroll, ScrollControls, PerformanceMonitor } from '@react-three/drei'
 import SceneProjects from '../components/SceneProjects'
 import { SheetProvider } from '@theatre/r3f'
 import extension from '@theatre/r3f/dist/extension'
@@ -78,11 +78,44 @@ export const DefaultLayout = ({ children }) => {
     const [dpr, setDpr] = useState(1.5)
     const [v, setV] = useState(false)
     const [ok, setOK] = useState(false)
+    const webcamRefNew = useRef(null)
 
     return (
         <Root>
             <Content>
-                <Webcam
+                <div
+                    style={{
+                        position: 'fixed',
+                        zIndex: 10,
+                        bottom: 0,
+                        right: 0,
+                        height: 200,
+                        width: 200,
+                    }}
+                >
+                    <video
+                        style={{ transform: 'scaleX(-1)', WebkitTransform: 'scaleX(-1)'}}
+                        playsInline
+                        ref={webcamRefNew}
+                        width={200}
+                        height={200}
+                        id="video"
+                    />
+                    <canvas
+                        id="canvas"
+                        ref={canvasRef}
+                        style={{
+                            transform: 'scaleX(-1)', WebkitTransform: 'scaleX(-1)',
+                            zIndex: 11,
+                            position: 'absolute',
+                            right: 0,
+                            bottom: 0
+                        }}
+                        width={200}
+                        height={200}
+                    />
+                </div>
+                {/* <Webcam
                     audio={false}
                     id="img"
                     ref={webcamRef}
@@ -94,9 +127,8 @@ export const DefaultLayout = ({ children }) => {
                         right: 0,
                         bottom: 0,
                         zIndex: 7,
-                        visibility: 'hidden',
                     }}
-                />
+                /> */}
                 <LayoutBackgroundContainer>
                     <AnimatePresence>
                         {appState.currentStep === 0 && (
@@ -195,47 +227,44 @@ export const DefaultLayout = ({ children }) => {
 
                         <div style={{ width: '100%', height: '100vh' }}>
                             <Canvas dpr={dpr} shadows gl={{ preserveDrawingBuffer: true }}>
-                                <SheetProvider sheet={demoSheet}>
-                                    <AppContext.Provider
-                                        value={{
-                                            appState,
-                                            goToStep,
-                                            setAppState,
-                                            isMobile,
-                                        }}
-                                    >
-                                        <ScrollControls pages={18} distance={2} damping={3} horizontal={false}>
-                                            {appState.currentStep === 0 ? (
-                                                <Scene demoSheet={demoSheet} />
-                                            ) : (
-                                                appState.currentStep === 1 && (
-                                                    <SceneProjects
-                                                        startDetection={startDetection}
-                                                        setStartDetection={setStartDetection}
-                                                        demoSheet={demoSheet}
-                                                        webcamRef={webcamRef}
-                                                        canvasRef={canvasRef}
-                                                        setV={setV}
-                                                        setOK={setOK}
-                                                        v={v}
-                                                        ok={ok}
-                                                    />
-                                                )
-                                            )}
-                                        </ScrollControls>
-                                    </AppContext.Provider>
-                                </SheetProvider>
+                                <PerformanceMonitor onIncline={() => setDpr(2)} onDecline={() => setDpr(1)}>
+                                    <SheetProvider sheet={demoSheet}>
+                                        <AppContext.Provider
+                                            value={{
+                                                appState,
+                                                goToStep,
+                                                setAppState,
+                                                isMobile,
+                                            }}
+                                        >
+                                            <ScrollControls pages={18} distance={2} damping={3} horizontal={false}>
+                                                {appState.currentStep === 0 ? (
+                                                    <Scene demoSheet={demoSheet} />
+                                                ) : (
+                                                    appState.currentStep === 1 && (
+                                                        <SceneProjects
+                                                            startDetection={startDetection}
+                                                            setStartDetection={setStartDetection}
+                                                            demoSheet={demoSheet}
+                                                            webcamRef={webcamRef}
+                                                            canvasRef={canvasRef}
+                                                            setV={setV}
+                                                            setOK={setOK}
+                                                            v={v}
+                                                            ok={ok}
+                                                            webcamRefNew={webcamRefNew}
+                                                        />
+                                                    )
+                                                )}
+                                            </ScrollControls>
+                                        </AppContext.Provider>
+                                    </SheetProvider>
+                                </PerformanceMonitor>
                             </Canvas>
                         </div>
                     </StepContent>
                 </FadeInOut>
-                <canvas
-                    id="canvas"
-                    width={200}
-                    height={200}
-                    ref={canvasRef}
-                    style={{ width: 200, height: 200, position: 'fixed', zIndex: 10, bottom: 0, right: 0 }}
-                />
+
                 {v && (
                     <p
                         style={{

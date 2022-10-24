@@ -52,7 +52,15 @@ const connections = [
     [19, 20],
 ]
 
-const SceneProjects = ({ demoSheet, webcamRef, startDetection, canvasRef, setV, setOK, v, ok }) => {
+const fingerLookupIndices = {
+    thumb: [0, 1, 2, 3, 4],
+    indexFinger: [0, 5, 6, 7, 8],
+    middleFinger: [0, 9, 10, 11, 12],
+    ringFinger: [0, 13, 14, 15, 16],
+    pinky: [0, 17, 18, 19, 20],
+}
+
+const SceneProjects = ({ demoSheet, webcamRef, startDetection, canvasRef, setV, setOK, v, ok, webcamRefNew }) => {
     const { goToStep } = useContext(AppContext)
     const { appState } = useContext(AppContext)
     const [startProjects, setStartProjects] = useState(false)
@@ -198,6 +206,97 @@ const SceneProjects = ({ demoSheet, webcamRef, startDetection, canvasRef, setV, 
         }
     }
 
+    const webcam_init = () => {
+        console.log('WEB')
+        if (typeof navigator !== 'undefined' && typeof window !== 'undefined' && webcamRefNew !== undefined) {
+            console.log('web ini if')
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia
+            navigator.mediaDevices
+                .getUserMedia({
+                    audio: false,
+                    video: {
+                        facingMode: 'user',
+                        height: 200,
+                        width: 200,
+                    },
+                })
+                .then((stream) => {
+                    if (webcamRefNew !== null && webcamRefNew !== undefined && webcamRefNew.current !== undefined) {
+                        webcamRefNew.current.srcObject = stream
+                        webcamRefNew.current.addEventListener('loadeddata', (e) => {
+                            console.log('LOADED')
+                            detectHands()
+                            webcamRefNew.current.play()
+                        })
+                    }
+                })
+        }
+    }
+
+    useEffect(() => {
+        if (
+            typeof window !== undefined &&
+            canvasRef.current !== undefined &&
+            canvasRef.current !== null &&
+            canvasRef.current.getContext('2d') !== null
+        ) {
+            //canvasRef.current.getContext('2d').translate(300, 0)
+            //canvasRef.current.getContext('2d').scale(-1, 1)
+            console.log('ENTRA ENE L CANVAS')
+        }
+    }, [canvasRef.current])
+
+    //mediapipe example
+
+    const setupCamera = async (params) => {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            throw new Error('Browser API navigator.mediaDevices.getUserMedia not available')
+        }
+        const { targetFPS, sizeOption } = params
+        const size = params.VIDEO_SIZE[sizeOption]
+        const videoConfig = {
+            audio: false,
+            video: {
+                facingMode: 'user',
+            },
+        }
+    }
+
+    const drawPoints = (ctx, y, x, r) => {
+        ctx.beginPath()
+        ctx.arc(x, y, r, 0, 2 * Math.PI)
+        ctx.fill()
+    }
+
+    const drawKeypoints = (ctx, keypoints) => {
+        keypoints.forEach((keypoint) => {
+            const y = keypoint[0]
+            const x = keypoint[1]
+            drawPoints(ctx, x - 2, y - 2, 3)
+        })
+
+        const fingers = Object.keys(fingerLookupIndices)
+        for (let i = 0; i < fingers.length; i++) {
+            const finger = fingers[i]
+            const points = fingerLookupIndices[finger].map((idx) => keypoints[idx])
+            drawPath(ctx, points, false)
+        }
+    }
+
+    const drawPath = (ctx, points, closePath) => {
+        const region = new Path2D()
+        region.moveTo(points[0][0], points[0][1])
+        points.forEach((point) => {
+            region.lineTo(point[0], point[1])
+        })
+
+        if (closePath) {
+            region.closePath()
+        }
+
+        ctx.stroke(region)
+    }
+
     useEffect(() => {
         console.log('MODEL', model)
     }, [model])
@@ -210,16 +309,18 @@ const SceneProjects = ({ demoSheet, webcamRef, startDetection, canvasRef, setV, 
 
     useEffect(() => {
         if (startDetection) {
-            detectHands()
+            webcam_init()
         }
     }, [startDetection])
 
     const detectHands = async () => {
-        if (typeof window !== undefined && webcamRef.current !== null) {
+        if (typeof window !== undefined && webcamRefNew.current !== null) {
             //console.log('ENTRA EN DETECT HANDS')
-            const predictions = await model.estimateHands(webcamRef.current.video)
+            const predictions = await model.estimateHands(webcamRefNew.current)
             //const predictions = await model.estimateHands(webcamRef.current.video)
             setStart(true)
+            //console.log('WEB: ', webcamRefNew.current)
+
             if (predictions) {
                 predictionFunction(predictions)
                 requestAnimationFrame(() => detectHands())
@@ -240,7 +341,8 @@ const SceneProjects = ({ demoSheet, webcamRef, startDetection, canvasRef, setV, 
     }
 
     const predictionFunction = async (predictions) => {
-        if (typeof window !== undefined && webcamRef.current !== null && canvasRef.current !== null) {
+        if (typeof window !== undefined && webcamRefNew.current !== undefined && canvasRef.current !== null) {
+            // console.log('hay cvanvas y webcam')
             if (predictions.length > 0) {
                 //console.log('PRED', predictions)
                 const GE = new fp.GestureEstimator([fp.Gestures.VictoryGesture, fp.Gestures.ThumbsUpGesture])
@@ -268,7 +370,8 @@ const SceneProjects = ({ demoSheet, webcamRef, startDetection, canvasRef, setV, 
                 //const predictions = await model.estimateHands(webcamRef.current.video)
                 if (cnvs !== null && ctx !== null) {
                     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-                    ctx.drawImage(webcamRef.current.video, 0, 0, 200, 200)
+                    //ctx.drawImage(webcamRefNew.current, 0, 0, 300, 200)
+
                     if (predictions.length > 0) {
                         // const finger1 = predictions[0].keypoints[4]
                         // const finger2 = predictions[0].keypoints[12]
@@ -294,7 +397,11 @@ const SceneProjects = ({ demoSheet, webcamRef, startDetection, canvasRef, setV, 
                                 ctx.lineWidth = 2
                                 ctx.strokeRect(x, y, 1, 1)
                             })
+                            // if (ctx !== null) {
+                            //     drawKeypoints(ctx, predictions[0].landmarks, predictions[0].annotations)
+                            // }
                         })
+                        //drawKeypoints(ctx, predictions[0].landmarks, predictions[0].annotations)
                     }
                 }
             }
