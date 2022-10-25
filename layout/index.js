@@ -25,6 +25,7 @@ import { SheetProvider } from '@theatre/r3f'
 import { getProject } from '@theatre/core'
 import extension from '@theatre/r3f/dist/extension'
 import projectState from '../public/momento2desk.json'
+import { Timeline } from '../components/Timeline/Timeline'
 
 studio.initialize()
 //   studio.extend(extension)
@@ -62,6 +63,7 @@ export const DefaultLayout = ({ children }) => {
                 <button style={{ position: 'fixed', top: 10, left: 60, zIndex: 10 }} onClick={() => goToScroll()}>
                     BOTON
                 </button>
+                <Timeline/>
                 <div style={{ width: '100%', height: '100vh', position: 'fixed', top: 0 }}>
                     {/* CANVAS */}
 

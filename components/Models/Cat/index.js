@@ -72,6 +72,7 @@ const Cat = ({ scene, demoSheet }) => {
         if (appState.currentStep === 1) {
             return scrollYProgress.onChange((latest) => {
                 console.log('PROGRESS', parseFloat(latest.toFixed(2)))
+                console.log(moment)
                 // if (parseFloat(latest.toFixed(2)) === 0.2) {
                 //     //scrollY.set(4000, true)
                 //     //scrollYProgress.set(0.8, false)
