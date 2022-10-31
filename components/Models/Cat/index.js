@@ -107,7 +107,7 @@ const Cat = ({ scene, demoSheet }) => {
             // console.log('6:' +scrollY.range(5/18,1/18)); // 19 - 23
 */
             if (scroll !== 0 && scroll < 6 / 18) {
-                demoSheet.sequence.position = scrollSmooth.current * 60
+                demoSheet.sequence.position = scroll * 60
             }
             // if (scroll >= 1 /18 && scroll < 2 /18) {
             //     demoSheet.sequence.position = 6 + scroll * 0.5
