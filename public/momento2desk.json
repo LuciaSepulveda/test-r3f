@@ -306,7 +306,7 @@
                                         "position": 0,
                                         "connectedRight": true,
                                         "handles": [0.5, 1, 0.5, 0],
-                                        "value": 2.5
+                                        "value": 10
                                     },
                                     {
                                         "id": "Lk2P_RTRZH",
@@ -1262,6 +1262,7 @@
     },
     "definitionVersion": "0.4.0",
     "revisionHistory": [
+        "yCKx22SoTxBgUB0c",
         "nxbuyAAOAcfk7Ujb",
         "2PI5RyBfOnt5CD3O",
         "rvNnpydmESkGqPu9",
