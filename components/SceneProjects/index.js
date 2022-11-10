@@ -333,7 +333,7 @@ const SceneProjects = () => {
                     rotation={[-0, -Math.PI / 2, 0]}
                 />
                 <editable.mesh theatreKey="Cone" position={[0, 20, -180]}>
-                    <coneGeometry args={[50, 50, 4]} />
+                    <coneGeometry args={[90, 100, 4]} />
                     <meshStandardMaterial color="#ffffff" />
                 </editable.mesh>
                 <SpotlightComponent id="1" video={textureVideo} />
@@ -364,12 +364,12 @@ const SceneProjects = () => {
                         ))}
                     </>
                 ))}
-                <instancedMesh args={[null, null, 10]}>
+                {/* <instancedMesh args={[null, null, 10]}>
                     <bufferGeometry attach="geometry">
                         <bufferAttribute attachObject={['attributes', 'position']} args={[vertices, 3]} />
                     </bufferGeometry>
                     <meshBasicMaterial attach="material" side={THREE.DoubleSide} color="#555" />
-                </instancedMesh>
+                </instancedMesh> */}
                 {/* <mesh position={[-100, 40, 50]} rotation={[-Math.PI / 6, 0, 0]}>
                     <shapeGeometry args={[triangleShape, 12]} />
                     // <boxGeometry args={[50, 50, 50]} /> 
@@ -411,16 +411,16 @@ const SceneProjects = () => {
                         <ringGeometry args={[3.5, 3.6, 64]} />
                         <meshPhongMaterial color="black" />
                     </mesh> */}
-                <mesh position={[0, 10, -50]} rotation={[-Math.PI / 6, 0, 0]}>
+                {/* <mesh position={[0, 10, -50]} rotation={[-Math.PI / 6, 0, 0]}>
                     <shapeGeometry args={[triangleShape, 12]} />
                     <meshPhongMaterial transparent={true} opacity={0.5} />
-                </mesh>
-                <Mask id={1} position={[0, 10, -50]} rotation={[-Math.PI / 6, 0, 0]}>
-                    {/* <circleGeometry args={[4, 64]} /> */}
+                </mesh> */}
+                {/* <Mask id={1} position={[0, 10, -50]} rotation={[-Math.PI / 6, 0, 0]}>
+                    // <circleGeometry args={[4, 64]} /> 
 
                     <shapeGeometry args={[triangleShape, 12]} />
-                    {/* <meshPhongMaterial transparent={true} opacity={0.5} /> */}
-                </Mask>
+                    //</Suspense><meshPhongMaterial transparent={true} opacity={0.5} />
+                </Mask> */}
 
                 <Bounds fit clip observe>
                     {/* <Text3D
