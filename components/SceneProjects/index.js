@@ -314,7 +314,7 @@ const SceneProjects = () => {
                 </group>
                 <Plane texture onClick={() => {}} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} />
                 <CardboardBox demoSheet={appState.projectState} />
-                <Gargoyle
+                {/* <Gargoyle
                     demoSheet={appState.projectState}
                     scale={[15, 15, 15]}
                     position={[-10, 15, 5]}
@@ -331,39 +331,14 @@ const SceneProjects = () => {
                     scale={[5, 5, 5]}
                     position={[-10, 3, 15]}
                     rotation={[-0, -Math.PI / 2, 0]}
-                />
+                /> */}
                 <editable.mesh theatreKey="Cone" position={[0, 20, -180]}>
                     <coneGeometry args={[90, 100, 4]} />
                     <meshStandardMaterial color="#ffffff" />
                 </editable.mesh>
                 <SpotlightComponent id="1" video={textureVideo} />
                 <SpotlightComponent id="2" video={textureVideo2} />
-                {words.map((word, index) => (
-                    <>
-                        {cutWord(word).map((w, i) => (
-                            <group
-                                key={w}
-                                rotation={[0, 3.14, 0]}
-                                position={[-44, 10, -250 + index * 20 + i * 10]}
-                                theatreKey={'word' + w}
-                            >
-                                <Text3D
-                                    curveSegments={32}
-                                    bevelEnabled
-                                    bevelSize={0.09}
-                                    size={2}
-                                    height={0.8}
-                                    lineHeight={0.5}
-                                    letterSpacing={-0.06}
-                                    font="./inter_bold.json"
-                                >
-                                    {w}
-                                    <meshNormalMaterial />
-                                </Text3D>
-                            </group>
-                        ))}
-                    </>
-                ))}
+               
                 {/* <instancedMesh args={[null, null, 10]}>
                     <bufferGeometry attach="geometry">
                         <bufferAttribute attachObject={['attributes', 'position']} args={[vertices, 3]} />
