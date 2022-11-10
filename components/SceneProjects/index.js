@@ -184,7 +184,8 @@ const SceneProjects = () => {
 
     const stencil = useMask(1, false)
 
-    const textureVideo = useVideoTexture('/video.mp4')
+    const textureVideo = useVideoTexture('./test2.mp4')
+    const textureVideo2 = useVideoTexture('./test.mp4')
 
     return (
         <Fragment>
@@ -335,8 +336,8 @@ const SceneProjects = () => {
                     <coneGeometry args={[50, 50, 4]} />
                     <meshStandardMaterial color="#ffffff" />
                 </editable.mesh>
-                <SpotlightComponent id="1" />
-                <SpotlightComponent id="2" video={true} />
+                <SpotlightComponent id="1" video={textureVideo} />
+                <SpotlightComponent id="2" video={textureVideo2} />
                 {words.map((word, index) => (
                     <>
                         {cutWord(word).map((w, i) => (
