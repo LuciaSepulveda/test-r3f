@@ -338,7 +338,8 @@ const SceneProjects = () => {
                 </editable.mesh>
                 <SpotlightComponent id="1" video={textureVideo} />
                 <SpotlightComponent id="2" video={textureVideo2} />
-               
+                <SpotlightComponent id="3" video={textureVideo} />
+                <SpotlightComponent id="4" video={textureVideo2} />
                 {/* <instancedMesh args={[null, null, 10]}>
                     <bufferGeometry attach="geometry">
                         <bufferAttribute attachObject={['attributes', 'position']} args={[vertices, 3]} />
